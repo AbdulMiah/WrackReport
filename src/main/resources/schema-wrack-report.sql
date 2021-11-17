@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS wrack_report;
-CREATE DATABASE IF NOT EXISTS wrack_report;
-USE wrack_report;
+DROP DATABASE IF EXISTS `wrack-report`;
+CREATE DATABASE IF NOT EXISTS `wrack-report`;
+USE `wrack-report`;
 
 CREATE TABLE `users` (
 	`user_id` INT NOT NULL AUTO_INCREMENT,
@@ -40,6 +40,7 @@ CREATE TABLE `media` (
     `report_id` INT NOT NULL,
     `metadata_id` INT NOT NULL,
     `title` VARCHAR(100) NOT NULL,
+    `type` INT NOT NULL,
     `blob` BLOB NOT NULL,
     `hash` VARCHAR(32),
     CONSTRAINT `PK_media` PRIMARY KEY (`media_id`)
