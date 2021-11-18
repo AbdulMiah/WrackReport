@@ -12,7 +12,7 @@
     <h1>WrackReport</h1>
 
     <div class="container">
-        <form>
+        <form th:object="${reportForm}">
 
             <div class="mb-3">
                 <label class="form-label">Where is it?</label>
@@ -43,7 +43,8 @@
                 <p>Your Details</p>
                 <input type="checkbox" id="agreed">
                 <label for="agreed" class="mb-1">I have agreed to the privacy policy</label>
-                <input class="form-control mb-1" type="text" placeholder="First name"/>
+                <input class="form-control mb-1" th:field="*{firstName}"  type="text" placeholder="First name"/>
+                <div class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">Name Error</div>
                 <input class="form-control mb-1" type="text" placeholder="Surname"/>
                 <input class="form-control mb-1" type="text" placeholder="Email address"/>
                 <input class="form-control mb-1" type="text" placeholder="Phone no. (optional)"/>
