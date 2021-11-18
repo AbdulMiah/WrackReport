@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.data.jpa.entities;
 
+import cf.ac.uk.wrackreport.domain.Report;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +36,18 @@ public class ReportEntity {
     @Column(name = "postcode")
     private String postcode;
 
-    public cf.ac.uk.wrackreport.domain.Report toDomain() {
-        cf.ac.uk.wrackreport.domain.Report domainReport = new cf.ac.uk.wrackreport.domain.Report (
+    public ReportEntity(Report aReport) {
+        this.reportId = aReport.getReportId();
+        this.userId = aReport.getUserId();
+        this.categoryId = aReport.getCategoryId();
+        this.description = aReport.getDescription();
+        this.latLong = aReport.getLatLong();
+        this.datetime = aReport.getDatetime();
+        this.postcode = aReport.getPostcode();
+    }
+
+    public Report toDomain() {
+        Report domainReport = new Report (
                 this.reportId,
                 this.userId,
                 this.categoryId,
