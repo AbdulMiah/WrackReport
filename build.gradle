@@ -25,7 +25,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'mysql:mysql-connector-java'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot:3.0.4'
-//    implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version: '3.0.4'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
