@@ -7,13 +7,23 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class ReportDTO {
-    String timeReported;
-    String dateReported;
+    Long reportId;
+    Long userId;
+    Long categoryId;
+    String description;
+    String latLong;
+    String datetime;
+    String postcode;
 
     public ReportDTO(Report aReport) {
         this(
-                aReport.getTimeReported(),
-                aReport.getDateReported()
+                aReport.getReportId(),
+                aReport.getUserId(),
+                aReport.getCategoryId(),
+                aReport.getDescription(),
+                aReport.getLatLong(),
+                aReport.getDatetime(),
+                aReport.getPostcode()
         );
     }
 }

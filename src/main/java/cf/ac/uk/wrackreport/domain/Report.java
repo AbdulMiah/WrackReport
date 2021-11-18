@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Report {
-    private String timeReported;
-    private String dateReported;
+    private Long reportId;
+    private Long userId;
+    private Long categoryId;
+    private String description;
+    private String latLong;
+    private String datetime;
+    private String postcode;
 }

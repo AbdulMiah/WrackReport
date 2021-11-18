@@ -11,9 +11,19 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class ReportForm {
 
-    @NotEmpty
-    private String timeReported;
+    private Long reportId;
+
+    private Long userId;
+
+    private Long categoryId;
+
+    private String description;
+
+    private String latLong;
 
     @NotEmpty
-    private String dateReported;
+    private String datetime;
+
+    private String postcode;
+
 }
