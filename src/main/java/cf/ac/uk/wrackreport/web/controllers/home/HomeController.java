@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping({"/", "report-form"})
+    @GetMapping({"/"})
     public String home(Model model) {
         return "report-form.html";
     }
