@@ -33,13 +33,16 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) {
 
+        String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
+        System.out.println(datetime);
+
                 Report report = new Report(
                         reportForm.getReportId(),
                         reportForm.getUserId(),
                         reportForm.getCategoryId(),
                         reportForm.getDescription(),
                         reportForm.getLatLong(),
-                        reportForm.getDatetime(),
+                        datetime,
                         reportForm.getPostcode());
 
             repoAdaptor.saveReport(report);

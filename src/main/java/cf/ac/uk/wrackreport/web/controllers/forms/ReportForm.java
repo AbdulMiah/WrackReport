@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -22,7 +25,10 @@ public class ReportForm {
     private String latLong;
 
     @NotEmpty
-    private String datetime;
+    private String date;
+
+    @NotEmpty
+    private String time;
 
     private String postcode;
 
