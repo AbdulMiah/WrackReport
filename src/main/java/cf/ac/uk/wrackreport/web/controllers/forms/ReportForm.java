@@ -40,7 +40,7 @@ public class ReportForm {
 
     @Size(min=6, max=15, message = "please enter a valid phone number")
     @Pattern(regexp = "[0-9]*", message = "please enter a valid phone number")
-    private String phone_number;
+    private String phoneNumber;
 
 
 
