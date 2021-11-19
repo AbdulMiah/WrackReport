@@ -26,4 +26,8 @@ public class ReportDTO {
                 aReport.getPostcode()
         );
     }
+
+    public Report toReport() {
+        return new Report(reportId, userId, categoryId, description, latLong, datetime, postcode);
+    }
 }

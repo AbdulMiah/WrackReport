@@ -1,7 +1,7 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
-import cf.ac.uk.wrackreport.data.jpa.adaptors.WrackReportRepositoryAdaptor;
-import cf.ac.uk.wrackreport.domain.Report;
+import cf.ac.uk.wrackreport.service.ReportService;
+import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class ReportController {
 
     @Autowired
-    private WrackReportRepositoryAdaptor repoAdaptor;
+    private ReportService reportService;
 
     @GetMapping("/report-form")
     public String displayReportForm(Model model) {
@@ -36,7 +36,7 @@ public class ReportController {
         String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
         System.out.println(datetime);
 
-                Report report = new Report(
+                ReportDTO reportDTO = new ReportDTO(
                         reportForm.getReportId(),
                         reportForm.getUserId(),
                         reportForm.getCategoryId(),
@@ -45,7 +45,7 @@ public class ReportController {
                         datetime,
                         reportForm.getPostcode());
 
-            repoAdaptor.saveReport(report);
+            reportService.saveReport(reportDTO);
             return "redirect:/";
     }
 
