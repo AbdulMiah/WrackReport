@@ -13,7 +13,7 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     private ReportRepository reportRepository;
 
-    public void ReportRepository(ReportRepository repo) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo) {
         reportRepository = repo;
     }
 

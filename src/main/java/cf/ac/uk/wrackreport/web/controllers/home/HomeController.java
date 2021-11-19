@@ -9,6 +9,6 @@ public class HomeController {
 
     @GetMapping({"/"})
     public String home(Model model) {
-        return "report-form.html";
+        return "home-page.html";
     }
 }

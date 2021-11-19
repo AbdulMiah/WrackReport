@@ -28,7 +28,7 @@ public class ReportController {
     }
 
     @PostMapping("/report-form")
-    public String reportRequest (
+    public String submitReport (
             @Valid ReportForm reportForm,
             BindingResult bindingResult,
             Model model) {
@@ -38,12 +38,20 @@ public class ReportController {
 
                 ReportDTO reportDTO = new ReportDTO(
                         reportForm.getReportId(),
+//                        1L,
                         reportForm.getUserId(),
+//                        2L,
                         reportForm.getCategoryId(),
+//                        3L,
                         reportForm.getDescription(),
                         reportForm.getLatLong(),
+//                        "123,123",
                         datetime,
                         reportForm.getPostcode());
+
+            if (bindingResult.hasErrors()) {
+                return "/report-form";
+            }
 
             reportService.saveReport(reportDTO);
             return "redirect:/";

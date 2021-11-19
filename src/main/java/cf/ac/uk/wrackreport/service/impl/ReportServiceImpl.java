@@ -12,6 +12,10 @@ public class ReportServiceImpl implements ReportService {
 
     private WrackReportRepository wrackReportRepository;
 
+    public ReportServiceImpl(WrackReportRepository aRepo) {
+        wrackReportRepository = aRepo;
+    }
+
     public void saveReport(ReportDTO aReportDTO) {
         log.debug("Saving report: " + aReportDTO);
         wrackReportRepository.saveReport(aReportDTO.toReport());
