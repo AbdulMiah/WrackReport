@@ -42,7 +42,7 @@ public class ReportForm {
     private String email;
 
     @ValidPhoneNumber
-//    @Pattern(regexp = "[0-9]*", message = "please enter a valid phone number")
+    @Pattern(regexp = "[0-9\\s]*", message = "Phone number must consist of only numbers")
     private String phoneNumber;
 
 

@@ -42,15 +42,15 @@
 
             <div class="mb-3">
                 <p>Your Details</p>
-                <input type="checkbox" id="agreed">
-                <label for="agreed" class="mb-1">I have agreed to the privacy policy</label>
+                <input type="checkbox" id="agreed" required>
+                <label for="agreed" class="mb-1">I have agreed to the <a th:href="@{privacy-policy}" >privacy policy</a></label>
                 <input class="form-control mb-1" th:field="*{firstName}"  type="text" placeholder="First name" required/>
                 <div class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">Name Error</div>
                 <input class="form-control mb-1" th:field="*{surname}" type="text" placeholder="Surname"/ required>
                 <div class="alert alert-warning" th:errors="*{surname}" th:if="${#fields.hasErrors('surname')}">Name Error</div>
                 <input class="form-control mb-1" th:field="*{email}" type="text" placeholder="Email address"/ required>
                 <div class="alert alert-warning" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Name Error</div>
-                <input class="form-control mb-1" th:field="*{phoneNumber}" type="text" placeholder="Phone no. (optional)"/>
+                <input class="form-control mb-1" th:field="*{phoneNumber}" type="number" placeholder="Phone no. (optional)"/>
                 <div class="alert alert-warning" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">Name Error</div>
             </div>
 
