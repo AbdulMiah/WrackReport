@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers.forms;
 
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidPhoneNumber;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,21 +28,21 @@ public class ReportForm {
     private String postcode;
 
     //regexp to allow hyphens, spaces, apostrophes, upper and lower case letters
-    @Size(min=2, max=30, message = "name must be between 2-30 characters")
+    @Size(min=2, max=30, message = "First name must be between 2-30 characters")
     @Pattern(regexp = "([-a-zA-Z',\\s]+)", message = "Please enter a valid first name")
     private String firstName;
 
     //regexp to allow hyphens, spaces, apostrophes, upper and lower case letters
-    @Size(min=2, max=30, message = "name must be between 2-30 characters")
+    @Size(min=2, max=30, message = "Surname must be between 2-30 characters")
     @Pattern(regexp = "([-a-zA-Z',\\s]+)", message = "Please enter a valid surname")
     private String surname;
 
-    @Size(min=8, max=70, message = "Please enter a valid email address")
+    @Size(min=8, max=70, message = "Email address is too short")
     @Email(message = "please provide a valid email address")
     private String email;
 
-    @Size(min=6, max=15, message = "please enter a valid phone number")
-    @Pattern(regexp = "[0-9]*", message = "please enter a valid phone number")
+    @ValidPhoneNumber
+//    @Pattern(regexp = "[0-9]*", message = "please enter a valid phone number")
     private String phoneNumber;
 
 
