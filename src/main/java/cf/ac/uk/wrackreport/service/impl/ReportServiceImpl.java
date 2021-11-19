@@ -11,13 +11,14 @@ public class ReportServiceImpl implements ReportService {
 
     private WrackReportRepository wrackReportRepository;
 
-    public ReportServiceImpl(@Qualifier("userRepository") WrackReportRepository aRepo){
+    public ReportServiceImpl(WrackReportRepository aRepo) {
         wrackReportRepository = aRepo;
     }
 
+
     @Override
-    public void saveUser(UserDTO userDTO) {
-        wrackReportRepository.saveUser(userDTO.toUser());
+    public void saveUser(UserDTO aUserDTO) {
+        wrackReportRepository.saveUser(aUserDTO.toUser());
     }
 
 }

@@ -4,6 +4,6 @@ import cf.ac.uk.wrackreport.service.dto.UserDTO;
 
 public interface ReportService {
 
-    void saveUser(UserDTO aUser);
+    void saveUser(UserDTO aUserDTO);
 
 }
