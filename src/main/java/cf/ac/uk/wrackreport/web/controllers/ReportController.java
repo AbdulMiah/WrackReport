@@ -37,6 +37,7 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) {
 
+//        Create data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
                 1,
                 reportForm.getFirstName(),
@@ -44,10 +45,12 @@ public class ReportController {
                 reportForm.getEmail(),
                 reportForm.getPhoneNumber()
         );
+//        check for errors
         if (bindingResult.hasErrors()) {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             return "/report-form";
         }
+//        save user to db
         reportService.saveUser(userDTO);
 
 

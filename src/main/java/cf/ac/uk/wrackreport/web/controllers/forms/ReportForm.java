@@ -48,6 +48,7 @@ public class ReportForm {
     @Email(message = "please provide a valid email address")
     private String email;
 
+//    custom validator for phone number
     @ValidPhoneNumber
     @Pattern(regexp = "[0-9\\s]*", message = "Phone number must consist of only numbers")
     private String phoneNumber;
