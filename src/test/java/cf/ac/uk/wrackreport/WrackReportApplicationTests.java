@@ -8,6 +8,7 @@ class WrackReportApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

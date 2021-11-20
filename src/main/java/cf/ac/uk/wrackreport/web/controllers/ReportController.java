@@ -18,8 +18,11 @@ import java.time.format.DateTimeFormatter;
 @Controller
 public class ReportController {
 
-    @Autowired
     private ReportService reportService;
+
+    public ReportController(ReportService reportService){
+        this.reportService = reportService;
+    }
 
     @GetMapping("/report-form")
     public String displayReportForm(Model model) {
