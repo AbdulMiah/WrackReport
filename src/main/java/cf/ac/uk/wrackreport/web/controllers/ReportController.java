@@ -57,13 +57,13 @@ public class ReportController {
                 ReportDTO reportDTO = new ReportDTO(
                         reportForm.getReportId(),
 //                        1L,
-                        reportForm.getUserId(),
-//                        2L,
-                        reportForm.getCategoryId(),
-//                        3L,
+//                        reportForm.getUserId(),
+                        2L,
+//                        reportForm.getCategoryId(),
+                        3L,
                         reportForm.getDescription(),
-                        reportForm.getLatLong(),
-//                        "123,123",
+//                        reportForm.getLatLong(),
+                        "123,123",
                         datetime,
                         reportForm.getPostcode());
 
