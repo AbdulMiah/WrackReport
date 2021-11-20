@@ -49,7 +49,7 @@ public class ReportController {
             System.out.println(error);
             System.out.println("ReportForm Date: "+reportForm.getDate()+" is in future");
             return "/error";
-        } else if (reportForm.getTime().isAfter(timeNow)) {
+        } else if ((reportForm.getDate().isAfter(dateNow) || reportForm.getDate().isEqual(dateNow)) && reportForm.getTime().isAfter(timeNow)) {
             System.out.println(error);
             System.out.println("ReportForm Time: " + reportForm.getTime()+" is in future");
             return "/error";
