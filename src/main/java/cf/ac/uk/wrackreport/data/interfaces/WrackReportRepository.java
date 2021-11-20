@@ -5,7 +5,8 @@ import cf.ac.uk.wrackreport.domain.User;
 
 public interface WrackReportRepository {
 
+    void saveReport(Report aReport);
+
     void saveUser(User aUser);
+
 }
-
-

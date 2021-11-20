@@ -1,6 +1,7 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
 import cf.ac.uk.wrackreport.service.ReportService;
+import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,27 @@ import javax.validation.Valid;
 @Controller
 public class ReportController {
 
-    @Autowired
     private ReportService reportService;
 
+    public ReportController(ReportService reportService){
+        this.reportService = reportService;
+    }
 
+    @GetMapping("/report-form")
+    public String displayReportForm(Model model) {
+        ReportForm reportForm = new ReportForm();
 
-    @PostMapping({"/", "report-form"})
-    public String reportFormPost(@Valid ReportForm reportForm, BindingResult bindingResult, Model model) {
+        model.addAttribute("reportForm", reportForm);
+
+        return "report-form";
+    }
+
+    @PostMapping("/report-form")
+    public String submitReport (
+            @Valid ReportForm reportForm,
+            BindingResult bindingResult,
+            Model model) {
+
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
                 1,
                 reportForm.getFirstName(),
@@ -34,7 +49,30 @@ public class ReportController {
             return "/report-form";
         }
         reportService.saveUser(userDTO);
-        return "redirect:/report-form";
+
+
+        String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
+        System.out.println(datetime);
+
+                ReportDTO reportDTO = new ReportDTO(
+                        reportForm.getReportId(),
+//                        1L,
+                        reportForm.getUserId(),
+//                        2L,
+                        reportForm.getCategoryId(),
+//                        3L,
+                        reportForm.getDescription(),
+                        reportForm.getLatLong(),
+//                        "123,123",
+                        datetime,
+                        reportForm.getPostcode());
+
+            if (bindingResult.hasErrors()) {
+                return "/report-form";
+            }
+
+            reportService.saveReport(reportDTO);
+            return "redirect:/";
     }
 
 }

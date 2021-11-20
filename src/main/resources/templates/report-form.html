@@ -14,25 +14,25 @@
     <div class="container">
         <form th:action="@{/report-form}" th:method="post" th:object="${reportForm}">
 
-
             <div class="mb-3">
                 <label class="form-label">Where is it?</label>
-                <input class="form-control" type="text" placeholder="Enter your postcode or click on the map"/>
+                <input class="form-control" th:field="*{postcode}" type="text" placeholder="Enter your postcode or click on the map"/>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">What is it?</label>
-                <select>
+                <select class="form-select" th:field="*{categoryId}">
                     <option value="1"></option>
                     <option value="2"></option>
                     <option value="3"></option>
                 </select>
-                <textarea class="form-control" placeholder="Describe the problem"></textarea>
+                <textarea class="form-control" th:field="*{description}" placeholder="Describe the problem"></textarea>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">When is it?</label>
-                <input class="form-control" type="date"/>
+                <input class="form-control" th:field="*{date}" type="date" data-date-format="yyyy/mm/dd"/>
+                <input class="form-control" th:field="*{time}" type="time"/>
             </div>
 
             <div class="mb-3">
