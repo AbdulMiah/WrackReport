@@ -32,7 +32,9 @@
             <div class="mb-3">
                 <label class="form-label">When is it?</label>
                 <input class="form-control" th:field="*{date}" type="date" data-date-format="yyyy/mm/dd"/>
+                <div class="alert alert-warning" th:errors="*{date}" th:if="${#fields.hasErrors('date')}">Date Error</div>
                 <input class="form-control" th:field="*{time}" type="time"/>
+<!--                <div class="alert alert-warning" th:errors="*{time}" th:if="${#fields.hasErrors('time')}">Time Error</div>-->
             </div>
 
             <div class="mb-3">

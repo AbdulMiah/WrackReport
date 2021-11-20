@@ -41,26 +41,23 @@ public class ReportController {
 
         LocalDate dateNow = LocalDate.now();
         LocalTime timeNow = LocalTime.now();
-        System.out.println("DateNow: "+dateNow);
-        System.out.println("TimeNow: "+timeNow);
-        String error = "Cannot enter a future date or time";
 
-        if (reportForm.getDate().isAfter(dateNow)) {
-            System.out.println(error);
-            System.out.println("ReportForm Date: "+reportForm.getDate()+" is in future");
-            return "/error";
-        } else if ((reportForm.getDate().isAfter(dateNow) || reportForm.getDate().isEqual(dateNow)) && reportForm.getTime().isAfter(timeNow)) {
-            System.out.println(error);
-            System.out.println("ReportForm Time: " + reportForm.getTime()+" is in future");
-            return "/error";
-        } else {
+//        if (reportForm.getDate().isAfter(dateNow)) {
+//            System.out.println(error);
+//            System.out.println("ReportForm Date: "+reportForm.getDate()+" is in future");
+//            return "/error";
+//        } else if ((reportForm.getDate().isAfter(dateNow) || reportForm.getDate().isEqual(dateNow)) && reportForm.getTime().isAfter(timeNow)) {
+//            System.out.println(error);
+//            System.out.println("ReportForm Time: " + reportForm.getTime()+" is in future");
+//            return "/error";
+//        } else {
 
             DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("HH:mm");
             String formattedDate = reportForm.getDate().format(formatDate);
             String formattedTime = reportForm.getTime().format(formatTime);
-            System.out.println("formattedDate: "+formattedDate);
-            System.out.println("formattedTime: "+formattedTime);
+//            System.out.println("formattedDate: "+formattedDate);
+//            System.out.println("formattedTime: "+formattedTime);
 
             String datetime = formattedDate.concat(" " + formattedTime + ":00");
             System.out.println("datetime: "+datetime);
@@ -78,6 +75,7 @@ public class ReportController {
                     datetime,
                     reportForm.getPostcode());
 
+
             if (bindingResult.hasErrors()) {
                 return "/report-form";
             }
@@ -87,4 +85,4 @@ public class ReportController {
         }
     }
 
-}
+

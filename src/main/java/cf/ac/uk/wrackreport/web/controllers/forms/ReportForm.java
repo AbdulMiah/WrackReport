@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers.forms;
 
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class ReportForm {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @ValidDate
     private LocalDate date;
 
     @NotNull
