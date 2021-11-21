@@ -1,21 +1,21 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
+import cf.ac.uk.wrackreport.api.postcode.Postcode;
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 @Controller
+@Slf4j
 public class ReportController {
 
     private ReportService reportService;
@@ -42,7 +42,13 @@ public class ReportController {
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
         String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");
-//        System.out.println("datetime: " + datetime);
+        log.info("datetime: " + datetime);
+
+        String postcodeToSearch = reportForm.getPostcode().toLowerCase().replaceAll("\\s+","");
+//        Adapted from https://www.geeksforgeeks.org/how-to-call-or-consume-external-api-in-spring-boot/
+        RestTemplate restTemplate = new RestTemplate();
+        Postcode result = restTemplate.getForObject("https://api.postcodes.io/postcodes/"+postcodeToSearch, Postcode.class);
+        log.info("Postcode API result: "+result);
 
         ReportDTO reportDTO = new ReportDTO(
                 //                        reportForm.getReportId(),
