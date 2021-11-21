@@ -1,6 +1,7 @@
 package cf.ac.uk.wrackreport.web.controllers.forms;
 
 import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDateTime;
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidWelshPostcode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class ReportForm {
     @ValidDateTime
     private String dateTime;
 
+    @ValidWelshPostcode
     @Pattern(regexp = "^$|^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}", message = "Must Follow the UK Postcode pattern, e.g. AB12 3CD or AB1 2CD (make sure the spacing is correct and you capitalise the letters)")
     private String postcode;
 

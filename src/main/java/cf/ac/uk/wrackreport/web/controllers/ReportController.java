@@ -44,37 +44,64 @@ public class ReportController {
         String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");
         log.info("datetime: " + datetime);
 
-        String postcodeToSearch = reportForm.getPostcode().toLowerCase().replaceAll("\\s+","");
-//        Adapted from https://www.geeksforgeeks.org/how-to-call-or-consume-external-api-in-spring-boot/
-        RestTemplate restTemplate = new RestTemplate();
-        Postcode result = restTemplate.getForObject("https://api.postcodes.io/postcodes/"+postcodeToSearch, Postcode.class);
-        log.info("Postcode API result: "+result);
+        // if the postcode field from the form is not empty, then ...
+        if (!reportForm.getPostcode().isEmpty()) {
+            // Making the postcode into lower case and removing whitespaces
+            String postcodeToSearch = reportForm.getPostcode().toLowerCase().replaceAll("\\s+","");
+            // Adapted from https://www.geeksforgeeks.org/how-to-call-or-consume-external-api-in-spring-boot/
+            RestTemplate restTemplate = new RestTemplate();
+            Postcode result = restTemplate.getForObject("https://api.postcodes.io/postcodes/"+postcodeToSearch, Postcode.class);
+            log.info("Postcode API result: "+result);
 
-        String latitude = result.getResult().getLatitude();
-        String longitude  = result.getResult().getLongitude();
-        String latLong = latitude.concat(", "+longitude);
-        log.info("Lat, Long: "+latLong);
+            // Retrieving lat and long from api request and storing as one String variable
+            String latitude = result.getResult().getLatitude();
+            String longitude  = result.getResult().getLongitude();
+            String latLong = latitude.concat(", "+longitude);
+            log.info("Lat, Long: "+latLong);
 
-        ReportDTO reportDTO = new ReportDTO(
-                //                        reportForm.getReportId(),
-                1L,
-                //                        reportForm.getUserId(),
-                2L,
-                //                        reportForm.getCategoryId(),
-                3L,
-                reportForm.getDescription(),
-                //                        reportForm.getLatLong(),
-                latLong,
-                datetime,
-                reportForm.getPostcode());
+            ReportDTO reportDTO = new ReportDTO(
+                    //                        reportForm.getReportId(),
+                    1L,
+                    //                        reportForm.getUserId(),
+                    2L,
+                    //                        reportForm.getCategoryId(),
+                    3L,
+                    reportForm.getDescription(),
+                    //                        reportForm.getLatLong(),
+                    latLong,
+                    datetime,
+                    reportForm.getPostcode());
+
+            if (bindingResult.hasErrors()) {
+                return "/report-form";
+            }
+
+            reportService.saveReport(reportDTO);
+            return "redirect:/";
+
+        //  if the postcode field in the form is empty, then...
+        } else {
+            ReportDTO reportDTO = new ReportDTO(
+                    //                        reportForm.getReportId(),
+                    1L,
+                    //                        reportForm.getUserId(),
+                    2L,
+                    //                        reportForm.getCategoryId(),
+                    3L,
+                    reportForm.getDescription(),
+                    //                        reportForm.getLatLong(),
+                    "123, 123",
+                    datetime,
+                    reportForm.getPostcode());
 
 
-        if (bindingResult.hasErrors()) {
-            return "/report-form";
+            if (bindingResult.hasErrors()) {
+                return "/report-form";
+            }
+
+            reportService.saveReport(reportDTO);
+            return "redirect:/";
         }
-
-        reportService.saveReport(reportDTO);
-        return "redirect:/";
     }
 }
 
