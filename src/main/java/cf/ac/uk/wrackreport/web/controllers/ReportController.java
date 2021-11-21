@@ -50,6 +50,11 @@ public class ReportController {
         Postcode result = restTemplate.getForObject("https://api.postcodes.io/postcodes/"+postcodeToSearch, Postcode.class);
         log.info("Postcode API result: "+result);
 
+        String latitude = result.getResult().getLatitude();
+        String longitude  = result.getResult().getLongitude();
+        String latLong = latitude.concat(", "+longitude);
+        log.info("Lat, Long: "+latLong);
+
         ReportDTO reportDTO = new ReportDTO(
                 //                        reportForm.getReportId(),
                 1L,
@@ -59,7 +64,7 @@ public class ReportController {
                 3L,
                 reportForm.getDescription(),
                 //                        reportForm.getLatLong(),
-                "123,123",
+                latLong,
                 datetime,
                 reportForm.getPostcode());
 
