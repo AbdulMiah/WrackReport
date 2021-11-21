@@ -1,16 +1,13 @@
 package cf.ac.uk.wrackreport.web.controllers.forms;
 
-import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDate;
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -28,13 +25,8 @@ public class ReportForm {
     private String latLong;
 
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @ValidDate
-    private LocalDate date;
-
-    @NotNull
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime time;
+    @ValidDateTime
+    private String dateTime;
 
     private String postcode;
 
