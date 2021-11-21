@@ -4,10 +4,8 @@ import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +26,7 @@ public class ReportForm {
     @ValidDateTime
     private String dateTime;
 
+    @Pattern(regexp = "^$|^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}", message = "Must Follow the UK Postcode pattern, e.g. AB12 3CD or AB1 2CD (make sure the spacing is correct and you capitalise the letters)")
     private String postcode;
 
 }

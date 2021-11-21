@@ -17,6 +17,7 @@
             <div class="mb-3">
                 <label class="form-label">Where is it?</label>
                 <input class="form-control" th:field="*{postcode}" type="text" placeholder="Enter your postcode or click on the map"/>
+                <div class="alert alert-warning" th:errors="*{postcode}" th:if="${#fields.hasErrors('postcode')}">Postcode Error</div>
             </div>
 
             <div class="mb-3">

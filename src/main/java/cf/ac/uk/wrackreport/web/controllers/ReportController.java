@@ -39,7 +39,7 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) {
 
-        String dtString = reportForm.getDateTime().toString();
+        String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
         String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");
 //        System.out.println("datetime: " + datetime);
