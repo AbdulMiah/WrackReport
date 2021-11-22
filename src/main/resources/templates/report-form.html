@@ -26,6 +26,7 @@
                     <option th:each="category: ${categories}" th:value="${category.id}" th:utext="${category.name}"></option>
                 </select>
                 <textarea class="form-control" th:field="*{description}" placeholder="Describe the problem"></textarea>
+                <div class="alert alert-warning" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</div>
             </div>
 
             <div class="mb-3">
