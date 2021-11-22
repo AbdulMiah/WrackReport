@@ -8,7 +8,7 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class CategoryDTO {
-    Long id;
+    Short id;
     String name;
 
     public CategoryDTO(Category aCategory) {

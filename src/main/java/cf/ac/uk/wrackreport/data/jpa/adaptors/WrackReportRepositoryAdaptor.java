@@ -37,14 +37,15 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         ArrayList<Category> categories = new ArrayList<Category>();
 
         for(int i=0; i<categoryEntities.size(); i++){
-            System.out.println("pls am i running");
             Category tmp = new Category(categoryEntities.get(i));
-            System.out.println(tmp);
             categories.add(tmp);
         }
 
-        System.out.println(categories);
 
         return categories;
+    }
+
+    public boolean checkValidCategoryID(short id){
+        return categoryRepository.getById(id).isPresent();
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
-    private Long id;
+    private short id;
     private String name;
 
     public Category(CategoryEntity entity){

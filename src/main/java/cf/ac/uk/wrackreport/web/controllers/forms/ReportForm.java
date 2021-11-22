@@ -18,7 +18,7 @@ public class ReportForm {
 
     private Long userId;
 
-    private Long categoryId;
+    private short categoryId;
 
     private String description;
 

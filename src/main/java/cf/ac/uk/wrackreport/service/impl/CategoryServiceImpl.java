@@ -31,4 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryDTOs;
     }
+
+    public boolean checkValidID(short id) {
+        return wrackReportRepository.checkValidCategoryID(id);
+    }
 }

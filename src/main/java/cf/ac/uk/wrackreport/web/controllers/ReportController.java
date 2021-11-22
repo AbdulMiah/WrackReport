@@ -3,6 +3,7 @@ package cf.ac.uk.wrackreport.web.controllers;
 import cf.ac.uk.wrackreport.domain.Category;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportService;
+import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 public class ReportController {
@@ -59,6 +61,19 @@ public class ReportController {
                         reportForm.getPostcode());
 
             if (bindingResult.hasErrors()) {
+                return "/report-form";
+            }
+
+            //Get valid category IDs (validation)
+            /*ArrayList<CategoryDTO> catDTOs = categoryService.findAll();
+            ArrayList<Short> catIDs = new ArrayList<Short>();
+            for(int i = 0; i < catDTOs.size(); i++){
+                catIDs.add(catDTOs.get(i).getId());
+            }*/
+
+
+            if(!categoryService.checkValidID((short) reportForm.getCategoryId())){
+                System.out.println("invalid category");
                 return "/report-form";
             }
 

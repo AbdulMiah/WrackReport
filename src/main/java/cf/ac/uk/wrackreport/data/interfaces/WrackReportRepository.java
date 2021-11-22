@@ -12,4 +12,6 @@ public interface WrackReportRepository {
     void saveReport(Report aReport);
 
     ArrayList<Category> findAllCategories();
+
+    boolean checkValidCategoryID(short id);
 }

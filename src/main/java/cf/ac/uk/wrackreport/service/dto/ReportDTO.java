@@ -9,7 +9,7 @@ import lombok.Value;
 public class ReportDTO {
     Long reportId;
     Long userId;
-    Long categoryId;
+    short categoryId;
     String description;
     String latLong;
     String datetime;
