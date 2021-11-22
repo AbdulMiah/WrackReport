@@ -21,6 +21,7 @@ public class ReportForm {
 
     private short categoryId;
 
+    @Size(min = 5,max = 2500,message = "Ensure Your Description Is Between 5-2500 Characters")
     private String description;
 
     private String latLong;
