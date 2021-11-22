@@ -9,6 +9,9 @@ public class DateTimeValidator implements ConstraintValidator<ValidDateTime, Str
 
     @Override
     public boolean isValid(String dateTime, ConstraintValidatorContext context) {
+        if (dateTime.isEmpty()) {
+            return false;
+        }
         LocalDateTime dateTimeNow = LocalDateTime.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -17,6 +20,8 @@ public class DateTimeValidator implements ConstraintValidator<ValidDateTime, Str
         LocalDateTime formattedDateTime = LocalDateTime.parse(dateTimeConcat, formatter);
 
         if (formattedDateTime.isAfter(dateTimeNow)) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("The date and time cannot be in the future").addConstraintViolation();
             return false;
         } else {
             return true;

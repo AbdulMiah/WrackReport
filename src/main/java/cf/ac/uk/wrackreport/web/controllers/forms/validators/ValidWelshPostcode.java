@@ -7,12 +7,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = DateTimeValidator.class)
+@Constraint(validatedBy = WelshPostcodeValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidDateTime {
+public @interface ValidWelshPostcode {
 
-    String message() default "Must enter date and time";
+    String message() default "Must Follow the UK Postcode pattern";
 
     Class<?>[] groups() default {};
 

@@ -2,19 +2,13 @@ package cf.ac.uk.wrackreport.web.controllers.forms;
 
 import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidPhoneNumber;
 import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDateTime;
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidWelshPostcode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import javax.validation.constraints.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -31,10 +25,10 @@ public class ReportForm {
 
     private String latLong;
 
-    @NotNull
     @ValidDateTime
     private String dateTime;
 
+    @ValidWelshPostcode
     private String postcode;
 
     //regexp to allow hyphens, spaces, apostrophes, upper and lower case letters
