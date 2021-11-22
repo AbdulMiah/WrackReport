@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Report {
     private Long reportId;
     private Long userId;
-    private Long categoryId;
+    private short categoryId;
     private String description;
     private String latLong;
     private String datetime;

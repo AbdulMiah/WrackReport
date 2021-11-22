@@ -22,7 +22,7 @@ public class ReportEntity {
     private Long userId;
 
     @Column(name = "category_id")
-    private Long categoryId;
+    private short categoryId;
 
     @Column(name = "description")
     private String description;
