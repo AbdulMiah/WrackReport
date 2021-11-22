@@ -46,7 +46,8 @@ public class ReportController {
         model.addAttribute("reportForm", reportForm);
         model.addAttribute("categories", categoryService.findAll());
 
-        String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
+
+        String datetime = reportForm.getDateTime().concat(" "+reportForm.getDateTime()+":00");
         System.out.println(datetime);
 
                 ReportDTO reportDTO = new ReportDTO(
@@ -81,6 +82,6 @@ public class ReportController {
 
             reportService.saveReport(reportDTO);
             return "redirect:/";
-    }
 
+    }
 }
