@@ -7,9 +7,11 @@ import cf.ac.uk.wrackreport.data.jpa.repositories.CategoryRepository;
 import cf.ac.uk.wrackreport.data.jpa.repositories.ReportRepository;
 import cf.ac.uk.wrackreport.domain.Category;
 import cf.ac.uk.wrackreport.domain.Report;
+import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -28,8 +30,14 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         reportRepository.save(reportEntity);
     }
 
-    public List<Category> findAllCategories(){
-        List<CategoryEntity> categories = categoryRepository.findAll();
+    public ArrayList<Category> findAllCategories(){
+        ArrayList<CategoryEntity> categoryEntities = categoryRepository.findAll();
+
+        ArrayList<Category> categories = new ArrayList<Category>();
+
+        for(int i=0; i<categories.size(); i++){
+            categories.add(new Category(categoryEntities.get(i)));
+        }
 
         return categories;
     }

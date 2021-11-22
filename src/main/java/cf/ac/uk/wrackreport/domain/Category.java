@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.domain;
 
+import cf.ac.uk.wrackreport.data.jpa.entities.CategoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,4 +11,9 @@ import lombok.NoArgsConstructor;
 public class Category {
     private Long id;
     private String name;
+
+    public Category(CategoryEntity entity){
+        this.id = entity.getId();
+        this.name = entity.getName();
+    }
 }

@@ -15,4 +15,8 @@ public class CategoryDTO {
         this.id = aCategory.getId();
         this.name = aCategory.getName();
     }
+
+    public Category toCategory(){
+        return new Category(this.id, this.name);
+    }
 }
