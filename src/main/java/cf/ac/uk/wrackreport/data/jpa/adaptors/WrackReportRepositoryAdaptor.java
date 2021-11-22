@@ -26,7 +26,7 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private CategoryRepository categoryRepository;
     private UserRepository userRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, UserRepository uRepo) {
         reportRepository = repo;
         categoryRepository = cat;
         userRepository = uRepo;

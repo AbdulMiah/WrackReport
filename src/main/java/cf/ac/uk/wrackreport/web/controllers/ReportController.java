@@ -67,9 +67,7 @@ public class ReportController {
 //        save user to db
         reportService.saveUser(userDTO);
 
->>>>>>> src/main/java/cf/ac/uk/wrackreport/web/controllers/ReportController.java
-
-        String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
+        String datetime = reportForm.getDateTime().concat(" "+reportForm.getDateTime()+":00");
         System.out.println(datetime);
 
                 ReportDTO reportDTO = new ReportDTO(
@@ -77,8 +75,8 @@ public class ReportController {
 //                        1L,
 //                        reportForm.getUserId(),
                         2L,
-//                        reportForm.getCategoryId(),
-                        3L,
+                        reportForm.getCategoryId(),
+
                         reportForm.getDescription(),
 //                        reportForm.getLatLong(),
                         "123,123",
@@ -104,9 +102,5 @@ public class ReportController {
 
             reportService.saveReport(reportDTO);
             return "redirect:/";
-    }
-
-        reportService.saveReport(reportDTO);
-        return "redirect:/";
     }
 }
