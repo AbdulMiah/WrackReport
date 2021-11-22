@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Report {
-    private Long reportId;
+public class User {
+
     private Long userId;
-    private Long categoryId;
-    private String description;
-    private String latLong;
-    private String datetime;
-    private String postcode;
+    private int userTypeId;
+    private String firstName;
+    private String surname;
+    private String email;
+    private String phoneNumber;
 
 }

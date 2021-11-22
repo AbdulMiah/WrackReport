@@ -2,6 +2,7 @@ package cf.ac.uk.wrackreport.web.controllers;
 
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
+import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,28 +43,46 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) {
 
-        String dtString = reportForm.getDateTime().toString();
-        String[] datetimeSplit = dtString.split("T");
-        String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");
-//        System.out.println("datetime: " + datetime);
-
-        ReportDTO reportDTO = new ReportDTO(
-                //                        reportForm.getReportId(),
-                1L,
-                //                        reportForm.getUserId(),
-                2L,
-                //                        reportForm.getCategoryId(),
-                3L,
-                reportForm.getDescription(),
-                //                        reportForm.getLatLong(),
-                "123,123",
-                datetime,
-                reportForm.getPostcode());
-
-
+//        Create data transfer object from form inputs
+        UserDTO userDTO = new UserDTO(reportForm.getUserId(),
+                1,
+                reportForm.getFirstName(),
+                reportForm.getSurname(),
+                reportForm.getEmail(),
+                reportForm.getPhoneNumber()
+        );
+//        check for errors
         if (bindingResult.hasErrors()) {
+            System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             return "/report-form";
         }
+//        save user to db
+        reportService.saveUser(userDTO);
+
+
+        String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
+        System.out.println(datetime);
+
+                ReportDTO reportDTO = new ReportDTO(
+                        reportForm.getReportId(),
+//                        1L,
+//                        reportForm.getUserId(),
+                        2L,
+//                        reportForm.getCategoryId(),
+                        3L,
+                        reportForm.getDescription(),
+//                        reportForm.getLatLong(),
+                        "123,123",
+                        datetime,
+                        reportForm.getPostcode());
+
+            if (bindingResult.hasErrors()) {
+                return "/report-form";
+            }
+
+            reportService.saveReport(reportDTO);
+            return "redirect:/";
+    }
 
         reportService.saveReport(reportDTO);
         return "redirect:/";

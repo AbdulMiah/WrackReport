@@ -8,7 +8,7 @@ CREATE TABLE `users` (
     `first_name` VARCHAR(30) NOT NULL,
     `surname` VARCHAR(30) NOT NULL,
     `email` VARCHAR(75) NOT NULL,
-    `phone_number` INT,
+    `phone_number` VARCHAR(15),
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 ); 
 
