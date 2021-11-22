@@ -5,9 +5,13 @@ import cf.ac.uk.wrackreport.data.jpa.entities.CategoryEntity;
 import cf.ac.uk.wrackreport.data.jpa.entities.ReportEntity;
 import cf.ac.uk.wrackreport.data.jpa.repositories.CategoryRepository;
 import cf.ac.uk.wrackreport.data.jpa.repositories.ReportRepository;
+import cf.ac.uk.wrackreport.data.jpa.repositories.UserRepository;
 import cf.ac.uk.wrackreport.domain.Category;
 import cf.ac.uk.wrackreport.domain.Report;
+import cf.ac.uk.wrackreport.domain.User;
 import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
+import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -20,10 +24,12 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     private ReportRepository reportRepository;
     private CategoryRepository categoryRepository;
+    private UserRepository userRepository;
 
     public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat) {
         reportRepository = repo;
         categoryRepository = cat;
+        userRepository = uRepo;
     }
 
     public void saveReport(Report aReport) {
@@ -48,4 +54,10 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     public boolean checkValidCategoryID(short id){
         return categoryRepository.getById(id).isPresent();
     }
+
+    public void saveUser(User aUser) {
+        UserEntity userEntity = new UserEntity(aUser);
+        userRepository.save(userEntity);
+    }
+
 }
