@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class ReportController {
@@ -24,8 +28,10 @@ public class ReportController {
     @GetMapping("/report-form")
     public String displayReportForm(Model model) {
         ReportForm reportForm = new ReportForm();
+        LocalDateTime dateTimeNow = LocalDateTime.now();
 
         model.addAttribute("reportForm", reportForm);
+        model.addAttribute("dateTimeNow", dateTimeNow);
 
         return "report-form";
     }
@@ -36,28 +42,32 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) {
 
-        String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
-        System.out.println(datetime);
+        String dtString = reportForm.getDateTime().toString();
+        String[] datetimeSplit = dtString.split("T");
+        String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");
+//        System.out.println("datetime: " + datetime);
 
-                ReportDTO reportDTO = new ReportDTO(
-                        reportForm.getReportId(),
-//                        1L,
-                        reportForm.getUserId(),
-//                        2L,
-                        reportForm.getCategoryId(),
-//                        3L,
-                        reportForm.getDescription(),
-                        reportForm.getLatLong(),
-//                        "123,123",
-                        datetime,
-                        reportForm.getPostcode());
+        ReportDTO reportDTO = new ReportDTO(
+                //                        reportForm.getReportId(),
+                1L,
+                //                        reportForm.getUserId(),
+                2L,
+                //                        reportForm.getCategoryId(),
+                3L,
+                reportForm.getDescription(),
+                //                        reportForm.getLatLong(),
+                "123,123",
+                datetime,
+                reportForm.getPostcode());
 
-            if (bindingResult.hasErrors()) {
-                return "/report-form";
-            }
 
-            reportService.saveReport(reportDTO);
-            return "redirect:/";
+        if (bindingResult.hasErrors()) {
+            return "/report-form";
+        }
+
+        reportService.saveReport(reportDTO);
+        return "redirect:/";
     }
-
 }
+
+
