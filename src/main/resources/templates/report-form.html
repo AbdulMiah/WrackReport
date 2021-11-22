@@ -22,9 +22,7 @@
             <div class="mb-3">
                 <label class="form-label">What is it?</label>
                 <select class="form-select" th:field="*{categoryId}">
-                    <option value="1" ></option>
-                    <option value="2"></option>
-                    <option value="3"></option>
+                    <option th:each="category: ${categories}" th:value="*{category.id}" th:utext="*{category.name}"></option>
                 </select>
                 <textarea class="form-control" th:field="*{description}" placeholder="Describe the problem"></textarea>
             </div>

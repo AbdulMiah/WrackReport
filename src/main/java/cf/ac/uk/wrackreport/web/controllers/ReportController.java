@@ -1,5 +1,7 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
+import cf.ac.uk.wrackreport.domain.Category;
+import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
@@ -16,9 +18,11 @@ import javax.validation.Valid;
 public class ReportController {
 
     private ReportService reportService;
+    private CategoryService categoryService;
 
-    public ReportController(ReportService reportService){
+    public ReportController(ReportService reportService, CategoryService categoryService){
         this.reportService = reportService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/report-form")
@@ -26,6 +30,7 @@ public class ReportController {
         ReportForm reportForm = new ReportForm();
 
         model.addAttribute("reportForm", reportForm);
+        model.addAttribute("categories", categoryService.findAll());
 
         return "report-form";
     }
