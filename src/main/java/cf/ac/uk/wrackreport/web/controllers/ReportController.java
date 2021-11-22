@@ -32,7 +32,6 @@ public class ReportController {
         ReportForm reportForm = new ReportForm();
 
         model.addAttribute("reportForm", reportForm);
-        System.out.println(categoryService.findAll());
         model.addAttribute("categories", categoryService.findAll());
 
         return "report-form";
@@ -43,6 +42,9 @@ public class ReportController {
             @Valid ReportForm reportForm,
             BindingResult bindingResult,
             Model model) {
+
+        model.addAttribute("reportForm", reportForm);
+        model.addAttribute("categories", categoryService.findAll());
 
         String datetime = reportForm.getDate().concat(" "+reportForm.getTime()+":00");
         System.out.println(datetime);
