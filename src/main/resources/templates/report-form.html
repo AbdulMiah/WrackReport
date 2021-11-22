@@ -53,15 +53,11 @@
                 <input class="form-control mb-1" th:field="*{phoneNumber}" type="number" placeholder="Phone no. (optional)"/>
                 <div class="alert alert-warning" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">Phone Number Error</div>
             </div>
-
-
+            
             <div class="mb-3">
                 <button class="btn btn-primary">Submit</button>
             </div>
 
-            <!-- Debug -->
-            <input type="hidden" th:field="*{userId}" value="1" />
-            <input type="hidden" th:field="*{latLong}" value="51.4486108,-3.1816524,20.21" />
         </form>
 
 </body>
