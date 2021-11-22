@@ -39,6 +39,11 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) {
 
+        // Check form doesn't have errors before form data is retrieved
+        if (bindingResult.hasErrors()) {
+            return "/report-form";
+        }
+
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
         String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDateTime {
 
-    String message() default "The date and time cannot be in the future";
+    String message() default "Must enter date and time";
 
     Class<?>[] groups() default {};
 

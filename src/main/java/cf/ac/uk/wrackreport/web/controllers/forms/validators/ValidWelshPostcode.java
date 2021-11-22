@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidWelshPostcode {
 
-    String message() default "Only accepting incidents in Wales. Please enter a Welsh Postcode";
+    String message() default "Must Follow the UK Postcode pattern";
 
     Class<?>[] groups() default {};
 
