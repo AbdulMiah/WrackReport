@@ -22,7 +22,7 @@
             <div class="mb-3">
                 <label class="form-label">What is it?</label>
                 <select class="form-select" th:field="*{categoryId}">
-                    <option th:each="category: ${categories}" th:value="*{category.id}" th:utext="*{category.name}"></option>
+                    <option th:each="category: ${categories}" th:value="${category.id}" th:utext="${category.name}"></option>
                 </select>
                 <textarea class="form-control" th:field="*{description}" placeholder="Describe the problem"></textarea>
             </div>
@@ -41,6 +41,10 @@
             <div class="mb-3">
                 <button class="btn btn-primary">Submit</button>
             </div>
+
+            <!-- Debug -->
+            <input type="hidden" th:field="*{userId}" value="1" />
+            <input type="hidden" th:field="*{latLong}" value="51.4486108,-3.1816524,20.21" />
         </form>
 
 </body>

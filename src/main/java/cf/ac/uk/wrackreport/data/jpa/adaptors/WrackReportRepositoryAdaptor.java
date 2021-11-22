@@ -21,8 +21,9 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private ReportRepository reportRepository;
     private CategoryRepository categoryRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat) {
         reportRepository = repo;
+        categoryRepository = cat;
     }
 
     public void saveReport(Report aReport) {
@@ -35,9 +36,14 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
         ArrayList<Category> categories = new ArrayList<Category>();
 
-        for(int i=0; i<categories.size(); i++){
-            categories.add(new Category(categoryEntities.get(i)));
+        for(int i=0; i<categoryEntities.size(); i++){
+            System.out.println("pls am i running");
+            Category tmp = new Category(categoryEntities.get(i));
+            System.out.println(tmp);
+            categories.add(tmp);
         }
+
+        System.out.println(categories);
 
         return categories;
     }

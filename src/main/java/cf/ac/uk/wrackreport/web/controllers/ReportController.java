@@ -30,6 +30,7 @@ public class ReportController {
         ReportForm reportForm = new ReportForm();
 
         model.addAttribute("reportForm", reportForm);
+        System.out.println(categoryService.findAll());
         model.addAttribute("categories", categoryService.findAll());
 
         return "report-form";
