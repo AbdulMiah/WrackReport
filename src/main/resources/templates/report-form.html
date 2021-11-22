@@ -31,7 +31,7 @@
 
             <div class="mb-3">
                 <label class="form-label">When is it?</label>
-                <input class="form-control" th:field="*{dateTime}" type="datetime-local"/>
+                <input class="form-control" th:field="*{dateTime}" th:max="${dateTimeNow}" type="datetime-local" required/>
                 <div class="alert alert-warning" th:errors="*{dateTime}" th:if="${#fields.hasErrors('dateTime')}">Date Time Error</div>
             </div>
 

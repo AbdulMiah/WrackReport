@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,8 +28,10 @@ public class ReportController {
     @GetMapping("/report-form")
     public String displayReportForm(Model model) {
         ReportForm reportForm = new ReportForm();
+        LocalDateTime dateTimeNow = LocalDateTime.now();
 
         model.addAttribute("reportForm", reportForm);
+        model.addAttribute("dateTimeNow", dateTimeNow);
 
         return "report-form";
     }
