@@ -37,11 +37,11 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `media` (
 	`media_id` INT NOT NULL AUTO_INCREMENT,
-    `report_id` INT NOT NULL,
-    `metadata_id` INT NOT NULL,
-    `title` VARCHAR(100) NOT NULL,
-    `type` INT NOT NULL,
-    `blob` BLOB NOT NULL,
+    `report_id` INT,
+    `metadata_id` INT,
+    `title` VARCHAR(100),
+    `type` INT,
+    `media_blob` BLOB,
     `hash` VARCHAR(32),
     CONSTRAINT `PK_media` PRIMARY KEY (`media_id`)
 );

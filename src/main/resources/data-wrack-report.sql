@@ -30,3 +30,6 @@ INSERT INTO `categories`
 VALUES(NULL, 'flash flooding');
 INSERT INTO `categories`
 VALUES(NULL, 'N/A');
+
+INSERT INTO `metadata`
+VALUES(NULL, NULL, NULL);

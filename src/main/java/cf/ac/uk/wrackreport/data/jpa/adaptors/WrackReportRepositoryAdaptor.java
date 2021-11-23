@@ -2,11 +2,14 @@ package cf.ac.uk.wrackreport.data.jpa.adaptors;
 
 import cf.ac.uk.wrackreport.data.interfaces.WrackReportRepository;
 import cf.ac.uk.wrackreport.data.jpa.entities.CategoryEntity;
+import cf.ac.uk.wrackreport.data.jpa.entities.MediaEntity;
 import cf.ac.uk.wrackreport.data.jpa.entities.ReportEntity;
 import cf.ac.uk.wrackreport.data.jpa.repositories.CategoryRepository;
+import cf.ac.uk.wrackreport.data.jpa.repositories.MediaRepository;
 import cf.ac.uk.wrackreport.data.jpa.repositories.ReportRepository;
 import cf.ac.uk.wrackreport.data.jpa.repositories.UserRepository;
 import cf.ac.uk.wrackreport.domain.Category;
+import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.domain.User;
 import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
@@ -25,11 +28,13 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private ReportRepository reportRepository;
     private CategoryRepository categoryRepository;
     private UserRepository userRepository;
+    private MediaRepository mediaRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, UserRepository uRepo) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, UserRepository uRepo, MediaRepository mRepo) {
         reportRepository = repo;
         categoryRepository = cat;
         userRepository = uRepo;
+        mediaRepository = mRepo;
     }
 
     public void saveReport(Report aReport) {
@@ -58,6 +63,11 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     public void saveUser(User aUser) {
         UserEntity userEntity = new UserEntity(aUser);
         userRepository.save(userEntity);
+    }
+
+    public void saveMedia(Media aMedia) {
+        MediaEntity mediaEntity = new MediaEntity(aMedia);
+        mediaRepository.save(mediaEntity);
     }
 
 }

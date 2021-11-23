@@ -31,7 +31,7 @@ public class MediaEntity {
     @Column(name = "type")
     private int type;
 
-    @Column(name = "blob")
+    @Column(name = "media_blob")
     @Lob
     private byte[] blob;
 

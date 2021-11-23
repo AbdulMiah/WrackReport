@@ -90,6 +90,7 @@ public class ReportController {
                     bytes,
                     "hash"
                     );
+            reportService.saveMedia(mediaDTO);
         } catch (IOException e) {
             throw new IOException("could not access file: " + e);
         }
