@@ -1,4 +1,5 @@
 SET FOREIGN_KEY_CHECKS = 0;
+USE `wrack-report`;
 TRUNCATE TABLE `users`;
 TRUNCATE TABLE `user_types`;
 TRUNCATE TABLE `reports`;
