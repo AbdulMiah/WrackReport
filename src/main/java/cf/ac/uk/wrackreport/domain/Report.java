@@ -12,6 +12,8 @@ public class Report {
     private Long userId;
     private short categoryId;
     private String description;
+    private short depthCategoryId;
+    private Integer depthMeters;
     private String latLong;
     private String datetime;
     private String postcode;

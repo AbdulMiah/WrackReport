@@ -11,6 +11,8 @@ public class ReportDTO {
     Long userId;
     short categoryId;
     String description;
+    short depthCategoryId;
+    Integer depthMeters;
     String latLong;
     String datetime;
     String postcode;
@@ -21,6 +23,8 @@ public class ReportDTO {
                 aReport.getUserId(),
                 aReport.getCategoryId(),
                 aReport.getDescription(),
+                aReport.getDepthCategoryId(),
+                aReport.getDepthMeters(),
                 aReport.getLatLong(),
                 aReport.getDatetime(),
                 aReport.getPostcode()
@@ -28,6 +32,6 @@ public class ReportDTO {
     }
 
     public Report toReport() {
-        return new Report(reportId, userId, categoryId, description, latLong, datetime, postcode);
+        return new Report(reportId, userId, categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode);
     }
 }
