@@ -1,7 +1,6 @@
 package cf.ac.uk.wrackreport.data.jpa.entities;
 
 import cf.ac.uk.wrackreport.domain.Media;
-import cf.ac.uk.wrackreport.domain.Report;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +33,7 @@ public class MediaEntity {
 
     @Column(name = "blob")
     @Lob
-    private Blob blob;
+    private byte[] blob;
 
     @Column(name = "hash")
     private String hash;

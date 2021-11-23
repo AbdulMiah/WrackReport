@@ -7,6 +7,7 @@ import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidWelshPostcode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 
@@ -51,6 +52,6 @@ public class ReportForm {
     @Pattern(regexp = "[0-9\\s]*", message = "Phone number must consist of only numbers")
     private String phoneNumber;
 
-
+    private MultipartFile files;
 
 }

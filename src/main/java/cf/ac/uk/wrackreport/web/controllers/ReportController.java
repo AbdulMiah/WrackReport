@@ -3,19 +3,24 @@ package cf.ac.uk.wrackreport.web.controllers;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
 import cf.ac.uk.wrackreport.service.ReportService;
-import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
+import cf.ac.uk.wrackreport.service.dto.MediaDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Controller
@@ -48,7 +53,7 @@ public class ReportController {
     public String submitReport (
             @Valid ReportForm reportForm,
             BindingResult bindingResult,
-            Model model) {
+            Model model) throws IOException {
 
         // Check form doesn't have errors before form data is retrieved
         if (bindingResult.hasErrors()) {
@@ -68,6 +73,29 @@ public class ReportController {
 
         // save user to db
         reportService.saveUser(userDTO);
+
+        // ----- MEDIA ----- //
+
+        try {
+            MultipartFile aFile = reportForm.getFiles();
+            String fileName = reportForm.getFiles().getOriginalFilename();
+            byte[] bytes = aFile.getBytes();
+
+            MediaDTO mediaDTO = new MediaDTO(
+                    null,
+                    reportForm.getReportId(),
+                    1L,
+                    fileName,
+                    1,
+                    bytes,
+                    "hash"
+                    );
+        } catch (IOException e) {
+            throw new IOException("could not access file: " + e);
+        }
+
+
+        // ----- END OF MEDIA -----//
 
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
@@ -128,6 +156,7 @@ public class ReportController {
             }
 
             reportService.saveReport(reportDTO);
+
             return "redirect:/";
         }
     }

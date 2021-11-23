@@ -16,7 +16,7 @@ public class Media {
     private Long metadataId;
     private String title;
     private int type;
-    private Blob blob;
+    private byte[] blob;
     private String hash;
 
 }

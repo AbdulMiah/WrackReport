@@ -15,7 +15,7 @@ public class MediaDTO {
     Long metadataId;
     String title;
     int type;
-    Blob blob;
+    byte[] blob;
     String hash;
 
     public MediaDTO(Media aMedia) {
