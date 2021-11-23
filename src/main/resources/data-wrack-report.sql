@@ -30,3 +30,16 @@ INSERT INTO `categories`
 VALUES(NULL, 'flash flooding');
 INSERT INTO `categories`
 VALUES(NULL, 'N/A');
+
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to ground socket');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my ankles');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my knees');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my chest');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my light switch');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Other');
