@@ -7,6 +7,7 @@
           rel="stylesheet">
     <link rel="stylesheet"  href="/css/style.css">
     <title>WrackReport Form</title>
+
 </head>
 <body>
 
@@ -26,8 +27,9 @@
                 <select class="form-select" th:field="*{categoryId}">
                     <option th:each="category: ${categories}" th:value="${category.id}" th:utext="${category.name}"></option>
                 </select>
-                <textarea class="form-control" th:field="*{description}" placeholder="Describe the problem"></textarea>
+                <textarea class="form-control" id="description" th:field="*{description}" placeholder="Describe the problem"></textarea>
                 <div class="alert alert-warning" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</div>
+                <div id="remaining-chars">2500 Characters Remaining</div>
             </div>
 
             <div class="mb-3">
@@ -63,4 +65,6 @@
         </form>
     </div>
 </body>
+
+<footer> <script src="../js/report-form.js"></script> </footer>
 </html>
