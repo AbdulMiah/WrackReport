@@ -31,9 +31,8 @@ public class MediaEntity {
     @Column(name = "type")
     private int type;
 
-    @Column(name = "media_blob")
-    @Lob
-    private byte[] blob;
+    @Column(name = "media_path")
+    private String mediaPath;
 
     @Column(name = "hash")
     private String hash;
@@ -44,7 +43,7 @@ public class MediaEntity {
         this.metadataId = aMedia.getMetadataId();
         this.title = aMedia.getTitle();
         this.type = aMedia.getType();
-        this.blob = aMedia.getBlob();
+        this.mediaPath = aMedia.getMediaPath();
         this.hash = aMedia.getHash();
     }
 
@@ -55,7 +54,7 @@ public class MediaEntity {
           this.metadataId,
           this.title,
           this.type,
-          this.blob,
+          this.mediaPath,
           this.hash
         );
         return domainMedia;

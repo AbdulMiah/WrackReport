@@ -19,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Blob;
 import java.time.LocalDateTime;
 
@@ -62,6 +66,37 @@ public class ReportController {
             return "/report-form";
         }
 
+        // ----- MEDIA ----- //
+
+        try {
+            MultipartFile aFile = reportForm.getFiles();
+            String fileName = reportForm.getFiles().getOriginalFilename();
+
+            File file = new File("./uploaded-media/" +fileName);
+
+            try (OutputStream os = new FileOutputStream(file)) {
+                os.write(aFile.getBytes());
+            }
+
+            MediaDTO mediaDTO = new MediaDTO(
+                    null,
+                    reportForm.getReportId(),
+                    1L,
+                    fileName,
+                    1,
+                    null,
+                    "hash"
+            );
+
+//                reportService.saveMedia(mediaDTO);
+
+        } catch (IOException e) {
+            throw new IOException("could not access file: " + e);
+        }
+
+
+        // ----- END OF MEDIA -----//
+
         // Create data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
                 1,
@@ -74,29 +109,6 @@ public class ReportController {
         // save user to db
         reportService.saveUser(userDTO);
 
-        // ----- MEDIA ----- //
-
-        try {
-            MultipartFile aFile = reportForm.getFiles();
-            String fileName = reportForm.getFiles().getOriginalFilename();
-            byte[] bytes = aFile.getBytes();
-
-            MediaDTO mediaDTO = new MediaDTO(
-                    null,
-                    reportForm.getReportId(),
-                    1L,
-                    fileName,
-                    1,
-                    bytes,
-                    "hash"
-                    );
-            reportService.saveMedia(mediaDTO);
-        } catch (IOException e) {
-            throw new IOException("could not access file: " + e);
-        }
-
-
-        // ----- END OF MEDIA -----//
 
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
@@ -157,6 +169,7 @@ public class ReportController {
             }
 
             reportService.saveReport(reportDTO);
+
 
             return "redirect:/";
         }

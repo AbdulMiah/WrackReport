@@ -15,7 +15,7 @@ public class MediaDTO {
     Long metadataId;
     String title;
     int type;
-    byte[] blob;
+    String mediaPath;
     String hash;
 
     public MediaDTO(Media aMedia) {
@@ -25,13 +25,13 @@ public class MediaDTO {
                 aMedia.getMetadataId(),
                 aMedia.getTitle(),
                 aMedia.getType(),
-                aMedia.getBlob(),
+                aMedia.getMediaPath(),
                 aMedia.getHash()
         );
     }
 
     public Media toMedia() {
-        return new Media(mediaId, reportId, metadataId, title, type, blob, hash);
+        return new Media(mediaId, reportId, metadataId, title, type, mediaPath, hash);
     }
 
 }

@@ -41,7 +41,7 @@ CREATE TABLE `media` (
     `metadata_id` INT,
     `title` VARCHAR(100),
     `type` INT,
-    `media_blob` BLOB,
+    `media_path` VARCHAR(500),
     `hash` VARCHAR(32),
     CONSTRAINT `PK_media` PRIMARY KEY (`media_id`)
 );
