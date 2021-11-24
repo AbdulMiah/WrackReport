@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
@@ -52,6 +53,6 @@ public class ReportForm {
     @Pattern(regexp = "[0-9\\s]*", message = "Phone number must consist of only numbers")
     private String phoneNumber;
 
-    private MultipartFile files;
+    private ArrayList<MultipartFile> files = new ArrayList<MultipartFile>();
 
 }
