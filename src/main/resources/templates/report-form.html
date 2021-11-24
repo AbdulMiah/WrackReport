@@ -40,11 +40,12 @@
 
                 <div class="mb-3" id="manualDepthEntry" style="display: none">
                     <label class="form-label">Please enter depth:</label>
-                    <div class="input-group mb-3">
-                        <input class="form-control" th:field="*{depthMeters}" type="number"/>
+                    <div class="input-group mb-3" onchange="lengthConverter()">
+                        <input class="form-control" id="depthMeterField" type="number"/>
+                        <input class="form-control" id="convertedVal" th:field="*{depthMeters}" type="hidden"/>
                         <div class="input-group-append">
-                            <select class="form-select">
-                                <option value="meters">Meters</option>
+                            <select class="form-select" id="measurementType">
+                                <option value="centimeters">Centimeters</option>
                                 <option value="inches">Inches</option>
                             </select>
                         </div>
