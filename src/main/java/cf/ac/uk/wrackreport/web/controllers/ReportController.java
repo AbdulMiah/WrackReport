@@ -65,15 +65,17 @@ public class ReportController {
         try {
             ArrayList<MultipartFile> formFiles = reportForm.getFiles();
 
-            for (MultipartFile f: formFiles) {
-                String fileName = f.getOriginalFilename();
-                String filePath = "./uploaded-media/" +fileName;
-                File file = new File("./uploaded-media/" +fileName);
+            if (!formFiles.get(0).isEmpty()) {
+                for (MultipartFile f: formFiles) {
+                    String fileName = f.getOriginalFilename();
+                    String filePath = "./uploaded-media/" +fileName;
+                    File file = new File("./uploaded-media/" +fileName);
 
-                try (OutputStream os = new FileOutputStream(file)) {
-                    os.write(f.getBytes());
+                    try (OutputStream os = new FileOutputStream(file)) {
+                        os.write(f.getBytes());
+                    }
+                    mediaArrayList.add(new Media(null,null,fileName,1,filePath, "hash"));
                 }
-                mediaArrayList.add(new Media(null,null,fileName,1,filePath, "hash"));
             }
         } catch (IOException e) {
             throw new IOException("could not access file: " + e);

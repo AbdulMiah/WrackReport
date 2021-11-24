@@ -53,8 +53,6 @@ public class ReportEntity {
         this.datetime = aReport.getDatetime();
         this.postcode = aReport.getPostcode();
 
-        System.out.println("report media:" + aReport.getMedia());
-
         aReport.getMedia()
                 .stream()
                 .forEach(m -> this.addMedia(new MediaEntity(
@@ -92,7 +90,6 @@ public class ReportEntity {
     }
 
     public void addMedia(MediaEntity aMediaEntity) {
-        System.out.println("media entity list: " + media);
         media.add(aMediaEntity);
     }
 
