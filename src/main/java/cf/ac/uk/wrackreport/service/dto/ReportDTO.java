@@ -12,7 +12,7 @@ public class ReportDTO {
     short categoryId;
     String description;
     short depthCategoryId;
-    Integer depthMeters;
+    Float depthMeters;
     String latLong;
     String datetime;
     String postcode;

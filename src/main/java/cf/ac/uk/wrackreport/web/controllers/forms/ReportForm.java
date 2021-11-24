@@ -26,7 +26,7 @@ public class ReportForm {
 
     private short depthCategoryId;
 
-    private Integer depthMeters;
+    private Float depthMeters;
 
     @ValidDateTime
     private String dateTime;

@@ -31,7 +31,7 @@ public class ReportEntity {
     private short depthCategoryId;
 
     @Column(name = "depth_meters")
-    private Integer depthMeters;
+    private Float depthMeters;
 
     @Column(name = "lat_long")
     private String latLong;

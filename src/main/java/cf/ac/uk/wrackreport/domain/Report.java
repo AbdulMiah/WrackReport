@@ -13,7 +13,7 @@ public class Report {
     private short categoryId;
     private String description;
     private short depthCategoryId;
-    private Integer depthMeters;
+    private Float depthMeters;
     private String latLong;
     private String datetime;
     private String postcode;
