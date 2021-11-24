@@ -8,7 +8,6 @@ import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Controller
@@ -65,37 +59,6 @@ public class ReportController {
             model.addAttribute("categories", categoryService.findAll());
             return "/report-form";
         }
-
-        // ----- MEDIA ----- //
-
-        try {
-            MultipartFile aFile = reportForm.getFiles();
-            String fileName = reportForm.getFiles().getOriginalFilename();
-
-            File file = new File("./uploaded-media/" +fileName);
-
-            try (OutputStream os = new FileOutputStream(file)) {
-                os.write(aFile.getBytes());
-            }
-
-            MediaDTO mediaDTO = new MediaDTO(
-                    null,
-                    reportForm.getReportId(),
-                    1L,
-                    fileName,
-                    1,
-                    null,
-                    "hash"
-            );
-
-//                reportService.saveMedia(mediaDTO);
-
-        } catch (IOException e) {
-            throw new IOException("could not access file: " + e);
-        }
-
-
-        // ----- END OF MEDIA -----//
 
         // Create data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
@@ -147,7 +110,6 @@ public class ReportController {
             }
 
             reportService.saveReport(reportDTO);
-            return "redirect:/";
 
         //  if the postcode field in the form is empty, then...
         } else {
@@ -169,9 +131,36 @@ public class ReportController {
             }
 
             reportService.saveReport(reportDTO);
-
-
-            return "redirect:/";
         }
+        // ----- MEDIA ----- //
+
+        try {
+            MultipartFile aFile = reportForm.getFiles();
+            String fileName = reportForm.getFiles().getOriginalFilename();
+
+            File file = new File("./uploaded-media/" +fileName);
+
+            try (OutputStream os = new FileOutputStream(file)) {
+                os.write(aFile.getBytes());
+            }
+
+            MediaDTO mediaDTO = new MediaDTO(
+                    null,
+                    reportForm.getReportId(),
+                    1L,
+                    fileName,
+                    1,
+                    null,
+                    "hash"
+            );
+
+                reportService.saveMedia(mediaDTO);
+
+        } catch (IOException e) {
+            throw new IOException("could not access file: " + e);
+        }
+
+        // ----- END OF MEDIA -----//
+        return "redirect:/";
     }
 }
