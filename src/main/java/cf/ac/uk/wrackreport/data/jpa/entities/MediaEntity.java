@@ -19,9 +19,6 @@ public class MediaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mediaId;
 
-    @Column(name = "report_id")
-    private Long reportId;
-
     @Column(name = "metadata_id")
     private Long metadataId;
 
@@ -39,7 +36,6 @@ public class MediaEntity {
 
     public MediaEntity(Media aMedia) {
         this.mediaId = aMedia.getMediaId();
-        this.reportId = aMedia.getReportId();
         this.metadataId = aMedia.getMetadataId();
         this.title = aMedia.getTitle();
         this.type = aMedia.getType();
@@ -50,7 +46,6 @@ public class MediaEntity {
     public Media toDomain() {
         Media domainMedia = new Media(
           this.mediaId,
-          this.reportId,
           this.metadataId,
           this.title,
           this.type,

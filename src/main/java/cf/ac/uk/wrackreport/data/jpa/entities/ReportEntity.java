@@ -1,11 +1,15 @@
 package cf.ac.uk.wrackreport.data.jpa.entities;
 
+import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.domain.Report;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -36,6 +40,10 @@ public class ReportEntity {
     @Column(name = "postcode")
     private String postcode;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "report_id")
+    private List<MediaEntity> media = new ArrayList<MediaEntity>();
+
     public ReportEntity(Report aReport) {
         this.reportId = aReport.getReportId();
         this.userId = aReport.getUserId();
@@ -44,6 +52,19 @@ public class ReportEntity {
         this.latLong = aReport.getLatLong();
         this.datetime = aReport.getDatetime();
         this.postcode = aReport.getPostcode();
+
+        System.out.println("report media:" + aReport.getMedia());
+
+        aReport.getMedia()
+                .stream()
+                .forEach(m -> this.addMedia(new MediaEntity(
+                        m.getMediaId(),
+                        m.getMetadataId(),
+                        m.getTitle(),
+                        m.getType(),
+                        m.getMediaPath(),
+                        m.getHash()
+                )));
     }
 
     public Report toDomain() {
@@ -56,7 +77,23 @@ public class ReportEntity {
                 this.datetime,
                 this.postcode
         );
+        this.getMedia()
+                .stream()
+                .forEach(m -> domainReport.addMedia(
+                        new Media(
+                                m.getMediaId(),
+                                m.getMetadataId(),
+                                m.getTitle(),
+                                m.getType(),
+                                m.getMediaPath(),
+                                m.getHash()
+                        )));
         return domainReport;
+    }
+
+    public void addMedia(MediaEntity aMediaEntity) {
+        System.out.println("media entity list: " + media);
+        media.add(aMediaEntity);
     }
 
 }

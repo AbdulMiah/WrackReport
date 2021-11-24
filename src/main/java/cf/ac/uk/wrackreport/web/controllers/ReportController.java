@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
+import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
 import cf.ac.uk.wrackreport.service.ReportService;
@@ -20,6 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @Slf4j
@@ -53,6 +57,29 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) throws IOException {
 
+        //List of media to be attached to ReportDTO
+        List<Media> mediaArrayList = new ArrayList<Media>();
+
+        // ----- MEDIA ----- //
+
+        try {
+            MultipartFile aFile = reportForm.getFiles();
+            String fileName = reportForm.getFiles().getOriginalFilename();
+            String filePath = "./uploaded-media/" +fileName;
+            File file = new File("./uploaded-media/" +fileName);
+
+            try (OutputStream os = new FileOutputStream(file)) {
+                os.write(aFile.getBytes());
+            }
+
+            mediaArrayList.add(new Media(null,null,fileName,1,filePath, "hash"));
+
+        } catch (IOException e) {
+            throw new IOException("could not access file: " + e);
+        }
+
+        // ----- END OF MEDIA -----//
+
         // Check form doesn't have errors before form data is retrieved
         if (bindingResult.hasErrors()) {
             log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
@@ -71,7 +98,6 @@ public class ReportController {
 
         // save user to db
         reportService.saveUser(userDTO);
-
 
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
@@ -102,7 +128,8 @@ public class ReportController {
                     //                        reportForm.getLatLong(),
                     latLong,
                     datetime,
-                    reportForm.getPostcode());
+                    reportForm.getPostcode(),
+                    mediaArrayList);
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
@@ -122,45 +149,18 @@ public class ReportController {
                     //                        reportForm.getLatLong(),
                     "123, 123",
                     datetime,
-                    reportForm.getPostcode());
+                    reportForm.getPostcode(),
+                    mediaArrayList);
 
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 return "/report-form";
             }
-
+            System.out.println("media:" + mediaArrayList);
             reportService.saveReport(reportDTO);
         }
-        // ----- MEDIA ----- //
 
-        try {
-            MultipartFile aFile = reportForm.getFiles();
-            String fileName = reportForm.getFiles().getOriginalFilename();
-
-            File file = new File("./uploaded-media/" +fileName);
-
-            try (OutputStream os = new FileOutputStream(file)) {
-                os.write(aFile.getBytes());
-            }
-
-            MediaDTO mediaDTO = new MediaDTO(
-                    null,
-                    reportForm.getReportId(),
-                    1L,
-                    fileName,
-                    1,
-                    null,
-                    "hash"
-            );
-
-                reportService.saveMedia(mediaDTO);
-
-        } catch (IOException e) {
-            throw new IOException("could not access file: " + e);
-        }
-
-        // ----- END OF MEDIA -----//
         return "redirect:/";
     }
 }

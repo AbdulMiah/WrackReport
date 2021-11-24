@@ -11,7 +11,6 @@ import java.sql.Blob;
 public class MediaDTO {
 
     Long mediaId;
-    Long reportId;
     Long metadataId;
     String title;
     int type;
@@ -21,7 +20,6 @@ public class MediaDTO {
     public MediaDTO(Media aMedia) {
         this (
                 aMedia.getMediaId(),
-                aMedia.getReportId(),
                 aMedia.getMetadataId(),
                 aMedia.getTitle(),
                 aMedia.getType(),
@@ -31,7 +29,7 @@ public class MediaDTO {
     }
 
     public Media toMedia() {
-        return new Media(mediaId, reportId, metadataId, title, type, mediaPath, hash);
+        return new Media(mediaId, metadataId, title, type, mediaPath, hash);
     }
 
 }
