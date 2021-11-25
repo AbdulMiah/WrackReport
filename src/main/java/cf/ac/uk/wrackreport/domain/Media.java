@@ -16,6 +16,5 @@ public class Media {
     private String title;
     private int type;
     private String mediaPath;
-    private String hash;
 
 }

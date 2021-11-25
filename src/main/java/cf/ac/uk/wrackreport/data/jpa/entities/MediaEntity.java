@@ -31,8 +31,6 @@ public class MediaEntity {
     @Column(name = "media_path")
     private String mediaPath;
 
-    @Column(name = "hash")
-    private String hash;
 
     public MediaEntity(Media aMedia) {
         this.mediaId = aMedia.getMediaId();
@@ -40,7 +38,6 @@ public class MediaEntity {
         this.title = aMedia.getTitle();
         this.type = aMedia.getType();
         this.mediaPath = aMedia.getMediaPath();
-        this.hash = aMedia.getHash();
     }
 
     public Media toDomain() {
@@ -49,8 +46,7 @@ public class MediaEntity {
           this.metadataId,
           this.title,
           this.type,
-          this.mediaPath,
-          this.hash
+          this.mediaPath
         );
         return domainMedia;
     }

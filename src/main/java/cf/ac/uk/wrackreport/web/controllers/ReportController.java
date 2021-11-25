@@ -74,7 +74,7 @@ public class ReportController {
                     try (OutputStream os = new FileOutputStream(file)) {
                         os.write(f.getBytes());
                     }
-                    mediaArrayList.add(new Media(null,null,fileName,1,filePath, "hash"));
+                    mediaArrayList.add(new Media(null,null,fileName,1,filePath));
                 }
             }
         } catch (IOException e) {

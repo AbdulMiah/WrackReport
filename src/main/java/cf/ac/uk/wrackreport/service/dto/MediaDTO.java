@@ -15,7 +15,6 @@ public class MediaDTO {
     String title;
     int type;
     String mediaPath;
-    String hash;
 
     public MediaDTO(Media aMedia) {
         this (
@@ -23,13 +22,12 @@ public class MediaDTO {
                 aMedia.getMetadataId(),
                 aMedia.getTitle(),
                 aMedia.getType(),
-                aMedia.getMediaPath(),
-                aMedia.getHash()
+                aMedia.getMediaPath()
         );
     }
 
     public Media toMedia() {
-        return new Media(mediaId, metadataId, title, type, mediaPath, hash);
+        return new Media(mediaId, metadataId, title, type, mediaPath);
     }
 
 }

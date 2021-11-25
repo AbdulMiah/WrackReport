@@ -60,8 +60,7 @@ public class ReportEntity {
                         m.getMetadataId(),
                         m.getTitle(),
                         m.getType(),
-                        m.getMediaPath(),
-                        m.getHash()
+                        m.getMediaPath()
                 )));
     }
 
@@ -83,8 +82,7 @@ public class ReportEntity {
                                 m.getMetadataId(),
                                 m.getTitle(),
                                 m.getType(),
-                                m.getMediaPath(),
-                                m.getHash()
+                                m.getMediaPath()
                         )));
         return domainReport;
     }
