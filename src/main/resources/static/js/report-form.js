@@ -44,6 +44,7 @@ function listFiles() {
       titleInput.setAttribute("type", "text");
       titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
       titleInput.setAttribute("id", i.toString() +"newFileNameOf");
+      titleInput.setAttribute("maxlength", 30);
       fileSection.appendChild(titleInput);
    }
    //Create button to submit new file names
@@ -75,5 +76,5 @@ function updateFiles() {
    var submissionElement = document.getElementById("fileUploadToSubmit");
    let myFileList = newFiles.files;
    submissionElement.files = myFileList;
-
+   document.getElementById("namesUpdated").innerText = "Names Updated";
 }

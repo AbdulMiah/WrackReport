@@ -9,6 +9,9 @@ import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.utility.RandomString;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @Controller
@@ -63,24 +68,31 @@ public class ReportController {
             model.addAttribute("categories", categoryService.findAll());
             return "/report-form";
         }
-        //List of media to be attached to ReportDTO
-        List<Media> mediaArrayList = new ArrayList<Media>();
+
 
         // ----- MEDIA ----- //
+
+        //List of media to be attached to ReportDTO
+        List<Media> mediaArrayList = new ArrayList<Media>();
 
         try {
             ArrayList<MultipartFile> formFiles = reportForm.getFiles();
 
+            //If there are files attached from the form...
             if (!formFiles.get(0).isEmpty()) {
+                //loop through files
                 for (MultipartFile f: formFiles) {
+                    String generatedString = RandomStringUtils.randomAlphanumeric(20);
                     String fileName = f.getOriginalFilename();
-                    String filePath = "./uploaded-media/" +fileName;
-                    File file = new File("./uploaded-media/" +fileName);
+                    String fileTitle = FilenameUtils.removeExtension(fileName);
+                    String ext = FilenameUtils.getExtension(fileName);
+                    String filePath = "./uploaded-media/" + generatedString + "." + ext;
+                    File file = new File("./uploaded-media/" +generatedString + "." + ext);
 
                     try (OutputStream os = new FileOutputStream(file)) {
                         os.write(f.getBytes());
                     }
-                    mediaArrayList.add(new Media(null,null,fileName,1,filePath));
+                    mediaArrayList.add(new Media(null,null, fileTitle,1,filePath));
                 }
             }
         } catch (IOException e) {
