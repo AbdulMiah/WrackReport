@@ -27,29 +27,36 @@ else{
 }
 
 function hideManualDepthEntry() {
+   // Get the selected value from depth category
    const value = seeManualDepthEntry.options[seeManualDepthEntry.selectedIndex].text;
+
+   // If the user chose 'Other' and the input field for manual entry is invisible
    if (value == "Other" && manualDepthEntryDiv.style.display==="none") {
-      manualDepthEntryDiv.style.display = "block";
+      manualDepthEntryDiv.style.display = "block";          // Display this div block
+      // Set the field to 'required'
+      document.getElementById('depthMeterField').setAttribute("required", '');
    } else {
-      manualDepthEntryDiv.style.display = "none";
+      manualDepthEntryDiv.style.display = "none";           // Otherwise, hide the input field
    }
 }
 
 function lengthConverter() {
+   // Get the selected value from measurement type
    const measureType = measurementType.options[measurementType.selectedIndex].text;
-   let depthMeterField = document.getElementById('depthMeterField').value;
+   let depthMeterField = document.getElementById('depthMeterField').value;       // Get value from input field
    let convertedValue = document.getElementById('convertedVal');
    console.log(depthMeterField);
    console.log(measureType);
 
+   // If user chose measurement type 'inches'
       if (measureType == "Inches") {
-         const cm = depthMeterField / 0.39370;
-         const inchesToMeters = cm / 100;
+         const cm = depthMeterField / 0.39370;     // Do conversion from inches centimeters
+         const inchesToMeters = cm / 100;          // Do conversion from centimeters to meters
          console.log(inchesToMeters);
-         convertedValue.value=inchesToMeters;
+         convertedValue.value=inchesToMeters;      // Set the new input field value to converted value
       } else {
-         const cmToMeters = depthMeterField / 100
+         const cmToMeters = depthMeterField / 100  // Do conversion from centimeters to meters
          console.log(cmToMeters);
-         convertedValue.value=cmToMeters;
+         convertedValue.value=cmToMeters;          // Set the new input field value to converted value
       }
 }
