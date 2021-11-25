@@ -34,21 +34,43 @@ function listFiles() {
    for (var i=0; i < files.length; i++) {
       var f = files[i];
       console.log(f.name);
-      var fileName = f.name;
-      var fileExt = fileName.split(".")
       const fileSection = document.getElementById("fileSection");
       var titleInput = document.createElement("INPUT")
       titleInput.setAttribute("type", "text");
       titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
+      titleInput.setAttribute("id", i.toString() +"newFileNameOf");
       fileSection.appendChild(titleInput);
-      var submitFileNames = document.createElement('input');
-      submitFileNames.setAttribute('type' , 'button');
-      submitFileNames.setAttribute('value', 'Submit new names');
-      fileSection.appendChild(submitFileNames);
-      btn.addEventListener("click", "updateFiles");
    }
+   var submitFileNames = document.createElement('input');
+   submitFileNames.setAttribute('type' , 'button');
+   submitFileNames.setAttribute('value', 'Submit new names');
+   fileSection.appendChild(submitFileNames);
+   submitFileNames.onclick = updateFiles;
 }
 
 function updateFiles() {
-   alert("updating files")
+   let newFiles = new DataTransfer();
+   var files = fileUpload.files;
+   for (let i = 0; i < 10; i++) {
+      if (document.getElementById(i + "newFileNameOf")) {
+         var enteredFileName = document.getElementById(i + "newFileNameOf").value
+         var currentFileName = files[i].name
+         var fileExt = currentFileName.split('.').pop();
+         console.log("entered file name " + enteredFileName)
+         console.log("current file name " + currentFileName);
+         const renamedFile = new File([files[i]], enteredFileName + "." + fileExt);
+         newFiles.items.add(renamedFile);
+      }
+   }
+   console.log(newFiles);
+   var submissionElement = document.getElementById("fileUploadToSubmit");
+   let myFileList = newFiles.files;
+   submissionElement.files = myFileList;
+
+   // var names = (document.querySelectorAll("[id*='newFileNameOf']"));
+   // for (let i = 0; i < names.length; i++) {
+   //    console.log(names[i]);
+   //    console.log(names[i].getAttribute("value"));
+   //    console.log("file name: " + files[i].name);
+   // }
 }
