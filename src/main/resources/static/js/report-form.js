@@ -28,6 +28,10 @@ var fileUpload = document.getElementById("fileUpload");
 function listFiles() {
    //Get uploaded files
    var files = fileUpload.files;
+   //give alert of more than 5 files uploaded
+   if (files.length > 5) {
+      alert("You can upload a maximum of 5 files")
+   }
    //Create elements to title files
    const giveTitle = document.createElement("p");
    const node = document.createTextNode("Add descriptive titles to files below");

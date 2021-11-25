@@ -57,6 +57,12 @@ public class ReportController {
             BindingResult bindingResult,
             Model model) throws IOException {
 
+        // Check form doesn't have errors before form data is retrieved
+        if (bindingResult.hasErrors()) {
+            log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
+            model.addAttribute("categories", categoryService.findAll());
+            return "/report-form";
+        }
         //List of media to be attached to ReportDTO
         List<Media> mediaArrayList = new ArrayList<Media>();
 
@@ -83,12 +89,6 @@ public class ReportController {
 
         // ----- END OF MEDIA -----//
 
-        // Check form doesn't have errors before form data is retrieved
-        if (bindingResult.hasErrors()) {
-            log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
-            model.addAttribute("categories", categoryService.findAll());
-            return "/report-form";
-        }
 
         // Create data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),

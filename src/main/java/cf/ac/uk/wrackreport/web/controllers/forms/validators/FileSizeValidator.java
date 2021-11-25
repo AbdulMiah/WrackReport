@@ -11,7 +11,14 @@ public class FileSizeValidator implements ConstraintValidator<ValidFileSize, Arr
 
     //    Phone number is valid of nothing entered, checks length if number is entered
     @Override
-    public boolean isValid(ArrayList<MultipartFile> files, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(ArrayList<MultipartFile> files, ConstraintValidatorContext context) {
+        //validate number of files
+        System.out.println("size: " + files.size());
+        if (files.size() > 5) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("A maximum of 5 files are permitted").addConstraintViolation();
+            return false;
+        }
 //        Loop through files arraylist
         for (MultipartFile f: files) {
 //            reject if file over 150mb
