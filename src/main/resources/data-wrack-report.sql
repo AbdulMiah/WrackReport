@@ -6,6 +6,7 @@ TRUNCATE TABLE `reports`;
 TRUNCATE TABLE `metadata`;
 TRUNCATE TABLE `media`;
 TRUNCATE TABLE `categories`;
+TRUNCATE TABLE `depth_categories`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `user_types`
