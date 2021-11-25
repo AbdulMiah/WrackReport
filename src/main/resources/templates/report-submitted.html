@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WrackReport - Report Sent</title>
+</head>
+<body>
+    <h1>Thank your for your submission!</h1>
+    <h3>We have successfully received your report and will try to get in contact as soon as possible!</h3>
+    <h4>You will now be redirected to <a href="https://naturalresources.wales/flooding/what-to-do-before-during-and-after-a-flood/?lang=en">Natural Resource Wales</a> for further assistance!</h4>
+
+    <h4>Report submitted on:
+        <span th:text="${formattedDate}" th:remove="tag">date</span>
+        at
+        <span th:text="${formattedTime}">time</span>
+    </h4>
+
+
+</body>
+</html>

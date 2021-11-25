@@ -106,7 +106,7 @@ public class ReportController {
             }
 
             reportService.saveReport(reportDTO);
-            return "redirect:/";
+            return "redirect:/ReportSubmitted";
 
         //  if the postcode field in the form is empty, then...
         } else {
@@ -128,7 +128,7 @@ public class ReportController {
             }
 
             reportService.saveReport(reportDTO);
-            return "redirect:/";
+            return "redirect:/ReportSubmitted";
         }
     }
 }
