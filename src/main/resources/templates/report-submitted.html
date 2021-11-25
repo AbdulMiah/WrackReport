@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<!--    From https://stackoverflow.com/questions/3292038/redirect-website-after-specified-amount-of-time-->
+    <meta http-equiv="refresh" content="10;url=https://gov.wales/flood-warnings-and-help" />
     <title>WrackReport - Report Sent</title>
 </head>
 <body>
     <h1>Thank your for your submission!</h1>
     <h3>We have successfully received your report and will try to get in contact as soon as possible!</h3>
-    <h4>You will now be redirected to <a href="https://naturalresources.wales/flooding/what-to-do-before-during-and-after-a-flood/?lang=en">Natural Resource Wales</a> for further assistance!</h4>
+    <h4>You will now be redirected to <a href="https://gov.wales/flood-warnings-and-help">Welsh Government Flood Guidance</a> site for further assistance!</h4>
 
+<!--    Adapted from https://stackoverflow.com/questions/25071985/thymeleaf-thtext-put-a-text-without-removing-html-structures-->
     <h4>Report submitted on:
         <span th:text="${formattedDate}" th:remove="tag">date</span>
         at
