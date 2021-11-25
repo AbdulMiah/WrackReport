@@ -41,6 +41,7 @@
             <div id="fileSection" class="mb-3">
                 <label class="form-label">Attach Photo/Video</label>
                 <input id="fileUpload" class="form-control" onchange="listFiles()" type="file" accept="image/jpeg, image/png" multiple/>
+<!--                hidden element to store renamed files-->
                 <input id="fileUploadToSubmit" class="form-control" style="display: none" th:field="*{files}" type="file" accept="image/jpeg, image/png" multiple/>
             </div>
 
@@ -60,7 +61,7 @@
             </div>
             
             <div class="mb-3">
-                <button class="btn btn-primary">Submit</button>
+                <button  id="finalSubmit" class="btn btn-primary">Submit</button>
             </div>
 
         </form>

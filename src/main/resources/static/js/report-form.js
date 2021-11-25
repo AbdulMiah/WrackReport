@@ -26,14 +26,15 @@ else{
 //File upload script
 var fileUpload = document.getElementById("fileUpload");
 function listFiles() {
+   //Get uploaded files
    var files = fileUpload.files;
+   //Create elements to title files
    const giveTitle = document.createElement("p");
    const node = document.createTextNode("Add descriptive titles to files below");
    giveTitle.appendChild(node);
    fileSection.appendChild(giveTitle);
    for (var i=0; i < files.length; i++) {
       var f = files[i];
-      console.log(f.name);
       const fileSection = document.getElementById("fileSection");
       var titleInput = document.createElement("INPUT")
       titleInput.setAttribute("type", "text");
@@ -41,36 +42,34 @@ function listFiles() {
       titleInput.setAttribute("id", i.toString() +"newFileNameOf");
       fileSection.appendChild(titleInput);
    }
+   //Create button to submit new file names
    var submitFileNames = document.createElement('input');
    submitFileNames.setAttribute('type' , 'button');
-   submitFileNames.setAttribute('value', 'Submit new names');
+   submitFileNames.setAttribute('value', 'Submit titles');
    fileSection.appendChild(submitFileNames);
+   //New file names will be added either when user clicks submit titles button or main submit button
    submitFileNames.onclick = updateFiles;
+   var finalSubmit = document.getElementById("finalSubmit")
+   finalSubmit.onclick = updateFiles;
 }
 
 function updateFiles() {
+   //Create new list of files
    let newFiles = new DataTransfer();
    var files = fileUpload.files;
+   //Get new name of file and create copy with new name
    for (let i = 0; i < 10; i++) {
       if (document.getElementById(i + "newFileNameOf")) {
          var enteredFileName = document.getElementById(i + "newFileNameOf").value
          var currentFileName = files[i].name
          var fileExt = currentFileName.split('.').pop();
-         console.log("entered file name " + enteredFileName)
-         console.log("current file name " + currentFileName);
          const renamedFile = new File([files[i]], enteredFileName + "." + fileExt);
          newFiles.items.add(renamedFile);
       }
    }
-   console.log(newFiles);
+   //Add renamed files to hidden html element that will get submitted
    var submissionElement = document.getElementById("fileUploadToSubmit");
    let myFileList = newFiles.files;
    submissionElement.files = myFileList;
 
-   // var names = (document.querySelectorAll("[id*='newFileNameOf']"));
-   // for (let i = 0; i < names.length; i++) {
-   //    console.log(names[i]);
-   //    console.log(names[i].getAttribute("value"));
-   //    console.log("file name: " + files[i].name);
-   // }
 }
