@@ -38,9 +38,9 @@
                 <div class="alert alert-warning" th:errors="*{dateTime}" th:if="${#fields.hasErrors('dateTime')}">Date Time Error</div>
             </div>
 
-            <div class="mb-3">
+            <div id="fileSection" class="mb-3">
                 <label class="form-label">Attach Photo/Video</label>
-                <input class="form-control" th:field="*{files}" type="file" accept="image/jpeg, image/png" multiple/>
+                <input id="fileUpload" class="form-control" onchange="listFiles()" th:field="*{files}" type="file" accept="image/jpeg, image/png" multiple/>
             </div>
 
             <div class="mb-3">
@@ -66,5 +66,5 @@
     </div>
 </body>
 
-<footer> <script src="../js/report-form.js"></script> </footer>
+<footer> <script src="/js/report-form.js"></script> </footer>
 </html>
