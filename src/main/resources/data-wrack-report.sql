@@ -15,9 +15,9 @@ INSERT INTO `user_types`
 VALUES(2, 'admin');
 
 INSERT INTO `users`
-VALUES(NULL, 1, 'john', 'jones', 'john@gmail.com', 01823445668, null);
+VALUES(NULL, 1, 'john', 'jones', 'john@gmail.com', 01823445668, null, null);
 INSERT INTO `users`
-VALUES(NULL, 2, 'admin', 'user', 'admin@gmail.com', null, "pass");
+VALUES(NULL, 2, 'admin', 'user', 'admin@gmail.com', null, "pass", null);
 
 INSERT INTO `categories`
 VALUES(NULL, 'sewer flooding'); 

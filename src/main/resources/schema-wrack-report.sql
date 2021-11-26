@@ -10,6 +10,7 @@ CREATE TABLE `users` (
     `email` VARCHAR(75) NOT NULL,
     `phone_number` VARCHAR(15),
     `password` VARCHAR(30),
+    `active` VARCHAR(10),
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 ); 
 
