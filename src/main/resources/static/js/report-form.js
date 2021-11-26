@@ -39,37 +39,38 @@ function listFiles() {
    } else {
       // Reset custom validator
       fileUpload.setCustomValidity("");
-   }
 
-   //Create input elements to title files
-   const giveTitle = document.createElement("p");
-   const node = document.createTextNode("Add descriptive titles to files below");
-   giveTitle.appendChild(node);
-   fileSection.appendChild(giveTitle);
-
-   for (var i=0; i < files.length; i++) {
-      var f = files[i];
+      //Create input elements to title files
       const fileSection = document.getElementById("fileSection");
-      var titleInput = document.createElement("INPUT")
-      titleInput.setAttribute("type", "text");
-      titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
-      titleInput.setAttribute("id", i.toString() +"newFileNameOf");
-      titleInput.setAttribute("maxlength", 30);
-      titleInput.setAttribute("pattern", "[0-9a-zA-Z_]");
-      titleInput.setAttribute("title", "No special characters")
-      fileSection.appendChild(titleInput);
+      const giveTitle = document.createElement("p");
+      const node = document.createTextNode("Add descriptive titles to files below:");
+      giveTitle.appendChild(node);
+      fileSection.appendChild(giveTitle);
+
+      for (var i=0; i < files.length; i++) {
+         var f = files[i];
+         // const fileSection = document.getElementById("fileSection");
+         var titleInput = document.createElement("INPUT")
+         titleInput.setAttribute("type", "text");
+         titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
+         titleInput.setAttribute("id", i.toString() +"newFileNameOf");
+         titleInput.setAttribute("maxlength", 30);
+         titleInput.setAttribute("pattern", "[0-9a-zA-Z_]");
+         titleInput.setAttribute("title", "No special characters")
+         fileSection.appendChild(titleInput);
+      }
+
+      //Create button to submit new file names
+      var submitFileNames = document.createElement('input');
+      submitFileNames.setAttribute('type' , 'submit');
+      submitFileNames.setAttribute('value', 'Submit titles');
+      fileSection.appendChild(submitFileNames);
+
+      //New file names will be added either when user clicks submit titles button or main submit button
+      submitFileNames.onclick = updateFiles;
+      var finalSubmit = document.getElementById("finalSubmit")
+      finalSubmit.onclick = updateFiles;
    }
-
-   //Create button to submit new file names
-   var submitFileNames = document.createElement('input');
-   submitFileNames.setAttribute('type' , 'submit');
-   submitFileNames.setAttribute('value', 'Submit titles');
-   fileSection.appendChild(submitFileNames);
-
-   //New file names will be added either when user clicks submit titles button or main submit button
-   submitFileNames.onclick = updateFiles;
-   var finalSubmit = document.getElementById("finalSubmit")
-   finalSubmit.onclick = updateFiles;
 }
 
 function updateFiles() {

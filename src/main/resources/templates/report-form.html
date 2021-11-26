@@ -41,7 +41,7 @@
             <form>
                 <div id="fileSection" class="mb-3">
                     <label class="form-label">Attach Photo/Video</label>
-                    <p>Photos must be JPGs or PNGs</p>
+                    <p>(Photos must be JPGs or PNGs)</p>
                     <input id="fileUpload" class="form-control" onchange="listFiles()" type="file" accept="image/jpeg, image/png" multiple/>
                     <!--                hidden element to store renamed files-->
                     <input id="fileUploadToSubmit" class="form-control" style="display: none" th:field="*{files}" type="file" accept="image/jpeg, image/png" multiple/>
