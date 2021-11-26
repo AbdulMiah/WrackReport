@@ -64,7 +64,7 @@ public class ReportController {
 
         // Create data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
-                1,
+                "ROLE_USER",
                 reportForm.getFirstName(),
                 reportForm.getSurname(),
                 reportForm.getEmail(),

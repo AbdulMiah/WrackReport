@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.security;
 
+import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -7,26 +8,34 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WrackReportUserDetails implements UserDetails {
 
     private String userName;
+    private String password;
+    private boolean active;
+    private List<GrantedAuthority> authorities;
 
-    public WrackReportUserDetails(String userName) {
-        this.userName = userName;
-    }
-
-    public WrackReportUserDetails() {
+    public WrackReportUserDetails(UserEntity user) {
+        this.userName = user.getEmail();
+        this.password = user.getPassword();
+        this.active = user.getActive();
+        //Get user role(s) from entity and convert them into a list of granted authorities
+        this.authorities = Arrays.stream(user.getRoles().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return "pass";
+        return password;
     }
 
     @Override
@@ -51,6 +60,6 @@ public class WrackReportUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 }

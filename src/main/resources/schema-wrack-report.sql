@@ -4,21 +4,21 @@ USE `wrack-report`;
 
 CREATE TABLE `users` (
 	`user_id` INT NOT NULL AUTO_INCREMENT,
-    `user_type_id` INT NOT NULL,
+    `roles` VARCHAR(45) NOT NULL,
     `first_name` VARCHAR(30) NOT NULL,
     `surname` VARCHAR(30) NOT NULL,
     `email` VARCHAR(75) NOT NULL,
     `phone_number` VARCHAR(15),
     `password` VARCHAR(30),
-    `active` VARCHAR(10),
+    `active` BOOLEAN,
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 ); 
 
-CREATE TABLE `user_types` (
-	`user_type_id` INT NOT NULL AUTO_INCREMENT,
-    `user_type` VARCHAR(45),
-    CONSTRAINT `PK_user_types` PRIMARY KEY (`user_type_id`)
-);
+-- CREATE TABLE `user_types` (
+-- 	`user_type_id` INT NOT NULL AUTO_INCREMENT,
+--     `user_type` VARCHAR(45),
+--     CONSTRAINT `PK_user_types` PRIMARY KEY (`user_type_id`)
+-- );
 
 CREATE TABLE `reports` (
 	`report_id` INT NOT NULL AUTO_INCREMENT,
@@ -79,5 +79,5 @@ ADD FOREIGN KEY (`report_id`) REFERENCES `reports`(`report_id`);
 ALTER TABLE `media`
 ADD FOREIGN KEY (`metadata_id`) REFERENCES `metadata`(`metadata_id`);
 
-ALTER TABLE `users`
-ADD FOREIGN KEY (`user_type_id`) REFERENCES `user_types`(`user_type_id`);
+-- ALTER TABLE `users`
+-- ADD FOREIGN KEY (`user_type_id`) REFERENCES `user_types`(`user_type_id`);

@@ -8,7 +8,7 @@ import lombok.Value;
 @AllArgsConstructor
 public class UserDTO {
     Long userId;
-    int userTypeId;
+    String roles;
     String firstName;
     String surname;
     String email;
@@ -17,7 +17,7 @@ public class UserDTO {
     public UserDTO(User aUser) {
         this(
                aUser.getUserId(),
-               aUser.getUserTypeId(),
+               aUser.getRoles(),
                aUser.getFirstName(),
                aUser.getSurname(),
                aUser.getEmail(),
@@ -26,7 +26,7 @@ public class UserDTO {
     }
 
     public User toUser() {
-        return new User(userId, userTypeId, firstName, surname, email, phoneNumber);
+        return new User(userId, roles, firstName, surname, email, phoneNumber);
     }
 
 }

@@ -1,7 +1,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 USE `wrack-report`;
 TRUNCATE TABLE `users`;
-TRUNCATE TABLE `user_types`;
+-- TRUNCATE TABLE `user_types`;
 TRUNCATE TABLE `reports`;
 TRUNCATE TABLE `metadata`;
 TRUNCATE TABLE `media`;
@@ -9,15 +9,15 @@ TRUNCATE TABLE `categories`;
 TRUNCATE TABLE `depth_categories`;
 SET FOREIGN_KEY_CHECKS = 1;
 
-INSERT INTO `user_types`
-VALUES(1, 'user');
-INSERT INTO `user_types`
-VALUES(2, 'admin');
+-- INSERT INTO `user_types`
+-- VALUES(1, 'user');
+-- INSERT INTO `user_types`
+-- VALUES(2, 'admin');
 
 INSERT INTO `users`
-VALUES(NULL, 1, 'john', 'jones', 'john@gmail.com', 01823445668, null, null);
+VALUES(NULL, 'ROLE_USER', 'john', 'jones', 'john@gmail.com', 01823445668, "userpass", true);
 INSERT INTO `users`
-VALUES(NULL, 2, 'admin', 'user', 'admin@gmail.com', null, "pass", null);
+VALUES(NULL, 'ROLE_ADMIN', 'admin', 'user', 'admin@gmail.com', null, "adminpass", true);
 
 INSERT INTO `categories`
 VALUES(NULL, 'sewer flooding'); 

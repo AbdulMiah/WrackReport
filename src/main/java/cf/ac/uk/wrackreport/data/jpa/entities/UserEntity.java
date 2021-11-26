@@ -18,8 +18,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "user_type_id")
-    private int userTypeId;
+    @Column(name = "roles")
+    private String roles;
 
     @Column(name = "first_name")
     private String firstName;
@@ -33,19 +33,34 @@ public class UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "active")
+    private Boolean active;
+
     public UserEntity(User aUser) {
         this.userId = aUser.getUserId();
-        this.userTypeId = aUser.getUserTypeId();
+        this.roles = aUser.getRoles();
         this.firstName = aUser.getFirstName();
         this.surname = aUser.getSurname();
         this.email = aUser.getEmail();
         this.phoneNumber = aUser.getPhoneNumber();
     }
 
+    public UserEntity(Long userId, String roles, String firstName, String surname, String email, String phoneNumber) {
+        this.userId = userId;
+        this.roles = roles;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
     public User toDomain() {
         User domainUser = new User (
                 this.userId,
-                this.userTypeId,
+                this.roles,
                 this.firstName,
                 this.surname,
                 this.email,
