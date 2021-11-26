@@ -31,7 +31,14 @@ function listFiles() {
 
    //give alert if more than 5 files uploaded
    if (files.length > 5) {
-      alert("You can upload a maximum of 5 files")
+      // Alert user cannot upload more than 5 files
+      alert("You can upload a maximum of 5 files");
+      // Setting custom validator so user cannot submit with more than 5 files
+      fileUpload.setCustomValidity("You can upload a maximum of 5 files");
+      fileUpload.value = null;         // Removes files if more than 5 is uploaded
+   } else {
+      // Reset custom validator
+      fileUpload.setCustomValidity("");
    }
 
    //Create input elements to title files
