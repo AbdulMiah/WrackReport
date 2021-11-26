@@ -4,12 +4,10 @@ import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
 import cf.ac.uk.wrackreport.service.ReportService;
-import cf.ac.uk.wrackreport.service.dto.MediaDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.utility.RandomString;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
@@ -20,15 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.validation.Valid;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 @Controller
 @Slf4j
@@ -76,22 +70,33 @@ public class ReportController {
         List<Media> mediaArrayList = new ArrayList<Media>();
 
         try {
+            //Get files from form
             ArrayList<MultipartFile> formFiles = reportForm.getFiles();
 
             //If there are files attached from the form...
             if (!formFiles.get(0).isEmpty()) {
                 //loop through files
                 for (MultipartFile f: formFiles) {
+                    //Create random string
+                    //Taken from https://www.baeldung.com/java-random-string
                     String generatedString = RandomStringUtils.randomAlphanumeric(20);
+                    //end of reference
+
                     String fileName = f.getOriginalFilename();
+
+                    //Title is name from user without extension
                     String fileTitle = FilenameUtils.removeExtension(fileName);
                     String ext = FilenameUtils.getExtension(fileName);
+
+                   //path is random string + file extension
                     String filePath = "./uploaded-media/" + generatedString + "." + ext;
                     File file = new File("./uploaded-media/" +generatedString + "." + ext);
 
+                    //Write file
                     try (OutputStream os = new FileOutputStream(file)) {
                         os.write(f.getBytes());
                     }
+                    //Add media to list that will be added to ReportDTO
                     mediaArrayList.add(new Media(null,null, fileTitle,1,filePath));
                 }
             }
@@ -102,7 +107,7 @@ public class ReportController {
         // ----- END OF MEDIA -----//
 
 
-        // Create data transfer object from form inputs
+        // Create User data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
                 1,
                 reportForm.getFirstName(),

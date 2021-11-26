@@ -5,9 +5,7 @@ import cf.ac.uk.wrackreport.domain.Report;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Value
 @AllArgsConstructor

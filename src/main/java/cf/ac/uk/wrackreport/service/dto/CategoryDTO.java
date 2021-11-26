@@ -1,7 +1,6 @@
 package cf.ac.uk.wrackreport.service.dto;
 
 import cf.ac.uk.wrackreport.domain.Category;
-import cf.ac.uk.wrackreport.domain.Report;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 

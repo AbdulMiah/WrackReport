@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -40,10 +39,12 @@ public class ReportEntity {
     @Column(name = "postcode")
     private String postcode;
 
+//    Create one to many link between reports and media
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id")
     private List<MediaEntity> media = new ArrayList<MediaEntity>();
 
+//    Create report entity from domain object
     public ReportEntity(Report aReport) {
         this.reportId = aReport.getReportId();
         this.userId = aReport.getUserId();

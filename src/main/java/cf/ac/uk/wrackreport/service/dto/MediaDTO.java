@@ -4,7 +4,6 @@ import cf.ac.uk.wrackreport.domain.Media;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
-import java.sql.Blob;
 
 @Value
 @AllArgsConstructor

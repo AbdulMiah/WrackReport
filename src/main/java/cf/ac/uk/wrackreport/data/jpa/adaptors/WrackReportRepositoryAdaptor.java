@@ -12,14 +12,12 @@ import cf.ac.uk.wrackreport.domain.Category;
 import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.domain.User;
-import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 @Slf4j

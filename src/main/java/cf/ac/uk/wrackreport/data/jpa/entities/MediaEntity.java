@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Blob;
 
 @Data
 @AllArgsConstructor
@@ -31,7 +30,7 @@ public class MediaEntity {
     @Column(name = "media_path")
     private String mediaPath;
 
-
+//    Create media entity from domain object
     public MediaEntity(Media aMedia) {
         this.mediaId = aMedia.getMediaId();
         this.metadataId = aMedia.getMetadataId();
