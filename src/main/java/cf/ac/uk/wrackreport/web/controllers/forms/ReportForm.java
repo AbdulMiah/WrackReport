@@ -26,6 +26,7 @@ public class ReportForm {
 
     private short depthCategoryId;
 
+    @Max(value = 10, message = "Cannot enter depth more than 10 meters")
     private Float depthMeters;
 
     @ValidDateTime

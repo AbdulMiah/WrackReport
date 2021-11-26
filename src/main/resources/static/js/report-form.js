@@ -52,11 +52,23 @@ function lengthConverter() {
       if (measureType == "Inches") {
          const cm = depthMeterField / 0.39370;     // Do conversion from inches centimeters
          const inchesToMeters = cm / 100;          // Do conversion from centimeters to meters
-         console.log(inchesToMeters);
-         convertedValue.value=inchesToMeters;      // Set the new input field value to converted value
+         console.log("Inches to meters: "+inchesToMeters);
+
+         if (inchesToMeters > 10) {
+            document.getElementById('depthMeterField').setCustomValidity("Cannot enter more than 393.701 inches");
+         } else if(inchesToMeters<=10) {
+            document.getElementById('depthMeterField').setCustomValidity("");       // Reset custom validity
+            convertedValue.value=inchesToMeters;      // Set the new input field value to converted value
+         }
       } else {
          const cmToMeters = depthMeterField / 100  // Do conversion from centimeters to meters
-         console.log(cmToMeters);
-         convertedValue.value=cmToMeters;          // Set the new input field value to converted value
+         console.log("cm to meters: "+cmToMeters);
+
+         if (cmToMeters > 10) {
+            document.getElementById('depthMeterField').setCustomValidity("Cannot enter more than 1000 centimeters");
+         } else if(cmToMeters<=10) {
+            document.getElementById('depthMeterField').setCustomValidity("");       // Reset custom validity
+            convertedValue.value=cmToMeters;          // Set the new input field value to converted value
+         }
       }
 }
