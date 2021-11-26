@@ -31,15 +31,21 @@ function listFiles() {
 
    //give alert if more than 5 files uploaded
    if (files.length > 5) {
-      alert("You can upload a maximum of 5 files")
-   }
+      // Alert user cannot upload more than 5 files
+      alert("You can upload a maximum of 5 files");
+      // Setting custom validator so user cannot submit with more than 5 files
+      fileUpload.setCustomValidity("You can upload a maximum of 5 files");
+      fileUpload.value = null;         // Removes files if more than 5 is uploaded
+   } else {
+      // Reset custom validator
+      fileUpload.setCustomValidity("");
 
-   //Create input elements to title files
-   const giveTitle = document.createElement("p");
-   const node = document.createTextNode("Add descriptive titles to files below");
-   giveTitle.appendChild(node);
-   const fileSection = document.getElementById("fileSection");
-   fileSection.appendChild(giveTitle);
+      //Create input elements to title files
+      const fileSection = document.getElementById("fileSection");
+      const giveTitle = document.createElement("p");
+      const node = document.createTextNode("Add descriptive titles to files below:");
+      giveTitle.appendChild(node);
+      fileSection.appendChild(giveTitle);
 
    for (var i=0; i < files.length; i++) {
       var f = files[i];
@@ -53,16 +59,17 @@ function listFiles() {
       fileSection.appendChild(titleInput);
    }
 
-   //Create button to submit new file names
-   var submitFileNames = document.createElement('input');
-   submitFileNames.setAttribute('type' , 'submit');
-   submitFileNames.setAttribute('value', 'Submit titles');
-   fileSection.appendChild(submitFileNames);
+      //Create button to submit new file names
+      var submitFileNames = document.createElement('input');
+      submitFileNames.setAttribute('type' , 'submit');
+      submitFileNames.setAttribute('value', 'Submit titles');
+      fileSection.appendChild(submitFileNames);
 
-   //New file names will be added either when user clicks submit titles button or main submit button
-   submitFileNames.onclick = updateFiles;
-   var finalSubmit = document.getElementById("finalSubmit")
-   finalSubmit.onclick = updateFiles;
+      //New file names will be added either when user clicks submit titles button or main submit button
+      submitFileNames.onclick = updateFiles;
+      var finalSubmit = document.getElementById("finalSubmit")
+      finalSubmit.onclick = updateFiles;
+   }
 }
 
 function updateFiles() {
@@ -95,10 +102,14 @@ function updateFiles() {
             newFiles.items.add(renamedFile);
          }
       }
+
       var submissionElement = document.getElementById("fileUploadToSubmit");
       let myFileList = newFiles.files;
       submissionElement.files = myFileList;
       // end of reference
       document.getElementById("namesUpdated").innerText = "Names Updated";
    }
+
+
+
 }
