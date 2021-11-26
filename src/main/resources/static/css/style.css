@@ -12,3 +12,104 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 /*End of reference*/
+
+/*report-form css*/
+
+html{
+    overflow: hidden;
+    height: 100%;
+}
+
+body{
+    background-color: #0A3D55;
+    height: 100%;
+    overflow: auto;
+    /*overflow: hidden !important;*/
+}
+
+.sidebar{
+    width: 40%;
+    /*overflow-y: scroll;*/
+    height: 100%;
+    float: left;
+
+}
+.form-control::placeholder{
+    font-size: 1.25vw;
+}
+.sidebar-content{
+    background-color: #0A3D62;
+    font-family: Montserrat,sans-serif;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin: 0px;
+    padding-bottom: 2.5%;
+    box-shadow: inset -5px 0px 10px;
+}
+.sidebar h1{
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 4.5vw;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.form-label, .mb-1,p{
+    color: white;
+    font-size: 1.5vw;
+}
+
+#description{
+    height: 200px;
+    margin-top: 10px;
+    resize: none;
+}
+/*#temp-map{*/
+/*    margin-left: 40%;*/
+/*    float: right;*/
+/*}*/
+
+#map-contents{
+    overflow: hidden;
+}
+
+#temp-map{
+    position: fixed;
+}
+
+#footer ul{
+    padding-left: 0;
+    text-align: center;
+}
+
+#footer li{
+    display: inline;
+    text-decoration: none;
+    color: #818181;
+    font-family: Montserrat, sans-serif;
+    font-size: 1vw;
+    padding-left: 0;
+    transition: 0.3s;
+}
+#footer a:link, #footer a{
+    color: #818181;
+    text-decoration: none;
+    transition: 0.3s;
+
+}
+#footer a:hover{
+    cursor: pointer;
+    color: white;
+
+}
+#footer li:hover{
+    cursor: pointer;
+    color: white;
+
+}
+
+
+
+
+

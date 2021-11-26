@@ -16,7 +16,7 @@ if(description != null){
          remainingCharsText.style.color = "red";
       };
       if (remaining >= 0){
-         remainingCharsText.style.color = "black";
+         remainingCharsText.style.color = "white";
       };
 
    });
