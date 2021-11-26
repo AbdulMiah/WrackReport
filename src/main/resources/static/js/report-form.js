@@ -38,17 +38,17 @@ function listFiles() {
    const giveTitle = document.createElement("p");
    const node = document.createTextNode("Add descriptive titles to files below");
    giveTitle.appendChild(node);
+   const fileSection = document.getElementById("fileSection");
    fileSection.appendChild(giveTitle);
 
    for (var i=0; i < files.length; i++) {
       var f = files[i];
-      const fileSection = document.getElementById("fileSection");
       var titleInput = document.createElement("INPUT")
       titleInput.setAttribute("type", "text");
       titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
       titleInput.setAttribute("id", i.toString() +"newFileNameOf");
       titleInput.setAttribute("maxlength", 30);
-      titleInput.setAttribute("pattern", "[0-9a-zA-Z_]");
+      titleInput.setAttribute("pattern", "^[0-9a-zA-Z ]+$");
       titleInput.setAttribute("title", "No special characters")
       fileSection.appendChild(titleInput);
    }
@@ -73,10 +73,12 @@ function updateFiles() {
    var files = fileUpload.files;
    var valid = true;
 
+   //Don't go to next section if regexp doesn't match
    for (let i = 0; i < 5; i++) {
       if (document.getElementById(i + "newFileNameOf")) {
          var enteredFileName = document.getElementById(i + "newFileNameOf").value
-         if (! enteredFileName.match("[0-9a-zA-Z_]")) {
+         var re = new RegExp("^[0-9a-zA-Z ]+$");
+         if (! re.test(enteredFileName)) {
             valid = false;
          }
       }
@@ -93,14 +95,10 @@ function updateFiles() {
             newFiles.items.add(renamedFile);
          }
       }
-
       var submissionElement = document.getElementById("fileUploadToSubmit");
       let myFileList = newFiles.files;
       submissionElement.files = myFileList;
       // end of reference
       document.getElementById("namesUpdated").innerText = "Names Updated";
    }
-
-
-
 }
