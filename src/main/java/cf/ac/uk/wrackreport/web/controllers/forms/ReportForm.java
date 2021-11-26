@@ -24,7 +24,10 @@ public class ReportForm {
     @Size(min = 5,max = 2500,message = "Ensure Your Description Is Between 5-2500 Characters")
     private String description;
 
-    private String latLong;
+    private short depthCategoryId;
+
+    @Max(value = 10, message = "Cannot enter depth more than 10 meters")
+    private Float depthMeters;
 
     @ValidDateTime
     private String dateTime;

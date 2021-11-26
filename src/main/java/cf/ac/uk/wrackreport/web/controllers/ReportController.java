@@ -2,6 +2,7 @@ package cf.ac.uk.wrackreport.web.controllers;
 
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
+import cf.ac.uk.wrackreport.service.DepthCategoryService;
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
@@ -24,10 +25,12 @@ public class ReportController {
 
     private ReportService reportService;
     private CategoryService categoryService;
+    private DepthCategoryService depthCategoryService;
 
-    public ReportController(ReportService reportService, CategoryService categoryService){
+    public ReportController(ReportService reportService, CategoryService categoryService, DepthCategoryService depthCategoryService1){
         this.reportService = reportService;
         this.categoryService = categoryService;
+        this.depthCategoryService = depthCategoryService1;
     }
 
     // Route to report form
@@ -38,6 +41,7 @@ public class ReportController {
 
         model.addAttribute("reportForm", reportForm);
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("depthCategories", depthCategoryService.findAll());
         model.addAttribute("dateTimeNow", dateTimeNow);
 
         return "report-form";
@@ -54,6 +58,7 @@ public class ReportController {
         if (bindingResult.hasErrors()) {
             log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("depthCategories", depthCategoryService.findAll());
             return "/report-form";
         }
 
@@ -95,13 +100,15 @@ public class ReportController {
                     2L,
                     reportForm.getCategoryId(),
                     reportForm.getDescription(),
-                    //                        reportForm.getLatLong(),
+                    reportForm.getDepthCategoryId(),
+                    reportForm.getDepthMeters(),
                     latLong,
                     datetime,
                     reportForm.getPostcode());
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
+                model.addAttribute("depthCategories", depthCategoryService.findAll());
                 return "/report-form";
             }
 
@@ -116,7 +123,8 @@ public class ReportController {
                     2L,
                                             reportForm.getCategoryId(),
                     reportForm.getDescription(),
-                    //                        reportForm.getLatLong(),
+                    reportForm.getDepthCategoryId(),
+                    reportForm.getDepthMeters(),
                     "123, 123",
                     datetime,
                     reportForm.getPostcode());
@@ -124,6 +132,7 @@ public class ReportController {
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
+                model.addAttribute("depthCategories", depthCategoryService.findAll());
                 return "/report-form";
             }
 

@@ -33,6 +33,28 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">How deep is it?</label>
+                <select class="form-select" onchange="hideManualDepthEntry()" id="seeManualDepthEntry" th:field="*{depthCategoryId}" required>
+                    <option th:each="depthCategory: ${depthCategories}" th:value="${depthCategory.id}" th:utext="${depthCategory.name}"></option>
+                </select><br>
+
+                <div class="mb-3" id="manualDepthEntry" style="display: none">
+                    <label class="form-label">Please enter depth:</label>
+                    <div class="input-group mb-3" onchange="lengthConverter()">
+                        <input class="form-control" id="depthMeterField" type="number"/>
+                        <input class="form-control" id="convertedVal" th:field="*{depthMeters}" type="hidden"/>
+                        <div class="input-group-append">
+                            <select class="form-select" id="measurementType">
+                                <option value="centimeters">Centimeters</option>
+                                <option value="inches">Inches</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mb-3">
                 <label class="form-label">When is it?</label>
                 <input class="form-control" th:field="*{dateTime}" th:max="${dateTimeNow}" type="datetime-local" required/>
                 <div class="alert alert-warning" th:errors="*{dateTime}" th:if="${#fields.hasErrors('dateTime')}">Date Time Error</div>

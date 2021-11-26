@@ -23,6 +23,8 @@ CREATE TABLE `reports` (
     `user_id` INT NOT NULL,
     `category_id` INT NOT NULL,
     `description` VARCHAR(2500) NOT NULL,
+    `depth_category_id` INT NOT NULL,
+    `depth_meters` DECIMAL(6,4),
     `lat_long` VARCHAR(50) NOT NULL,
     `datetime` DATETIME NOT NULL,
     `postcode` VARCHAR(15),
@@ -33,6 +35,12 @@ CREATE TABLE `categories` (
 	`category_id` INT NOT NULL AUTO_INCREMENT,
     `category_name` VARCHAR(30),
     CONSTRAINT `PK_categories` PRIMARY KEY (`category_id`)
+);
+
+CREATE TABLE `depth_categories` (
+	`depth_category_id` INT NOT NULL AUTO_INCREMENT,
+    `depth_name` VARCHAR(30),
+    CONSTRAINT `PK_depth_categories` PRIMARY KEY (`depth_category_id`)
 );
 
 CREATE TABLE `media` (
@@ -59,6 +67,9 @@ ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`);
 
 ALTER TABLE `reports`
 ADD FOREIGN KEY (`category_id`) REFERENCES `categories`(`category_id`);
+
+ALTER TABLE `reports`
+ADD FOREIGN KEY (`depth_category_id`) REFERENCES `depth_categories`(`depth_category_id`);
 
 ALTER TABLE `media`
 ADD FOREIGN KEY (`report_id`) REFERENCES `reports`(`report_id`);

@@ -6,6 +6,7 @@ TRUNCATE TABLE `reports`;
 TRUNCATE TABLE `metadata`;
 TRUNCATE TABLE `media`;
 TRUNCATE TABLE `categories`;
+TRUNCATE TABLE `depth_categories`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `user_types`
@@ -30,3 +31,16 @@ INSERT INTO `categories`
 VALUES(NULL, 'flash flooding');
 INSERT INTO `categories`
 VALUES(NULL, 'N/A');
+
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to ground socket');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my ankles');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my knees');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my chest');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Up to my light switch');
+INSERT INTO `depth_categories`
+VALUES(NULL, 'Other');
