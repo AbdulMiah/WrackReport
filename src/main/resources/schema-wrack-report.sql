@@ -9,6 +9,7 @@ CREATE TABLE `users` (
     `surname` VARCHAR(30) NOT NULL,
     `email` VARCHAR(75) NOT NULL,
     `phone_number` VARCHAR(15),
+    `password` VARCHAR(30),
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 ); 
 
