@@ -26,56 +26,75 @@ else{
 //File upload script
 var fileUpload = document.getElementById("fileUpload");
 function listFiles() {
-   //Get uploaded files
-   var files = fileUpload.files;
+   var fileUpload1 = document.getElementById("fileUpload");
 
-   //give alert if more than 5 files uploaded
-   if (files.length > 5) {
-      // Alert user cannot upload more than 5 files
-      alert("You can upload a maximum of 5 files");
-      // Setting custom validator so user cannot submit with more than 5 files
-      fileUpload.setCustomValidity("You can upload a maximum of 5 files");
-      fileUpload.value = null;         // Removes files if more than 5 is uploaded
+   //if no files have been added yet
+   if (!document.getElementById("giveTitleElement")) {
+      //Get uploaded files
+      var files = fileUpload1.files;
+
+      //give alert if more than 5 files uploaded
+      if (files.length > 5) {
+         // Alert user cannot upload more than 5 files
+         alert("You can upload a maximum of 5 files");
+         // Setting custom validator so user cannot submit with more than 5 files
+         fileUpload1.setCustomValidity("You can upload a maximum of 5 files");
+         fileUpload1.value = null;         // Removes files if more than 5 is uploaded
+      } else {
+         // Reset custom validator
+         fileUpload1.setCustomValidity("");
+
+         //Create text to tell user to title files
+         const fileSection = document.getElementById("fileSection");
+         const giveTitle = document.createElement("p");
+         giveTitle.setAttribute("id", "giveTitleElement");
+         const node = document.createTextNode("Add descriptive titles to files below:");
+         giveTitle.appendChild(node);
+         fileSection.appendChild(giveTitle);
+
+         //Add input boxes for each file
+         for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            var titleInput = document.createElement("INPUT")
+            titleInput.setAttribute("type", "text");
+            titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
+            titleInput.setAttribute("id", i.toString() + "newFileNameOf");
+            titleInput.setAttribute("maxlength", 30);
+            titleInput.setAttribute("pattern", "^[0-9a-zA-Z_ ]+$");
+            titleInput.setAttribute("title", "No special characters")
+            fileSection.appendChild(titleInput);
+         }
+
+         //Create button to submit new file names
+         var submitFileNames = document.createElement('input');
+         submitFileNames.setAttribute('type', 'submit');
+         submitFileNames.setAttribute('value', 'Submit titles');
+         fileSection.appendChild(submitFileNames);
+
+         //New file names will be added either when user clicks submit titles button or main submit button
+         submitFileNames.onclick = updateFiles;
+         var finalSubmit = document.getElementById("finalSubmit")
+         finalSubmit.onclick = updateFiles;
+      }
+   //   If files have already been added remove all input boxes and call function again to get the new files
    } else {
-      // Reset custom validator
-      fileUpload.setCustomValidity("");
-
-      //Create input elements to title files
-      const fileSection = document.getElementById("fileSection");
-      const giveTitle = document.createElement("p");
-      const node = document.createTextNode("Add descriptive titles to files below:");
-      giveTitle.appendChild(node);
-      fileSection.appendChild(giveTitle);
-
-   for (var i=0; i < files.length; i++) {
-      var f = files[i];
-      var titleInput = document.createElement("INPUT")
-      titleInput.setAttribute("type", "text");
-      titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
-      titleInput.setAttribute("id", i.toString() +"newFileNameOf");
-      titleInput.setAttribute("maxlength", 30);
-      titleInput.setAttribute("pattern", "^[0-9a-zA-Z ]+$");
-      titleInput.setAttribute("title", "No special characters")
-      fileSection.appendChild(titleInput);
+      //remove all children from an element
+      //taken from https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
+      let element = document.getElementById("fileSection");
+      while (element.firstChild) {
+         element.removeChild(element.firstChild);
+      }
+      //end of reference
+      listFiles();
    }
 
-      //Create button to submit new file names
-      var submitFileNames = document.createElement('input');
-      submitFileNames.setAttribute('type' , 'submit');
-      submitFileNames.setAttribute('value', 'Submit titles');
-      fileSection.appendChild(submitFileNames);
-
-      //New file names will be added either when user clicks submit titles button or main submit button
-      submitFileNames.onclick = updateFiles;
-      var finalSubmit = document.getElementById("finalSubmit")
-      finalSubmit.onclick = updateFiles;
-   }
 }
 
 function updateFiles() {
    //Add renamed files to hidden html element that will get submitted
    //adapted from https://stackoverflow.com/a/56447852/14457259
    //Create new list of files
+   console.log("updating files")
    let newFiles = new DataTransfer();
    var files = fileUpload.files;
    var valid = true;
@@ -84,7 +103,7 @@ function updateFiles() {
    for (let i = 0; i < 5; i++) {
       if (document.getElementById(i + "newFileNameOf")) {
          var enteredFileName = document.getElementById(i + "newFileNameOf").value
-         var re = new RegExp("^[0-9a-zA-Z ]+$");
+         var re = new RegExp("^[0-9a-zA-Z_ ]+$");
          if (! re.test(enteredFileName)) {
             valid = false;
          }
