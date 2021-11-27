@@ -35,12 +35,13 @@ function listFiles() {
 
       //validate file size and type
       var fileSizeValid = true;
-      var fileTypeValid = true
+      var fileTypeValid = true;
+      var validFileTypes = ["image/png", "image/jpg", "image/jpeg"]
       for (let i = 0; i < files.length; i++) {
          console.log("type: " + files[i].type)
          if (files[i].size / 1024 / 1024 > 150) {
             fileSizeValid = false;
-         } else if (files[i].type != "image/png" && files[i].type != "image/jpg" && files[i].type != "image/jpeg") {
+         } else if (!validFileTypes.includes(files[i].type)) {
             fileTypeValid = false;
          }
       }
@@ -61,6 +62,7 @@ function listFiles() {
          // Setting custom validator so user cannot submit with more than 5 files
          fileUpload1.setCustomValidity("You can upload a maximum of 5 files");
          fileUpload1.value = null;         // Removes files if more than 5 is uploaded
+      //continue if all validations pass
       } else if (fileTypeValid != false && fileSizeValid != false){
          // Reset custom validator
          fileUpload1.setCustomValidity("");
@@ -85,14 +87,6 @@ function listFiles() {
             fileSection.appendChild(titleInput);
          }
 
-         //Create button to submit new file names
-         var submitFileNames = document.createElement('input');
-         submitFileNames.setAttribute('type', 'submit');
-         submitFileNames.setAttribute('value', 'Submit titles');
-         fileSection.appendChild(submitFileNames);
-
-         //New file names will be added either when user clicks submit titles button or main submit button
-         submitFileNames.onclick = updateFiles;
          var finalSubmit = document.getElementById("finalSubmit")
          finalSubmit.onclick = updateFiles;
       }
@@ -146,7 +140,6 @@ function updateFiles() {
       let myFileList = newFiles.files;
       submissionElement.files = myFileList;
       // end of reference
-      document.getElementById("namesUpdated").innerText = "Names Updated";
    }
 
 
