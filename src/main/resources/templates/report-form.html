@@ -40,6 +40,9 @@
 
             <div class="mb-3">
                 <label class="form-label">Attach Photo/Video</label>
+                <div>
+                    <h3>[[${error}]]</h3>
+                </div>
                 <p>(Photos must be JPGs or PNGs)</p>
                 <div onchange="listFiles()">
                     <input id="fileUpload" class="form-control" type="file" accept="image/jpeg, image/png" multiple/>

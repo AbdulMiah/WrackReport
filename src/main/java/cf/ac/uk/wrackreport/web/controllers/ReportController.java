@@ -13,11 +13,16 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.SizeLimitExceededException;
 import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
@@ -25,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@ControllerAdvice
 @Slf4j
 public class ReportController {
 
@@ -183,4 +189,12 @@ public class ReportController {
 
         return "redirect:/";
     }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public String handleFileUploadError(RedirectAttributes ra) {
+        System.out.println("caught error");
+        ra.addFlashAttribute("error", "You cannot upload files larger than 150MB");
+        return "redirect:/report-form";
+    }
+
 }
