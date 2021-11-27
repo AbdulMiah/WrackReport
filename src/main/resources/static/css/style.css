@@ -45,6 +45,7 @@ body{
     margin: 0px;
     padding-bottom: 2.5%;
     box-shadow: inset -5px 0px 10px;
+    height: 100%;
 }
 .sidebar h1{
     color: white;
@@ -76,6 +77,8 @@ body{
 
 #temp-map{
     position: fixed;
+    height: 100%;
+    width: 60%;
 }
 
 #footer ul{
