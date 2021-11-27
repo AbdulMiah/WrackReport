@@ -40,7 +40,7 @@ function listFiles() {
          console.log("type: " + files[i].type)
          if (files[i].size / 1024 / 1024 > 150) {
             fileSizeValid = false;
-         } else if (files[i].type != "image/png" && files[i].type && "image/jpeg" && "image/jpg") {
+         } else if (files[i].type != "image/png" && files[i].type != "image/jpg" && files[i].type != "image/jpeg") {
             fileTypeValid = false;
          }
       }
