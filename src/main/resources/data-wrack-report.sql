@@ -15,9 +15,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- VALUES(2, 'admin');
 
 INSERT INTO `users`
-VALUES(NULL, 'ROLE_USER', 'john', 'jones', 'john@gmail.com', 01823445668, "userpass", true);
+VALUES(NULL, 'ROLE_USER', 'john', 'jones', 'john@gmail.com', 01823445668, "$2a$10$g4qzJA3h7.7vTfcxrBtV6eaR9TyhP.C6wbKT8zmAPrbibHp8riw8C", true);
 INSERT INTO `users`
-VALUES(NULL, 'ROLE_ADMIN', 'admin', 'user', 'admin@gmail.com', null, "adminpass", true);
+VALUES(NULL, 'ROLE_ADMIN', 'admin', 'user', 'admin@gmail.com', null, "$2a$10$J.n9gEYayF9kTfQsqTT5u.KjH7JTpU57jImc1sX0/Em38kzHgTYoK", true);
 
 INSERT INTO `categories`
 VALUES(NULL, 'sewer flooding'); 

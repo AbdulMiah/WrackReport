@@ -13,6 +13,8 @@ public class UserDTO {
     String surname;
     String email;
     String phoneNumber;
+    String password;
+    Boolean active;
 
     public UserDTO(User aUser) {
         this(
@@ -21,12 +23,14 @@ public class UserDTO {
                aUser.getFirstName(),
                aUser.getSurname(),
                aUser.getEmail(),
-               aUser.getPhoneNumber()
+               aUser.getPhoneNumber(),
+               aUser.getPassword(),
+               aUser.getActive()
         );
     }
 
     public User toUser() {
-        return new User(userId, roles, firstName, surname, email, phoneNumber);
+        return new User(userId, roles, firstName, surname, email, phoneNumber, password, active);
     }
 
 }

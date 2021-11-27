@@ -46,15 +46,8 @@ public class UserEntity {
         this.surname = aUser.getSurname();
         this.email = aUser.getEmail();
         this.phoneNumber = aUser.getPhoneNumber();
-    }
-
-    public UserEntity(Long userId, String roles, String firstName, String surname, String email, String phoneNumber) {
-        this.userId = userId;
-        this.roles = roles;
-        this.firstName = firstName;
-        this.surname = surname;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.password = aUser.getPassword();
+        this.active = aUser.getActive();
     }
 
     public User toDomain() {
@@ -64,7 +57,9 @@ public class UserEntity {
                 this.firstName,
                 this.surname,
                 this.email,
-                this.phoneNumber
+                this.phoneNumber,
+                this.password,
+                this.active
         );
         return domainUser;
     }

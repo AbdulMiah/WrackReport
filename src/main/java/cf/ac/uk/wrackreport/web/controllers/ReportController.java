@@ -68,7 +68,9 @@ public class ReportController {
                 reportForm.getFirstName(),
                 reportForm.getSurname(),
                 reportForm.getEmail(),
-                reportForm.getPhoneNumber()
+                reportForm.getPhoneNumber(),
+                null,
+                true
         );
 
         // save user to db

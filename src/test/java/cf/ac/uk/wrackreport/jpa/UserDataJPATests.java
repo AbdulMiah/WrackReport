@@ -29,7 +29,7 @@ public class UserDataJPATests {
 
     @Test
     public void shouldGetThreeUsersAfterInput() throws Exception{
-        UserEntity newUser = new UserEntity(null, "ROLE_USER", "test", "user", "test@gmail.com", "08847567364");
+        UserEntity newUser = new UserEntity(null, "ROLE_USER", "test", "user", "test@gmail.com", "08847567364", "testpass", true);
         userRepository.save(newUser);
         List<UserEntity> userList = userRepository.findAll();
         assertEquals(3, userList.size());
