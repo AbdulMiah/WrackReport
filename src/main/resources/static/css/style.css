@@ -33,6 +33,7 @@ body{
     height: 100%;
     float: left;
 
+
 }
 .form-control::placeholder{
     font-size: 1.25vw;
@@ -46,7 +47,13 @@ body{
     padding-bottom: 2.5%;
     box-shadow: inset -5px 0px 10px;
     height: 100%;
+    overflow: auto;
+
 }
+.sidebar-content::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
 .sidebar h1{
     color: white;
     text-align: center;
