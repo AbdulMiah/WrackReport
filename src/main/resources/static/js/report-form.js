@@ -33,6 +33,27 @@ function listFiles() {
       //Get uploaded files
       var files = fileUpload1.files;
 
+      //validate file size and type
+      var fileSizeValid = true;
+      var fileTypeValid = true
+      for (let i = 0; i < files.length; i++) {
+         console.log("type: " + files[i].type)
+         if (files[i].size / 1024 / 1024 > 150) {
+            fileSizeValid = false;
+         } else if (files[i].type != "image/png" && files[i].type && "image/jpeg" && "image/jpg") {
+            fileTypeValid = false;
+         }
+      }
+      if (fileSizeValid == false) {
+         alert("Files must not be larger than 150mb")
+         fileUpload1.setCustomValidity("Files must not be larger than 150mb");
+         fileUpload1.value = null;         // Removes files
+      }
+      if (fileTypeValid == false) {
+         alert("Files must be JPG or PNG")
+         fileUpload1.setCustomValidity("Files must not be larger than 150mb");
+         fileUpload1.value = null;         // Removes files
+      }
       //give alert if more than 5 files uploaded
       if (files.length > 5) {
          // Alert user cannot upload more than 5 files
@@ -40,10 +61,9 @@ function listFiles() {
          // Setting custom validator so user cannot submit with more than 5 files
          fileUpload1.setCustomValidity("You can upload a maximum of 5 files");
          fileUpload1.value = null;         // Removes files if more than 5 is uploaded
-      } else {
+      } else if (fileTypeValid != false && fileSizeValid != false){
          // Reset custom validator
          fileUpload1.setCustomValidity("");
-
          //Create text to tell user to title files
          const fileSection = document.getElementById("fileSection");
          const giveTitle = document.createElement("p");
