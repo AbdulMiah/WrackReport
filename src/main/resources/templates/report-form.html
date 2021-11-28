@@ -11,6 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Leaflet libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 </head>
 <body>
 
@@ -107,12 +111,15 @@
     </div>
 
 </div>
-<div id="map-contents">
+<div id="map">
 <!--    <img src="../images/Map-image.png" id="temp-map">-->
-    <iframe id="temp-map" width="60%" height="100%" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDGwlVBgUlP5Zz64iHXc--ahfWAN7LLlG8&center=-33.8569,151.2152&zoom=18"></iframe>
+<!--    <iframe id="map" width="60%" height="100%" style="border:0" loading="lazy"></iframe> &lt;!&ndash;allowfullscreen src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDGwlVBgUlP5Zz64iHXc&#45;&#45;ahfWAN7LLlG8&center=-33.8569,151.2152&zoom=18"&ndash;&gt;-->
 </div>
 
 </body>
 
-<footer> <script src="../js/report-form.js"></script> </footer>
+<footer>
+    <script src="../js/report-form.js"></script>
+    <script src="../js/map.js"></script>
+</footer>
 </html>
