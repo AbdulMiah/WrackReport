@@ -77,7 +77,7 @@ public class ReportController {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("depthCategories", depthCategoryService.findAll());
-            model.addAttribute("allReports", reportService.findAllReports());
+            model.addAttribute("allReports", reportRepository.findAll());
             return "/report-form";
         }
 
@@ -173,7 +173,7 @@ public class ReportController {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 model.addAttribute("depthCategories", depthCategoryService.findAll());
-                model.addAttribute("allReports", reportService.findAllReports());
+                model.addAttribute("allReports", reportRepository.findAll());
                 return "/report-form";
             }
 
@@ -181,6 +181,14 @@ public class ReportController {
             return "redirect:/ReportSubmitted";
 
         //  if the postcode field in the form is empty, then...
+        } else if (reportForm.getPostcode().isEmpty() && reportForm.getLatLong().isEmpty()) {
+            String errorMsg = "Please enter a location for the report!";
+            log.debug(errorMsg);
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("depthCategories", depthCategoryService.findAll());
+            model.addAttribute("allReports", reportRepository.findAll());
+            model.addAttribute("errorMsg", errorMsg);
+            return "/report-form";
         } else {
             ReportDTO reportDTO = new ReportDTO(
                                             reportForm.getReportId(),
@@ -199,7 +207,7 @@ public class ReportController {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 model.addAttribute("depthCategories", depthCategoryService.findAll());
-                model.addAttribute("allReports", reportService.findAllReports());
+                model.addAttribute("allReports", reportRepository.findAll());
                 return "/report-form";
             }
 
