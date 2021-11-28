@@ -60,6 +60,7 @@ public class ReportController {
             log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("depthCategories", depthCategoryService.findAll());
+            model.addAttribute("allReports", reportService.findAllReports());
             return "/report-form";
         }
 
@@ -110,6 +111,7 @@ public class ReportController {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 model.addAttribute("depthCategories", depthCategoryService.findAll());
+                model.addAttribute("allReports", reportService.findAllReports());
                 return "/report-form";
             }
 
@@ -126,7 +128,7 @@ public class ReportController {
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
                     reportForm.getDepthMeters(),
-                    "123, 123",
+                    reportForm.getLatLong(),
                     datetime,
                     reportForm.getPostcode());
 
@@ -134,6 +136,7 @@ public class ReportController {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 model.addAttribute("depthCategories", depthCategoryService.findAll());
+                model.addAttribute("allReports", reportService.findAllReports());
                 return "/report-form";
             }
 

@@ -44,22 +44,23 @@ requestFromAPI(reportAPI).then((result) => {
 });
 
 // Get lat long from when user clicks on map
+function setLatLongInField(latLong) {
+    var field = document.getElementById("latLongField");
+    field.setAttribute("value", latLong);
+}
+
 var popup = L.popup();
-var latLong = "";
 
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
-        .setContent("Do you want to place a report here?" + '<br><hr><button type="button" class="btn btn-primary btn-sm">Choose this location</button>')           // Create a button in the popup
+        .setContent("Setting your report location here")           // Create a button in the popup
         .openOn(map);
 
     // Remove unnecessary values from .toString
     var latLongTemp = e.latlng.toString().replace(/^\D+/g, '');         // Only get digits
-    latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
-    var latLngSplit = latLong.split(", ");
-    var lat = latLngSplit[0];
-    var long = latLngSplit[1];
-    console.log(lat.concat(", "+long));       // Console log the latLong (testing)
+    var latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
+    setLatLongInField(latLong)
+    console.log(latLong)        // Console log the latLong (testing)
 }
-
 map.on('click', onMapClick);
