@@ -63,7 +63,7 @@ body{
     padding-bottom: 5%;
 }
 
-.form-label, .mb-1,p{
+.form-label, #agree-text,p{
     color: white;
     font-size: 1.5vw;
 }
@@ -117,6 +117,11 @@ body{
     cursor: pointer;
     color: white;
 
+}
+.alert-warning{
+    color: white;
+    background-color: crimson;
+    border-color: darkred;
 }
 
 
