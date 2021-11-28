@@ -59,7 +59,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/login">
+                <form method="POST" th:action="@{/login}">
                     <label for="login-email" class="form-label">E-mail address</label>
                     <input id="login-email" type="email" class="form-control" placeholder="james@wales.gov" /><br>
                     <label for="login-pass" class="form-label">Password</label>
@@ -68,7 +68,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </div>
     </div>
