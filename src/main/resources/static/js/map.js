@@ -38,7 +38,8 @@ requestFromAPI(reportAPI).then((result) => {
     console.log(result)
 
     result.forEach((report) => {
-        L.marker(report["latLong"].split(", ")).addTo(map);
+        var marker = L.marker(report["latLong"].split(", ")).addTo(map);
+        marker.bindPopup("Description: "+report["description"]+"<br>Date and time reported: "+report["datetime"]+"<br>Depth of Flood (meters): "+report["depthMeters"]);
     })
 });
 
