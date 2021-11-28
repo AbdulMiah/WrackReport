@@ -20,18 +20,27 @@ map.setView([52.4307, -3.7837], 7);
 // Add markers to the map from reports from reports form
 
 // Creating a function that will request data from API and store as JSON
-async function requestFromAPI(url){
-    const result = await fetch(url);
-    let data = await result.json();
-    if(data){
-        return data;
-    }
+// Adapted From https://www.geeksforgeeks.org/how-to-use-the-javascript-fetch-api-to-get-data/
+function requestFromAPI(url){
+    return new Promise(async (resolve, reject) => {
+        try{
+            const result = await fetch(url)
+            resolve(result.json())
+        }catch (e){
+            reject(e)
+        }
+    })
 }
 
 // Requesting data for reports
 const reportAPI = "http://localhost:8080/api/reports";
-var reportsList = requestFromAPI(reportAPI);
-console.log(reportsList);
+requestFromAPI(reportAPI).then((result) => {
+    console.log(result)
+
+    result.forEach((report) => {
+        L.marker(report["latLong"].split(", ")).addTo(map);
+    })
+});
 
 // Get lat long from when user clicks on map
 var popup = L.popup();
