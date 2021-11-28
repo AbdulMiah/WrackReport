@@ -15,10 +15,10 @@ public class AuthenticationTests {
     @Autowired
     MockMvc mockMvc;
 
-    @Test
-    @WithMockUser(username = "testuser@gmail.com", password = "password", roles = "USER")
-    void shouldAccessReportInfoPage() throws Exception {
-        mockMvc.perform(get())
-    }
+//    @Test
+//    @WithMockUser(username = "testuser@gmail.com", password = "password", roles = "USER")
+//    void shouldAccessReportInfoPage() throws Exception {
+//        mockMvc.perform(get())
+//    }
 
 }
