@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .mvcMatchers("/report-info").authenticated()
+                                .mvcMatchers("/api/report-info").authenticated()
                                 .mvcMatchers("/").permitAll()
                                 .mvcMatchers("/report-form").permitAll()
                                 .mvcMatchers("/ReportSubmitted").permitAll()
