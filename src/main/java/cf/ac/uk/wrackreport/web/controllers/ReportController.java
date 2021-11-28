@@ -3,7 +3,9 @@ package cf.ac.uk.wrackreport.web.controllers;
 import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
+import cf.ac.uk.wrackreport.service.DepthCategoryService;
 import cf.ac.uk.wrackreport.service.ReportService;
+import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
@@ -36,10 +38,12 @@ public class ReportController {
 
     private ReportService reportService;
     private CategoryService categoryService;
+    private DepthCategoryService depthCategoryService;
 
-    public ReportController(ReportService reportService, CategoryService categoryService){
+    public ReportController(ReportService reportService, CategoryService categoryService, DepthCategoryService depthCategoryService1){
         this.reportService = reportService;
         this.categoryService = categoryService;
+        this.depthCategoryService = depthCategoryService1;
     }
 
     // Route to report form
@@ -50,6 +54,7 @@ public class ReportController {
 
         model.addAttribute("reportForm", reportForm);
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("depthCategories", depthCategoryService.findAll());
         model.addAttribute("dateTimeNow", dateTimeNow);
 
         return "report-form";
@@ -66,6 +71,7 @@ public class ReportController {
         if (bindingResult.hasErrors()) {
             log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("depthCategories", depthCategoryService.findAll());
             return "/report-form";
         }
 
@@ -151,7 +157,8 @@ public class ReportController {
                     2L,
                     reportForm.getCategoryId(),
                     reportForm.getDescription(),
-                    //                        reportForm.getLatLong(),
+                    reportForm.getDepthCategoryId(),
+                    reportForm.getDepthMeters(),
                     latLong,
                     datetime,
                     reportForm.getPostcode(),
@@ -159,10 +166,12 @@ public class ReportController {
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
+                model.addAttribute("depthCategories", depthCategoryService.findAll());
                 return "/report-form";
             }
 
             reportService.saveReport(reportDTO);
+            return "redirect:/ReportSubmitted";
 
         //  if the postcode field in the form is empty, then...
         } else {
@@ -172,7 +181,8 @@ public class ReportController {
                     2L,
                                             reportForm.getCategoryId(),
                     reportForm.getDescription(),
-                    //                        reportForm.getLatLong(),
+                    reportForm.getDepthCategoryId(),
+                    reportForm.getDepthMeters(),
                     "123, 123",
                     datetime,
                     reportForm.getPostcode(),
@@ -181,22 +191,12 @@ public class ReportController {
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
+                model.addAttribute("depthCategories", depthCategoryService.findAll());
                 return "/report-form";
             }
-            System.out.println("media:" + mediaArrayList);
+
             reportService.saveReport(reportDTO);
+            return "redirect:/ReportSubmitted";
         }
-
-        return "redirect:/";
     }
-
-    @ExceptionHandler({MaxUploadSizeExceededException.class, SizeLimitExceededException.class})
-    public String handleFileUploadError(RedirectAttributes ra) {
-        System.out.println("caught error");
-        ra.addFlashAttribute("error", "You cannot upload files larger than 150MB");
-        return "redirect:/report-form";
-    }
-
-
-
 }

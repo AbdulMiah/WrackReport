@@ -7,36 +7,64 @@
           rel="stylesheet">
     <link rel="stylesheet"  href="/css/style.css">
     <title>WrackReport Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 </head>
 <body>
 
-    <h1>WrackReport</h1>
 
-    <div class="container">
-        <form th:action="@{/report-form}" th:method="post" th:object="${reportForm}" enctype="multipart/form-data">
+<div class="sidebar">
+    <div class="sidebar-content">
+        <h1>WrackReport</h1>
 
-            <div class="mb-3">
-                <label class="form-label">Where is it?</label>
-                <input class="form-control" th:field="*{postcode}" type="text" placeholder="Enter your postcode or click on the map"/>
-                <div class="alert alert-warning" th:errors="*{postcode}" th:if="${#fields.hasErrors('postcode')}">Postcode Error</div>
-            </div>
+        <div class="container">
+            <form th:action="@{/report-form}" th:method="post" th:object="${reportForm}">
 
-            <div class="mb-3">
-                <label class="form-label">What is it?</label>
-                <select class="form-select" th:field="*{categoryId}">
-                    <option th:each="category: ${categories}" th:value="${category.id}" th:utext="${category.name}"></option>
-                </select>
-                <textarea class="form-control" id="description" th:field="*{description}" placeholder="Describe the problem"></textarea>
-                <div class="alert alert-warning" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</div>
-                <div id="remaining-chars">2500 Characters Remaining</div>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Where is it?</label>
+                    <input class="form-control" th:field="*{postcode}" type="text" placeholder="Enter your postcode or click on the map"/>
+                    <div class="alert alert-warning" th:errors="*{postcode}" th:if="${#fields.hasErrors('postcode')}">Postcode Error</div>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label">When is it?</label>
-                <input class="form-control" th:field="*{dateTime}" th:max="${dateTimeNow}" type="datetime-local" required/>
-                <div class="alert alert-warning" th:errors="*{dateTime}" th:if="${#fields.hasErrors('dateTime')}">Date Time Error</div>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">What is it?</label>
+                    <select class="form-select" th:field="*{categoryId}">
+                        <option th:each="category: ${categories}" th:value="${category.id}" th:utext="${category.name}"></option>
+                    </select>
+                    <textarea class="form-control" id="description" th:field="*{description}" placeholder="Describe the problem"></textarea>
+                    <div class="alert alert-warning" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</div>
+                    <div id="remaining-chars" style="color: white">2500 Characters Remaining</div>
+                </div>
+
+                <div class="mb-3" id="depth">
+                    <label class="form-label">How deep is it?</label>
+                    <select class="form-select" onchange="hideManualDepthEntry()" id="seeManualDepthEntry" th:field="*{depthCategoryId}" required>
+                        <option th:each="depthCategory: ${depthCategories}" th:value="${depthCategory.id}" th:utext="${depthCategory.name}"></option>
+                    </select>
+
+                    <div class="mb-3" id="manualDepthEntry" style="display: none">
+                        <label class="form-label">Please enter depth:</label>
+                        <div class="input-group mb-3" onchange="lengthConverter()">
+                            <input class="form-control" id="depthMeterField" type="number"/>
+                            <input class="form-control" id="convertedVal" th:field="*{depthMeters}" type="hidden"/>
+                            <div class="input-group-append">
+                                <select class="form-select" id="measurementType">
+                                    <option value="centimeters">Centimeters</option>
+                                    <option value="inches">Inches</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">When was it?</label>
+                    <input class="form-control" th:field="*{dateTime}" th:max="${dateTimeNow}" type="datetime-local" required/>
+                    <div class="alert alert-warning" th:errors="*{dateTime}" th:if="${#fields.hasErrors('dateTime')}">Date Time Error</div>
+                </div>
 
             <div class="mb-3">
                 <label class="form-label">Attach Photo/Video</label>
@@ -57,27 +85,47 @@
                 <p id="namesUpdated"></p>
             </div>
 
-            <div class="mb-3">
-                <p>Your Details</p>
-                <input type="checkbox" id="agreed" required>
-                <label for="agreed" class="mb-1">I have agreed to the <a th:href="@{privacy-policy}" >privacy policy</a></label>
-<!--                inline validation-->
-                <input class="form-control mb-1" th:field="*{firstName}"  type="text" placeholder="First name" required/>
-                <div class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
-                <input class="form-control mb-1" th:field="*{surname}" type="text" placeholder="Surname" required/>
-                <div class="alert alert-warning" th:errors="*{surname}" th:if="${#fields.hasErrors('surname')}">surname Error</div>
-                <input class="form-control mb-1" th:field="*{email}" type="text" placeholder="Email address" required/>
-                <div class="alert alert-warning" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Email Error</div>
-                <input class="form-control mb-1" th:field="*{phoneNumber}" type="number" placeholder="Phone no. (optional)"/>
-                <div class="alert alert-warning" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">Phone Number Error</div>
-            </div>
-            
-            <div class="mb-3">
-                <button  id="finalSubmit" class="btn btn-primary">Submit</button>
-            </div>
+                <div class="mb-3">
+                    <p>Your Details</p>
+                    <input type="checkbox" id="agreed" required>
+                    <label for="agreed" class="mb-1">I have agreed to the <a th:href="@{privacy-policy}" >privacy policy</a></label>
+                    <!--                inline validation-->
+                    <input class="form-control mb-1" th:field="*{firstName}"  type="text" placeholder="First name" required/>
+                    <div class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+                    <input class="form-control mb-1" th:field="*{surname}" type="text" placeholder="Surname" required/>
+                    <div class="alert alert-warning" th:errors="*{surname}" th:if="${#fields.hasErrors('surname')}">surname Error</div>
+                    <input class="form-control mb-1" th:field="*{email}" type="text" placeholder="Email address" required/>
+                    <div class="alert alert-warning" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Email Error</div>
+                    <input class="form-control mb-1" th:field="*{phoneNumber}" type="number" placeholder="Phone no. (optional)"/>
+                    <div class="alert alert-warning" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">Phone Number Error</div>
+                </div>
 
-        </form>
+                <div class="mb-3">
+                    <button  id="finalSubmit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
+        <div id="footer">
+            <ul>
+                <li><a href="privacy-policy">Privacy</a></li>
+                <li>•</li>
+                <li>Terms</li>
+                <li>•</li>
+                <li>About</li>
+                <li>•</li>
+                <li>Help</li>
+            </ul>
+
+        </div>
     </div>
+
+</div>
+<div id="map-contents">
+<!--    <img src="../images/Map-image.png" id="temp-map">-->
+    <iframe id="temp-map" width="60%" height="100%" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDGwlVBgUlP5Zz64iHXc--ahfWAN7LLlG8&center=-33.8569,151.2152&zoom=18"></iframe>
+</div>
+
 </body>
 
 <footer> <script src="/js/report-form.js"></script> </footer>

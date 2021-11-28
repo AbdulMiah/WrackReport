@@ -30,6 +30,12 @@ public class ReportEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "depth_category_id")
+    private short depthCategoryId;
+
+    @Column(name = "depth_meters")
+    private Float depthMeters;
+
     @Column(name = "lat_long")
     private String latLong;
 
@@ -50,6 +56,8 @@ public class ReportEntity {
         this.userId = aReport.getUserId();
         this.categoryId = aReport.getCategoryId();
         this.description = aReport.getDescription();
+        this.depthCategoryId = aReport.getDepthCategoryId();
+        this.depthMeters = aReport.getDepthMeters();
         this.latLong = aReport.getLatLong();
         this.datetime = aReport.getDatetime();
         this.postcode = aReport.getPostcode();
@@ -71,6 +79,8 @@ public class ReportEntity {
                 this.userId,
                 this.categoryId,
                 this.description,
+                this.depthCategoryId,
+                this.depthMeters,
                 this.latLong,
                 this.datetime,
                 this.postcode
