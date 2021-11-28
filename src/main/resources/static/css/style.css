@@ -62,8 +62,15 @@ body{
     padding-top: 5%;
     padding-bottom: 5%;
 }
+#agree-text{
+    font-size: 1vw;
+    color: white;
+}
+#agree-text a{
+    text-decoration: none;
+}
 
-.form-label, .mb-1,p{
+.form-label,p{
     color: white;
     font-size: 1.5vw;
 }
@@ -118,11 +125,43 @@ body{
     color: white;
 
 }
+.alert-warning{
+    color: white;
+    background-color: crimson;
+    border-color: darkred;
+}
+
+/*Report-Submitted-CSS*/
+
+#report-submitted-body{
+    background-color: #0A3D62;
+    font-family: Montserrat,sans-serif;
+    color: #FFFFFF;
+}
+
+#report-submitted-contents{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+#report-submitted-body a{
+    font-weight: bold;
+    color: #FFFFFF;
+    transition: 0.3s;
+}
+#report-submitted-body a:hover{
+    font-weight: bold;
+    color: #818181;
+    transition: 0.3s;
+}
+#fileUpload-text{
+    color: white;
+    font-size: 1vw;
+}
 
 #map {
     height: 100%;
     width: 60%;
 }
-
-
-

@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers.forms;
 
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidFileSize;
 import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidPhoneNumber;
 import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidDateTime;
 import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidWelshPostcode;
@@ -7,8 +8,10 @@ import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidWelshPostcode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
@@ -56,6 +59,8 @@ public class ReportForm {
     @Pattern(regexp = "[0-9\\s]*", message = "Phone number must consist of only numbers")
     private String phoneNumber;
 
-
+//    Custom validator for file size
+    @ValidFileSize
+    private ArrayList<MultipartFile> files = new ArrayList<MultipartFile>();
 
 }

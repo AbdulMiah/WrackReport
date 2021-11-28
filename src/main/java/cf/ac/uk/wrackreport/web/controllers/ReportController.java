@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
+import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
 import cf.ac.uk.wrackreport.service.DepthCategoryService;
@@ -9,17 +10,29 @@ import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.SizeLimitExceededException;
 import javax.validation.Valid;
+import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@ControllerAdvice
 @Slf4j
 public class ReportController {
 
@@ -53,18 +66,63 @@ public class ReportController {
     public String submitReport (
             @Valid ReportForm reportForm,
             BindingResult bindingResult,
-            Model model) {
+            Model model) throws IOException {
 
         // Check form doesn't have errors before form data is retrieved
         if (bindingResult.hasErrors()) {
             log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
+            System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("depthCategories", depthCategoryService.findAll());
             model.addAttribute("allReports", reportService.findAllReports());
             return "/report-form";
         }
 
-        // Create data transfer object from form inputs
+
+        // ----- MEDIA ----- //
+
+        //List of media to be attached to ReportDTO
+        List<Media> mediaArrayList = new ArrayList<Media>();
+
+        try {
+            //Get files from form
+            ArrayList<MultipartFile> formFiles = reportForm.getFiles();
+
+            //If there are files attached from the form...
+            if (!formFiles.get(0).isEmpty()) {
+                //loop through files
+                for (MultipartFile f: formFiles) {
+                    //Create random string
+                    //Taken from https://www.baeldung.com/java-random-string
+                    String generatedString = RandomStringUtils.randomAlphanumeric(20);
+                    //end of reference
+
+                    String fileName = f.getOriginalFilename();
+
+                    //Title is name from user without extension
+                    String fileTitle = FilenameUtils.removeExtension(fileName);
+                    String ext = FilenameUtils.getExtension(fileName);
+
+                   //path is random string + file extension
+                    String filePath = "./uploaded-media/" + generatedString + "." + ext;
+                    File file = new File("./uploaded-media/" +generatedString + "." + ext);
+
+                    //Write file
+                    try (OutputStream os = new FileOutputStream(file)) {
+                        os.write(f.getBytes());
+                    }
+                    //Add media to list that will be added to ReportDTO
+                    mediaArrayList.add(new Media(null,null, fileTitle,1,filePath));
+                }
+            }
+        } catch (IOException e) {
+            throw new IOException("could not access file: " + e);
+        }
+
+        // ----- END OF MEDIA -----//
+
+
+        // Create User data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
                 1,
                 reportForm.getFirstName(),
@@ -106,7 +164,8 @@ public class ReportController {
                     reportForm.getDepthMeters(),
                     latLong,
                     datetime,
-                    reportForm.getPostcode());
+                    reportForm.getPostcode(),
+                    mediaArrayList);
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
@@ -130,7 +189,8 @@ public class ReportController {
                     reportForm.getDepthMeters(),
                     reportForm.getLatLong(),
                     datetime,
-                    reportForm.getPostcode());
+                    reportForm.getPostcode(),
+                    mediaArrayList);
 
 
             if (bindingResult.hasErrors()) {
@@ -144,4 +204,13 @@ public class ReportController {
             return "redirect:/ReportSubmitted";
         }
     }
+
+    @ExceptionHandler({MaxUploadSizeExceededException.class, SizeLimitExceededException.class})
+    public String handleFileUploadError(RedirectAttributes ra) {
+        System.out.println("caught error");
+        ra.addFlashAttribute("error", "You cannot upload files larger than 150MB");
+        return "redirect:/report-form";
+    }
+
+
 }

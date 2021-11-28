@@ -5,9 +5,9 @@ import cf.ac.uk.wrackreport.domain.Category;
 import cf.ac.uk.wrackreport.domain.DepthCategory;
 import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.domain.User;
+import cf.ac.uk.wrackreport.domain.Media;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface WrackReportRepository {
 
@@ -21,5 +21,7 @@ public interface WrackReportRepository {
 
     boolean checkValidCategoryID(short id);
     void saveUser(User aUser);
+
+    void saveMedia(Media aMedia);
 
 }

@@ -55,3 +55,6 @@ INSERT INTO `reports`
 VALUES (NULL, 1, 5, "First floor on my house destroyed by flood", 5, 4.0544, "51.4846, -3.1853", "2021-01-05 17:30:11", NULL);
 INSERT INTO `reports`
 VALUES (NULL, 1, 1, "Sewer clogged. Flooding on street", 2, 0.3456, "51.4857, -3.1768", "2021-06-15 07:40:10", NULL);
+
+INSERT INTO `metadata`
+VALUES(NULL, NULL, NULL, NULL);
