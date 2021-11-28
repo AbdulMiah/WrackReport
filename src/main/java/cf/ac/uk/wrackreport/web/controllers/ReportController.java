@@ -42,6 +42,7 @@ public class ReportController {
         model.addAttribute("reportForm", reportForm);
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("depthCategories", depthCategoryService.findAll());
+        model.addAttribute("allReports", reportService.findAllReports());
         model.addAttribute("dateTimeNow", dateTimeNow);
 
         return "report-form";

@@ -3,14 +3,37 @@ var map = L.map('map', {
     minZoom: 8
 });
 
-// Add the tile/style of the map from maptiler.com
-L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=kf18TBKn7WwhY9jnWCm8', {
-    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+// Add the tile/style of the map from mapbox.com
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiYWJkdWxtaWFoIiwiYSI6ImNrbXdpN2hwZDBmM3cydXJubXM2eHoyaGQifQ.RI7Qv5cRdy1h-BRgK1NKpA'
 }).addTo(map);
 
 // Set view map view to center of Wales
 map.setView([52.4307, -3.7837], 7);
 
+
+// Add markers to the map from reports from reports form
+
+// Creating a function that will request data from API and store as JSON
+async function requestFromAPI(url){
+    const result = await fetch(url);
+    let data = await result.json();
+    if(data){
+        return data;
+    }
+}
+
+// Requesting data for reports
+const reportAPI = "http://localhost:8080/api/reports";
+var reportsList = requestFromAPI(reportAPI);
+console.log(reportsList);
+
+// Get lat long from when user clicks on map
 var popup = L.popup();
 var latLong = "";
 
@@ -23,7 +46,10 @@ function onMapClick(e) {
     // Remove unnecessary values from .toString
     var latLongTemp = e.latlng.toString().replace(/^\D+/g, '');         // Only get digits
     latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
-    console.log(latLong);       // Console log the latLong (testing)
+    var latLngSplit = latLong.split(", ");
+    var lat = latLngSplit[0];
+    var long = latLngSplit[1];
+    console.log(lat.concat(", "+long));       // Console log the latLong (testing)
 }
 
 map.on('click', onMapClick);

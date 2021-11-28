@@ -17,6 +17,8 @@ public interface WrackReportRepository {
 
     ArrayList<DepthCategory> findAllDepthCategories();
 
+    List<Report> findAllReports();
+
     boolean checkValidCategoryID(short id);
     void saveUser(User aUser);
 
