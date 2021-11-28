@@ -16,7 +16,6 @@ public class FileSizeValidator implements ConstraintValidator<ValidFileSize, Arr
 
     @Override
     public boolean isValid(ArrayList<MultipartFile> files, ConstraintValidatorContext context) {
-        System.out.println("validating");
         //validate number of files
         if (files.size() > 5) {
             //Update message if too many files

@@ -200,4 +200,13 @@ public class ReportController {
             return "redirect:/ReportSubmitted";
         }
     }
+
+    @ExceptionHandler({MaxUploadSizeExceededException.class, SizeLimitExceededException.class})
+    public String handleFileUploadError(RedirectAttributes ra) {
+        System.out.println("caught error");
+        ra.addFlashAttribute("error", "You cannot upload files larger than 150MB");
+        return "redirect:/report-form";
+    }
+
+
 }
