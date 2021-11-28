@@ -1,6 +1,5 @@
 package cf.ac.uk.wrackreport.data.jpa.repositories;
 
-import cf.ac.uk.wrackreport.data.jpa.entities.ReportEntity;
 import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
