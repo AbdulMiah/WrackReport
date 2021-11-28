@@ -62,8 +62,15 @@ body{
     padding-top: 5%;
     padding-bottom: 5%;
 }
+#agree-text{
+    font-size: 1vw;
+    color: white;
+}
+#agree-text a{
+    text-decoration: none;
+}
 
-.form-label, #agree-text,p{
+.form-label,p{
     color: white;
     font-size: 1.5vw;
 }
@@ -148,6 +155,10 @@ body{
     font-weight: bold;
     color: #818181;
     transition: 0.3s;
+}
+#fileUpload-text{
+    color: white;
+    font-size: 1vw;
 }
 
 
