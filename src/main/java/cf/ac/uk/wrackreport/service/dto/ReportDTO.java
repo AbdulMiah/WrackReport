@@ -1,8 +1,11 @@
 package cf.ac.uk.wrackreport.service.dto;
 
+import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.domain.Report;
 import lombok.AllArgsConstructor;
 import lombok.Value;
+
+import java.util.List;
 
 @Value
 @AllArgsConstructor
@@ -16,6 +19,7 @@ public class ReportDTO {
     String latLong;
     String datetime;
     String postcode;
+    List<Media> media;
 
     public ReportDTO(Report aReport) {
         this(
@@ -27,11 +31,12 @@ public class ReportDTO {
                 aReport.getDepthMeters(),
                 aReport.getLatLong(),
                 aReport.getDatetime(),
-                aReport.getPostcode()
+                aReport.getPostcode(),
+                aReport.getMedia()
         );
     }
 
     public Report toReport() {
-        return new Report(reportId, userId, categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode);
+        return new Report(reportId, userId, categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode, media);
     }
 }
