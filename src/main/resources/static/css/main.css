@@ -92,4 +92,9 @@ a {
 
 #map {
     height: 100%;
+    width: 100%;
+}
+
+#map-contents {
+    height: 75vh;
 }
