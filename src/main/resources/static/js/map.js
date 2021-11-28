@@ -10,3 +10,20 @@ L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=kf18TBKn7Wwh
 
 // Set view map view to center of Wales
 map.setView([52.4307, -3.7837], 7);
+
+var popup = L.popup();
+var latLong = "";
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("Do you want to place a report here?" + '<br><hr><button type="button" class="btn btn-primary btn-sm">Choose this location</button>')           // Create a button in the popup
+        .openOn(map);
+
+    // Remove unnecessary values from .toString
+    var latLongTemp = e.latlng.toString().replace(/^\D+/g, '');         // Only get digits
+    latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
+    console.log(latLong);       // Console log the latLong (testing)
+}
+
+map.on('click', onMapClick);
