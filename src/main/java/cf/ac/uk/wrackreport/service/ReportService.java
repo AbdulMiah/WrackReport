@@ -7,5 +7,4 @@ public interface ReportService {
 
     void saveReport(ReportDTO aReportDTO);
     void saveUser(UserDTO aUserDTO);
-
 }

@@ -44,3 +44,7 @@ INSERT INTO `depth_categories`
 VALUES(NULL, 'Up to my light switch');
 INSERT INTO `depth_categories`
 VALUES(NULL, 'Other');
+
+
+INSERT INTO `metadata`
+VALUES(NULL, NULL, NULL, NULL);
