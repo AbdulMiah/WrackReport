@@ -70,6 +70,7 @@ public class ReportController {
         // Check form doesn't have errors before form data is retrieved
         if (bindingResult.hasErrors()) {
             log.debug("THERE ARE ERRORS" + bindingResult.getAllErrors());
+            System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("depthCategories", depthCategoryService.findAll());
             return "/report-form";

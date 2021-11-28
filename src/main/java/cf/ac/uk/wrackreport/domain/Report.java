@@ -21,11 +21,12 @@ public class Report {
     private String postcode;
     private List<Media> media;
 
-    public Report(Long reportId, Long userId, short categoryId, String description, String latLong, String datetime, String postcode) {
+    public Report(Long reportId, Long userId, short categoryId, String description, short depthCategoryId, float depthMeters, String latLong, String datetime, String postcode) {
         this.reportId = reportId;
         this.userId = userId;
         this.categoryId = categoryId;
         this.description = description;
+        this.depthCategoryId = depthCategoryId;
         this.latLong = latLong;
         this.datetime = datetime;
         this.postcode = postcode;
