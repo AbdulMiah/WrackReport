@@ -1,5 +1,7 @@
 package cf.ac.uk.wrackreport.api.controllers;
 
+import cf.ac.uk.wrackreport.data.jpa.entities.ReportEntity;
+import cf.ac.uk.wrackreport.data.jpa.repositories.ReportRepository;
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +15,17 @@ import java.util.List;
 @RequestMapping("api")
 public class ReportAPIController {
 
-    private ReportService reportService;
+    private ReportRepository reportRepository;
 
-    public ReportAPIController(ReportService aReportService) {
-        reportService = aReportService;
+    public ReportAPIController(ReportRepository aReportService) {
+        reportRepository = aReportService;
     }
 
     @GetMapping("reports")
-    public ResponseEntity<List<ReportDTO>> findAll() {
-        List<ReportDTO> reportDTOList;
-        reportDTOList = reportService.findAllReports();
+    public ResponseEntity<List<ReportEntity>> findAll() {
+        List<ReportEntity> reportEntityList;
+        reportEntityList = reportRepository.findAll();
 
-        return ResponseEntity.ok(reportDTOList);
+        return ResponseEntity.ok(reportEntityList);
     }
 }
