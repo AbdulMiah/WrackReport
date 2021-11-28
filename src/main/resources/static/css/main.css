@@ -89,3 +89,7 @@ h1 {
 a {
     text-decoration: none;
 }
+
+#map {
+    height: 100%;
+}
