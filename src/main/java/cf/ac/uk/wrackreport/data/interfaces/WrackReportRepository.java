@@ -8,6 +8,7 @@ import cf.ac.uk.wrackreport.domain.User;
 import cf.ac.uk.wrackreport.domain.Media;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface WrackReportRepository {
 
