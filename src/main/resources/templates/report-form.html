@@ -89,7 +89,7 @@
                 <div class="mb-3">
                     <p>Your Details</p>
                     <input type="checkbox" id="agreed" required>
-                    <label for="agreed" class="mb-1" style="color: #FFFFFF">I have agreed to the <a th:href="@{privacy-policy}" >privacy policy</a></label>
+                    <label for="agreed" class="mb-1" id="agree-text">I have agreed to the <a th:href="@{privacy-policy}" >privacy policy</a></label>
                     <!--                inline validation-->
                     <input class="form-control mb-1" th:field="*{firstName}"  type="text" placeholder="First name" required/>
                     <div class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
