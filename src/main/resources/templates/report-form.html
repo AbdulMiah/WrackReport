@@ -32,7 +32,7 @@
                     <div class="alert alert-warning" th:errors="*{postcode}" th:if="${#fields.hasErrors('postcode')}">Postcode Error</div>
 
                     <input th:field="*{latLong}" id="latLongField" type="hidden"/>
-                    <div style="padding: 10px; color: white; background-color: crimson; border-color: darkred;" th:text="${errorMsg}"></div>
+                    <h3 style= "color:white; background-color: crimson; border-color: darkred;" th:text="${errorMsg}"></h3>
                 </div>
 
                 <div class="mb-3">
