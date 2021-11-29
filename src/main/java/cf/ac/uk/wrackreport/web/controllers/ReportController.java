@@ -127,11 +127,13 @@ public class ReportController {
 
         // Create User data transfer object from form inputs
         UserDTO userDTO = new UserDTO(reportForm.getUserId(),
-                1,
+                "ROLE_USER",
                 reportForm.getFirstName(),
                 reportForm.getSurname(),
                 reportForm.getEmail(),
-                reportForm.getPhoneNumber()
+                reportForm.getPhoneNumber(),
+                null,
+                true
         );
 
         // save user to db
