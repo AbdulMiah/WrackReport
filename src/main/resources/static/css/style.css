@@ -165,3 +165,23 @@ body{
     height: 100%;
     width: 60%;
 }
+
+/*Privacy Policy CSS*/
+.privacy-heading {
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 4.5vw;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.privacy-content h2 {
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.privacy-content {
+    font-family: Montserrat, sans-serif;
+    color: #FFFFFF;
+}
