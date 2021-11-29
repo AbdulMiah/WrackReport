@@ -38,6 +38,8 @@ public class ReportForm {
     @ValidWelshPostcode
     private String postcode;
 
+    private String latLong;
+
     //regexp to allow hyphens, spaces, apostrophes, upper and lower case letters
     @Size(min=2, max=30, message = "First name must be between 2-30 characters")
     @Pattern(regexp = "([-a-zA-Z',\\s]+)", message = "Please enter a valid first name")

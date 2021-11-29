@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
@@ -69,6 +71,13 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
             depthCategories.add(tmp);
         }
         return depthCategories;
+    }
+
+    public List<Report> findAllReports() {
+        return reportRepository.findAll()
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
     }
 
     public boolean checkValidCategoryID(short id){

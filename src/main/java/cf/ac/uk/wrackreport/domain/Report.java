@@ -27,6 +27,7 @@ public class Report {
         this.categoryId = categoryId;
         this.description = description;
         this.depthCategoryId = depthCategoryId;
+        this.depthMeters = depthMeters;
         this.latLong = latLong;
         this.datetime = datetime;
         this.postcode = postcode;

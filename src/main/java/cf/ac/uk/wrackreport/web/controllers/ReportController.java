@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
+import cf.ac.uk.wrackreport.data.jpa.repositories.ReportRepository;
 import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.api.postcode.Postcode;
@@ -39,11 +40,13 @@ public class ReportController {
     private ReportService reportService;
     private CategoryService categoryService;
     private DepthCategoryService depthCategoryService;
+    private ReportRepository reportRepository;
 
-    public ReportController(ReportService reportService, CategoryService categoryService, DepthCategoryService depthCategoryService1){
+    public ReportController(ReportService reportService, CategoryService categoryService, DepthCategoryService depthCategoryService1, ReportRepository reportRepository){
         this.reportService = reportService;
         this.categoryService = categoryService;
         this.depthCategoryService = depthCategoryService1;
+        this.reportRepository = reportRepository;
     }
 
     // Route to report form
@@ -55,6 +58,7 @@ public class ReportController {
         model.addAttribute("reportForm", reportForm);
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("depthCategories", depthCategoryService.findAll());
+        model.addAttribute("allReports", reportRepository.findAll());
         model.addAttribute("dateTimeNow", dateTimeNow);
 
         return "report-form";
@@ -73,6 +77,7 @@ public class ReportController {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("depthCategories", depthCategoryService.findAll());
+            model.addAttribute("allReports", reportRepository.findAll());
             return "/report-form";
         }
 
@@ -170,6 +175,7 @@ public class ReportController {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 model.addAttribute("depthCategories", depthCategoryService.findAll());
+                model.addAttribute("allReports", reportRepository.findAll());
                 return "/report-form";
             }
 
@@ -177,6 +183,14 @@ public class ReportController {
             return "redirect:/ReportSubmitted";
 
         //  if the postcode field in the form is empty, then...
+        } else if (reportForm.getPostcode().isEmpty() && reportForm.getLatLong().isEmpty()) {
+            String errorMsg = "Please enter a location for the report!";
+            log.debug(errorMsg);
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("depthCategories", depthCategoryService.findAll());
+            model.addAttribute("allReports", reportRepository.findAll());
+            model.addAttribute("errorMsg", errorMsg);
+            return "/report-form";
         } else {
             ReportDTO reportDTO = new ReportDTO(
                                             reportForm.getReportId(),
@@ -186,7 +200,7 @@ public class ReportController {
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
                     reportForm.getDepthMeters(),
-                    "123, 123",
+                    reportForm.getLatLong(),
                     datetime,
                     reportForm.getPostcode(),
                     mediaArrayList);
@@ -195,6 +209,7 @@ public class ReportController {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
                 model.addAttribute("depthCategories", depthCategoryService.findAll());
+                model.addAttribute("allReports", reportRepository.findAll());
                 return "/report-form";
             }
 
