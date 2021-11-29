@@ -16,6 +16,13 @@ public class FileSizeValidator implements ConstraintValidator<ValidFileSize, Arr
 
     @Override
     public boolean isValid(ArrayList<MultipartFile> files, ConstraintValidatorContext context) {
+        //validate if no files from user
+        for (MultipartFile f:
+             files) {
+            if (f.toString().contains("StandardMultipartFile")) {
+                return true;
+            }
+        }
         //validate number of files
         if (files.size() > 5) {
             //Update message if too many files
@@ -33,6 +40,7 @@ public class FileSizeValidator implements ConstraintValidator<ValidFileSize, Arr
             }
             //reject if files are incorrect type
             String fileType = FilenameUtils.getExtension(f.getOriginalFilename()).toLowerCase(Locale.ROOT);
+            System.out.println(fileType);
             if (!validTypes.contains(fileType)){
                 context.disableDefaultConstraintViolation();
                 context.buildConstraintViolationWithTemplate("Files must be JPG or PNG").addConstraintViolation();

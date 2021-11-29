@@ -137,8 +137,8 @@ body{
     background-color: #0A3D62;
     font-family: Montserrat,sans-serif;
     color: #FFFFFF;
-
 }
+
 #report-submitted-contents{
     position: absolute;
     top: 50%;
@@ -161,6 +161,7 @@ body{
     font-size: 1vw;
 }
 
-
-
-
+#map {
+    height: 100%;
+    width: 60%;
+}
