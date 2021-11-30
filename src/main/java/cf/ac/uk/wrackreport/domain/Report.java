@@ -22,7 +22,7 @@ public class Report {
     private String postcode;
     private List<Media> media;
 
-    public Report(Long reportId, Long userId, short categoryId, String description, short depthCategoryId, float depthMeters, String latLong, String datetime, String postcode) {
+    public Report(Long reportId, Long userId, short categoryId, String description, short depthCategoryId, Float depthMeters, String latLong, String datetime, String postcode) {
         this.reportId = reportId;
         this.userId = userId;
         this.categoryId = categoryId;
