@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,7 +22,7 @@ public class Report {
     private String postcode;
     private List<Media> media;
 
-    public Report(Long reportId, Long userId, short categoryId, String description, short depthCategoryId, float depthMeters, String latLong, String datetime, String postcode) {
+    public Report(Long reportId, Long userId, short categoryId, String description, short depthCategoryId, Float depthMeters, String latLong, String datetime, String postcode) {
         this.reportId = reportId;
         this.userId = userId;
         this.categoryId = categoryId;
@@ -31,6 +32,7 @@ public class Report {
         this.latLong = latLong;
         this.datetime = datetime;
         this.postcode = postcode;
+        this.media = new ArrayList<Media>();
     }
 
     public void addMedia(Media aMedia) {
