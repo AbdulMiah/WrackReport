@@ -87,8 +87,9 @@ function listFiles() {
       //validate file size and type
       var fileSizeValid = true;
       var fileTypeValid = true;
-      var validFileTypes = ["image/png", "image/jpg", "image/jpeg"]
+      var validFileTypes = ["image/png", "image/jpg", "image/jpeg", "video/mp4"]
       for (let i = 0; i < files.length; i++) {
+         console.log("file: " + files[i])
          console.log("type: " + files[i].type)
          if (files[i].size / 1024 / 1024 > 150) {
             fileSizeValid = false;
