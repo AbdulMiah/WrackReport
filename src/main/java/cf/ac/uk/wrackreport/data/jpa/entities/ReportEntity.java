@@ -85,21 +85,31 @@ public class ReportEntity {
                 this.datetime,
                 this.postcode
         );
-        this.getMedia()
-                .stream()
-                .forEach(m -> domainReport.addMedia(
-                        new Media(
-                                m.getMediaId(),
-                                m.getMetadataId(),
-                                m.getTitle(),
-                                m.getType(),
-                                m.getMediaPath()
-                        )));
+        if (this.hasMedia()) {
+            this.getMedia()
+                    .stream()
+                    .forEach(m -> domainReport.addMedia(
+                            new Media(
+                                    m.getMediaId(),
+                                    m.getMetadataId(),
+                                    m.getTitle(),
+                                    m.getType(),
+                                    m.getMediaPath()
+                            )));
+        }
         return domainReport;
     }
 
     public void addMedia(MediaEntity aMediaEntity) {
         media.add(aMediaEntity);
+    }
+
+    public Boolean hasMedia() {
+        if (media.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,6 +32,7 @@ public class Report {
         this.latLong = latLong;
         this.datetime = datetime;
         this.postcode = postcode;
+        this.media = new ArrayList<Media>();
     }
 
     public void addMedia(Media aMedia) {

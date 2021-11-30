@@ -77,7 +77,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         ArrayList<ReportEntity> reportEntities = reportRepository.findAll();
         for (ReportEntity r: reportEntities
              ) {
-            System.out.println("report: " + r.getReportId());
         }
         return reportRepository.findAll()
                 .stream()
