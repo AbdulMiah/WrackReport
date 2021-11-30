@@ -80,10 +80,10 @@
                     </div>
 
                     <div onchange="listFiles()">
-                        <input id="fileUpload" class="form-control" type="file" accept="image/jpeg, image/png, video/mp4" multiple/>
+                        <input id="fileUpload" class="form-control" type="file" accept="image/jpeg, image/png, video/mp4, video/quicktime, video/x-msvideo, video/x-matroska" multiple/>
                     </div>
                     <!--                hidden element to store renamed files-->
-                    <input id="fileUploadToSubmit" class="form-control" style="display: none" th:field="*{files}" type="file" accept="image/jpeg, image/png, video/mp4" multiple/>
+                    <input id="fileUploadToSubmit" class="form-control" style="display: none" th:field="*{files}" type="file" accept="image/jpeg, image/png, video/mp4, video/quicktime, video/x-msvideo, video/x-matroska" multiple/>
                     <div class="alert alert-warning" th:errors="*{files}" th:if="${#fields.hasErrors('files')}">Files error</div>
                     <p id="fileUpload-text">*Photos must be JPGs or PNGs</p>
                 </div>

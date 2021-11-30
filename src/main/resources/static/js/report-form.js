@@ -87,7 +87,7 @@ function listFiles() {
       //validate file size and type
       var fileSizeValid = true;
       var fileTypeValid = true;
-      var validFileTypes = ["image/png", "image/jpg", "image/jpeg", "video/mp4"]
+      var validFileTypes = ["image/png", "image/jpg", "image/jpeg", "video/mp4", "video/quicktime", "video/avi", "video/x-matroska"];
       for (let i = 0; i < files.length; i++) {
          console.log("file: " + files[i])
          console.log("type: " + files[i].type)
