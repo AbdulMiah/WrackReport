@@ -48,6 +48,10 @@ function getLatLongFromPostcode() {
             animate: true,
             duration: 1.5
         });
+        var popup = L.popup()
+            .setLatLng([lat, long])
+            .setContent("Click on map to specify your report location")
+            .openOn(map);
     });
 }
 
@@ -74,7 +78,7 @@ var popup = L.popup();
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
-        .setContent("Setting your report location here")           // Create a button in the popup
+        .setContent("Setting location of your report here")           // Create a button in the popup
         .openOn(map);
 
     // Remove unnecessary values from .toString
