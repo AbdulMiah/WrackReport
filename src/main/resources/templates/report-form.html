@@ -28,7 +28,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Where is it?</label>
-                    <input class="form-control" th:field="*{postcode}" type="text" placeholder="Enter your postcode or click on the map"/>
+                    <input class="form-control" id="postcodeField" th:field="*{postcode}" type="text" placeholder="Enter your postcode or click on the map"/>
                     <div class="alert alert-warning" th:errors="*{postcode}" th:if="${#fields.hasErrors('postcode')}">Postcode Error</div>
 
                     <input th:field="*{latLong}" id="latLongField" type="hidden"/>
@@ -131,10 +131,7 @@
     </div>
 
 </div>
-<div id="map">
-<!--    <img src="../images/Map-image.png" id="temp-map">-->
-<!--    <iframe id="map" width="60%" height="100%" style="border:0" loading="lazy"></iframe> &lt;!&ndash;allowfullscreen src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDGwlVBgUlP5Zz64iHXc&#45;&#45;ahfWAN7LLlG8&center=-33.8569,151.2152&zoom=18"&ndash;&gt;-->
-</div>
+<div id="map"></div>
 
 </body>
 
