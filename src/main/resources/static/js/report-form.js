@@ -109,13 +109,14 @@ function listFiles() {
       //validate file size and type
       var fileSizeValid = true;
       var fileTypeValid = true;
-      var validFileTypes = ["image/png", "image/jpg", "image/jpeg", "video/mp4", "video/quicktime", "video/avi", "video/x-matroska"];
+      var validImgTypes = ["image/png", "image/jpg", "image/jpeg"]
+      var validVideoTypes = ["video/mp4", "video/quicktime", "video/x-matroska"];
       for (let i = 0; i < files.length; i++) {
          console.log("file: " + files[i])
          console.log("type: " + files[i].type)
          if (files[i].size / 1024 / 1024 > 150) {
             fileSizeValid = false;
-         } else if (!validFileTypes.includes(files[i].type)) {
+         } else if (!validImgTypes.includes(files[i].type) && !validVideoTypes.includes(files[i].type)) {
             fileTypeValid = false;
          }
       }
@@ -125,7 +126,7 @@ function listFiles() {
          fileUpload1.value = null;         // Removes files
       }
       if (fileTypeValid == false) {
-         alert("Files must be JPG, PNG, MP4, MOV, AVI or MKV")
+         alert("Files must be JPG, PNG, MP4, MOV, or MKV")
          fileUpload1.setCustomValidity("Files must not be larger than 150mb");
          fileUpload1.value = null;         // Removes files
       }
@@ -152,15 +153,25 @@ function listFiles() {
          for (var i = 0; i < files.length; i++) {
             var f = files[i];
 
-            //preview
-            //Reference create preview from image
-            //Adapted from https://stackoverflow.com/a/4459419/14457259
-            var imgPreview =document.createElement("IMG");
-            imgPreview.setAttribute("id", i.toString() + "imgPreview");
-            imgPreview.setAttribute("src", URL.createObjectURL(f));
-            imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block m-2 rounded")
-            //End of reference
-            fileSection.appendChild(imgPreview);
+            if (validImgTypes.includes(f.type)) {
+               //image preview
+               //Reference create preview from image
+               //Adapted from https://stackoverflow.com/a/4459419/14457259
+               var imgPreview =document.createElement("IMG");
+               imgPreview.setAttribute("id", i.toString() + "imgPreview");
+               imgPreview.setAttribute("src", URL.createObjectURL(f));
+               imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block m-2 rounded")
+               //End of reference
+               fileSection.appendChild(imgPreview);
+            } else if (validVideoTypes.includes(f.type)) {
+               console.log("adding video preview")
+               var videoPreview = document.createElement("video");
+               videoPreview.setAttribute("controls", "true");
+               videoPreview.innerHTML = "Your browser does not support this video";
+               videoPreview.setAttribute("src", URL.createObjectURL(f));
+               fileSection.appendChild(videoPreview);
+            }
+
 
             var titleInput = document.createElement("INPUT")
             titleInput.setAttribute("type", "text");
@@ -173,8 +184,10 @@ function listFiles() {
             fileSection.appendChild(titleInput);
          }
 
-         var finalSubmit = document.getElementById("finalSubmit")
-         finalSubmit.onclick = updateFiles;
+         document.getElementById('finalSubmit').addEventListener('click', function(){
+            convertDepthMeters();
+            updateFiles();
+         });
       }
       //   If files have already been added remove all input boxes and call function again to get the new files
    } else {
