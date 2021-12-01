@@ -27,6 +27,27 @@ else{
    console.log("doesnt work")
 }
 
+// Does conversion on submit
+var finalSubmitButton = document.getElementById("finalSubmit")
+finalSubmitButton.onclick = convertDepthMeters;
+
+// Create function for cm to meter conversion from dropdown menu
+function convertDepthMeters() {
+   const value = seeManualDepthEntry.options[seeManualDepthEntry.selectedIndex].text;
+   let convertedValue = document.getElementById('convertedVal');
+
+   if (value.includes("cm")) {
+      var removedCm = value.replace("cm", "");
+      const cmToMeters = removedCm / 100  // Do conversion from centimeters to meters
+      convertedValue.value=cmToMeters;
+   } else if(value.includes("m")) {
+      var removedM = value.replace("m", "");
+      convertedValue.value=removedM;
+   } else {
+      console.log("Error. Cannot convert depth category")
+   }
+}
+
 function hideManualDepthEntry() {
    // Get the selected value from depth category
    const value = seeManualDepthEntry.options[seeManualDepthEntry.selectedIndex].text;
@@ -39,16 +60,6 @@ function hideManualDepthEntry() {
       document.getElementById('depthMeterField').setAttribute("required", '');
    } else {
       manualDepthEntryDiv.style.display = "none";           // Otherwise, hide the input field
-      if (value.includes("cm")) {
-         var removedCm = value.replace("cm", "");
-         const cmToMeters = removedCm / 100  // Do conversion from centimeters to meters
-         convertedValue.value=cmToMeters;
-      } else if(value.includes("m")) {
-         var removedM = value.replace("m", "");
-         convertedValue.value=removedM;
-      } else {
-         console.log("Error. Cannot convert depth category")
-      }
    }
 }
 
