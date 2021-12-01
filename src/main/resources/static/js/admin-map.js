@@ -26,6 +26,7 @@ function requestFromAPI(url){
     })
 }
 
+////// Change this to get the specific report selected by admin //////
 const reportAPI = "http://localhost:8080/api/reports";
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
