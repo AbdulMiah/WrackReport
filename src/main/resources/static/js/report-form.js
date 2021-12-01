@@ -109,8 +109,9 @@ function listFiles() {
       //validate file size and type
       var fileSizeValid = true;
       var fileTypeValid = true;
-      var validFileTypes = ["image/png", "image/jpg", "image/jpeg"]
+      var validFileTypes = ["image/png", "image/jpg", "image/jpeg", "video/mp4", "video/quicktime", "video/avi", "video/x-matroska"];
       for (let i = 0; i < files.length; i++) {
+         console.log("file: " + files[i])
          console.log("type: " + files[i].type)
          if (files[i].size / 1024 / 1024 > 150) {
             fileSizeValid = false;
@@ -124,7 +125,7 @@ function listFiles() {
          fileUpload1.value = null;         // Removes files
       }
       if (fileTypeValid == false) {
-         alert("Files must be JPG or PNG")
+         alert("Files must be JPG, PNG, MP4, MOV, AVI or MKV")
          fileUpload1.setCustomValidity("Files must not be larger than 150mb");
          fileUpload1.value = null;         // Removes files
       }

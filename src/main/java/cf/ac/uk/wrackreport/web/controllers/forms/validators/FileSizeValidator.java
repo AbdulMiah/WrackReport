@@ -31,7 +31,7 @@ public class FileSizeValidator implements ConstraintValidator<ValidFileSize, Arr
             return false;
         }
         //Create list of acceptable content types
-        List<String> validTypes = Arrays.asList(new String[]{"jpg", "png", "jpeg"});
+        List<String> validTypes = Arrays.asList("jpg", "png", "jpeg", "mp4", "mov", "avi", "mkv");
         //Loop through files arraylist
         for (MultipartFile f: files) {
             //reject if file over 150mb

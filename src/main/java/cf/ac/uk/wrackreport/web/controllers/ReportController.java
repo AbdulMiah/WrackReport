@@ -15,6 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +31,7 @@ import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -106,6 +108,17 @@ public class ReportController {
                     String fileTitle = FilenameUtils.removeExtension(fileName);
                     String ext = FilenameUtils.getExtension(fileName);
 
+                    //Get type
+                    List<String> videoExtensions = Arrays.asList("mp4", "mov", "avi", "mkv");
+                    List<String> imageExtensions = Arrays.asList("jpg", "png", "jpeg");
+                    int type = 1;
+
+                    if (videoExtensions.contains(ext)) {
+                        type = 2;
+                    } else if (imageExtensions.contains(ext)) {
+                        type = 1;
+                    }
+
                    //path is random string + file extension
                     String filePath = "./uploaded-media/" + generatedString + "." + ext;
                     File file = new File("./uploaded-media/" +generatedString + "." + ext);
@@ -115,7 +128,7 @@ public class ReportController {
                         os.write(f.getBytes());
                     }
                     //Add media to list that will be added to ReportDTO
-                    mediaArrayList.add(new Media(null,null, fileTitle,1,filePath));
+                    mediaArrayList.add(new Media(null,null, fileTitle,type,filePath));
                 }
             }
         } catch (IOException e) {
