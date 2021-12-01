@@ -26,7 +26,7 @@ CREATE TABLE `reports` (
     `category_id` INT NOT NULL,
     `description` VARCHAR(2500) NOT NULL,
     `depth_category_id` INT NOT NULL,
-    `depth_meters` DECIMAL(6,4),
+    `depth_meters` DECIMAL(6,4) NOT NULL,
     `lat_long` VARCHAR(50) NOT NULL,
     `datetime` DATETIME NOT NULL,
     `postcode` VARCHAR(15),

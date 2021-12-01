@@ -33,15 +33,15 @@ INSERT INTO `categories`
 VALUES(NULL, 'N/A');
 
 INSERT INTO `depth_categories`
-VALUES(NULL, 'Up to ground socket');
+VALUES(NULL, '10cm');
 INSERT INTO `depth_categories`
-VALUES(NULL, 'Up to my ankles');
+VALUES(NULL, '25cm');
 INSERT INTO `depth_categories`
-VALUES(NULL, 'Up to my knees');
+VALUES(NULL, '50cm');
 INSERT INTO `depth_categories`
-VALUES(NULL, 'Up to my chest');
+VALUES(NULL, '1m');
 INSERT INTO `depth_categories`
-VALUES(NULL, 'Up to my light switch');
+VALUES(NULL, '3m');
 INSERT INTO `depth_categories`
 VALUES(NULL, 'Other');
 
