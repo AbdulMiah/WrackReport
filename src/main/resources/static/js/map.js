@@ -16,9 +16,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // Set view map view to center of Wales
 map.setView([52.4307, -3.7837], 7);
 
-
-// Add markers to the map from reports from reports form
-
 // Creating a function that will request data from API and store as JSON
 // Adapted From https://www.geeksforgeeks.org/how-to-use-the-javascript-fetch-api-to-get-data/
 function requestFromAPI(url){
@@ -32,7 +29,34 @@ function requestFromAPI(url){
     })
 }
 
-// Requesting data for reports
+////// Function will get lat long from postcode API when user fills in postcode field on report form //////
+function getLatLongFromPostcode() {
+    // Get the postcode from field
+    const postcodeField = document.getElementById("postcodeField").value;
+    const postcodeAPI = "https://api.postcodes.io/postcodes/"+postcodeField;        // Add postcode to api
+    console.log(postcodeAPI);
+
+    // Get results from API
+    requestFromAPI(postcodeAPI).then((apiData) => {
+        console.log(apiData);
+        var results = apiData["result"];
+        const lat = results["latitude"];            // Storing Latitude from results
+        const long = results["longitude"];          // Storing Longitude from results
+        // Add animation to map, so that it zooms to location at duration of 1.5
+        // Adapted from https://gis.stackexchange.com/questions/228273/how-to-slow-the-zoom-transition-speed-in-leaflet
+        map.flyTo([lat, long], 16,{
+            animate: true,
+            duration: 1.5
+        });
+        var popup = L.popup()
+            .setLatLng([lat, long])
+            .setContent("Click on map to specify your report location")
+            .openOn(map);
+    });
+}
+
+////// Add markers to the map from report form //////
+// Requesting data for reports and adding markers to map
 const reportAPI = "http://localhost:8080/api/reports";
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
@@ -43,7 +67,7 @@ requestFromAPI(reportAPI).then((result) => {
     })
 });
 
-// Get lat long from when user clicks on map
+////// Get lat long from when user clicks on map //////
 function setLatLongInField(latLong) {
     var field = document.getElementById("latLongField");
     field.setAttribute("value", latLong);
@@ -54,7 +78,7 @@ var popup = L.popup();
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
-        .setContent("Setting your report location here")           // Create a button in the popup
+        .setContent("Setting location of your report here")           // Create a button in the popup
         .openOn(map);
 
     // Remove unnecessary values from .toString
