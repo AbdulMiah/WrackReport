@@ -103,7 +103,7 @@ function listFiles() {
          fileUpload1.value = null;         // Removes files
       }
       if (fileTypeValid == false) {
-         alert("Files must be JPG or PNG")
+         alert("Files must be JPG, PNG, MP4, MOV, AVI or MKV")
          fileUpload1.setCustomValidity("Files must not be larger than 150mb");
          fileUpload1.value = null;         // Removes files
       }

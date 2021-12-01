@@ -85,7 +85,7 @@
                     <!--                hidden element to store renamed files-->
                     <input id="fileUploadToSubmit" class="form-control" style="display: none" th:field="*{files}" type="file" accept="image/jpeg, image/png, video/mp4, video/quicktime, video/x-msvideo, video/x-matroska" multiple/>
                     <div class="alert alert-warning" th:errors="*{files}" th:if="${#fields.hasErrors('files')}">Files error</div>
-                    <p id="fileUpload-text">*Photos must be JPGs or PNGs</p>
+                    <p id="fileUpload-text">*Files must be JPG, PNG, MP4, MOV, AVI or MKV</p>
                 </div>
                 <div id="fileSection" ></div>
 
