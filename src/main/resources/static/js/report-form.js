@@ -150,6 +150,16 @@ function listFiles() {
          //Add input boxes for each file
          for (var i = 0; i < files.length; i++) {
             var f = files[i];
+
+            //preview
+            //Reference create preview from image
+            //Adapted from https://stackoverflow.com/a/4459419/14457259
+            var imgPreview =document.createElement("IMG");
+            imgPreview.setAttribute("id", i.toString() + "imgPreview");
+            imgPreview.setAttribute("src", URL.createObjectURL(f));
+            //End of reference
+            fileSection.appendChild(imgPreview);
+
             var titleInput = document.createElement("INPUT")
             titleInput.setAttribute("type", "text");
             titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
