@@ -51,7 +51,7 @@ function showError(error) {
    var x = document.getElementById("gpsErrors");
    switch(error.code) {
       case error.PERMISSION_DENIED:
-         x.innerHTML = "User denied the request for Geolocation."
+         x.innerHTML = "You denied the request for Geolocation. Go to permission settings and 'Allow' us to use your location."
          break;
       case error.POSITION_UNAVAILABLE:
          x.innerHTML = "Location information is unavailable."
