@@ -32,17 +32,37 @@ else{
 // Adapted from https://www.w3schools.com/html/html5_geolocation.asp
 function getGPSLocation() {
    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
    } else {
       console.log("Geolocation is not supported by this browser.");
    }
 }
 
+// Adds latLong retrieved from GPS into the latLong field in report form
 function showPosition(position) {
    latLongGPS = position.coords.latitude+", "+position.coords.longitude;
    latLongField.value = latLongGPS;
    // Change placeholder of postcode field to let user know coords retrieved from GPS
    postcodeField.setAttribute("placeholder", "Co-ords from GPS: "+latLongGPS);
+}
+
+// Error handling for geolocation
+function showError(error) {
+   var x = document.getElementById("gpsErrors");
+   switch(error.code) {
+      case error.PERMISSION_DENIED:
+         x.innerHTML = "User denied the request for Geolocation."
+         break;
+      case error.POSITION_UNAVAILABLE:
+         x.innerHTML = "Location information is unavailable."
+         break;
+      case error.TIMEOUT:
+         x.innerHTML = "The request to get user location timed out."
+         break;
+      case error.UNKNOWN_ERROR:
+         x.innerHTML = "An unknown error occurred."
+         break;
+   }
 }
 
 // Does conversion on submit
