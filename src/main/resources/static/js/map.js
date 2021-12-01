@@ -70,7 +70,9 @@ requestFromAPI(reportAPI).then((result) => {
 ////// Get lat long from when user clicks on map //////
 function setLatLongInField(latLong) {
     var field = document.getElementById("latLongField");
+    var postcodeField = document.getElementById("postcodeField");
     field.setAttribute("value", latLong);
+    postcodeField.setAttribute("placeholder", "Co-ordinates: "+latLong);
 }
 
 var popup = L.popup();
@@ -84,7 +86,7 @@ function onMapClick(e) {
     // Remove unnecessary values from .toString
     var latLongTemp = e.latlng.toString().replace(/^\D+/g, '');         // Only get digits
     var latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
-    setLatLongInField(latLong)
+    setLatLongInField(latLong);
     console.log(latLong)        // Console log the latLong (testing)
 }
 map.on('click', onMapClick);
