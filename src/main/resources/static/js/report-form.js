@@ -4,6 +4,8 @@ const remainingCharsText = document.getElementById('remaining-chars');
 const seeManualDepthEntry = document.getElementById('seeManualDepthEntry');
 const manualDepthEntryDiv = document.getElementById('manualDepthEntry');
 const measurementType = document.getElementById('measurementType');
+var latLongField = document.getElementById("latLongField");
+var postcodeField = document.getElementById("postcodeField");
 
 const MAX_Chars = 2500;
 
@@ -25,6 +27,22 @@ if(description != null){
 }
 else{
    console.log("doesnt work")
+}
+
+// Adapted from https://www.w3schools.com/html/html5_geolocation.asp
+function getGPSLocation() {
+   if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+   } else {
+      console.log("Geolocation is not supported by this browser.");
+   }
+}
+
+function showPosition(position) {
+   latLongGPS = position.coords.latitude+", "+position.coords.longitude;
+   latLongField.value = latLongGPS;
+   // Change placeholder of postcode field to let user know coords retrieved from GPS
+   postcodeField.setAttribute("placeholder", "Co-ords from GPS: "+latLongGPS);
 }
 
 // Does conversion on submit
@@ -51,7 +69,6 @@ function convertDepthMeters() {
 function hideManualDepthEntry() {
    // Get the selected value from depth category
    const value = seeManualDepthEntry.options[seeManualDepthEntry.selectedIndex].text;
-   let convertedValue = document.getElementById('convertedVal');
 
    // If the user chose 'Other' and the input field for manual entry is invisible
    if (value == "Other" && manualDepthEntryDiv.style.display==="none") {
