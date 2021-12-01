@@ -196,6 +196,7 @@ body{
     width: 300px;
     height: 270px;
     border:solid white;
+    object-fit: cover;
 }
 #filePreviews video {
     display: block;
@@ -206,6 +207,6 @@ body{
     border:solid white;
 }
 
-#filePreviews input {
-    max-width: 80%;
+#filePreviews img:hover, video:hover {
+    filter: brightness(110%);
 }
