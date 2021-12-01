@@ -74,6 +74,10 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     }
 
     public List<Report> findAllReports() {
+        ArrayList<ReportEntity> reportEntities = reportRepository.findAll();
+        for (ReportEntity r: reportEntities
+             ) {
+        }
         return reportRepository.findAll()
                 .stream()
                 .map(r -> r.toDomain())

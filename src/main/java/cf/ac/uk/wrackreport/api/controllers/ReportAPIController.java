@@ -15,17 +15,17 @@ import java.util.List;
 @RequestMapping("api")
 public class ReportAPIController {
 
-    private ReportRepository reportRepository;
+    private ReportService reportService;
 
-    public ReportAPIController(ReportRepository aReportService) {
-        reportRepository = aReportService;
+    public ReportAPIController(ReportService aReportService) {
+        reportService = aReportService;
     }
 
     @GetMapping("reports")
-    public ResponseEntity<List<ReportEntity>> findAll() {
-        List<ReportEntity> reportEntityList;
-        reportEntityList = reportRepository.findAll();
+    public ResponseEntity<List<ReportDTO>> findAll() {
+        List<ReportDTO> reportDTOList;
+        reportDTOList = reportService.findAllReports();
 
-        return ResponseEntity.ok(reportEntityList);
+        return ResponseEntity.ok(reportDTOList);
     }
 }
