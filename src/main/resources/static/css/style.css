@@ -187,18 +187,25 @@ body{
 }
 
 /*File upload CSS*/
-#fileSection input {
+#filePreviews input {
     display: block;
     margin-right: auto;
     margin-left: auto;
 }
-#fileSection img {
-    max-width: 50%;
-    max-height: 10%;
+#filePreviews img {
+    width: 300px;
+    height: 270px;
+    border:solid white;
+}
+#filePreviews video {
+    display: block;
+    padding: 2px;
+    margin: 0 auto;
+    width: 300px;
+    height: 270px;
     border:solid white;
 }
 
-#fileSection input {
-    display: block;
-    max-width: 50%;
+#filePreviews input {
+    max-width: 80%;
 }

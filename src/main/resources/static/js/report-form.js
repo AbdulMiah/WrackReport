@@ -152,6 +152,7 @@ function listFiles() {
          //Add input boxes for each file
          for (var i = 0; i < files.length; i++) {
             var f = files[i];
+            var gridSection = document.getElementById("preview" + i.toString());
 
             if (validImgTypes.includes(f.type)) {
                //image preview
@@ -160,28 +161,29 @@ function listFiles() {
                var imgPreview =document.createElement("IMG");
                imgPreview.setAttribute("id", i.toString() + "imgPreview");
                imgPreview.setAttribute("src", URL.createObjectURL(f));
-               imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block m-2 rounded")
+               imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block rounded")
                //End of reference
-               fileSection.appendChild(imgPreview);
+               gridSection.appendChild(imgPreview);
             } else if (validVideoTypes.includes(f.type)) {
                console.log("adding video preview")
                var videoPreview = document.createElement("video");
                videoPreview.setAttribute("controls", "true");
                videoPreview.innerHTML = "Your browser does not support this video";
                videoPreview.setAttribute("src", URL.createObjectURL(f));
-               fileSection.appendChild(videoPreview);
+               videoPreview.setAttribute("class", "center-block embed-responsive")
+               gridSection.appendChild(videoPreview);
             }
 
 
             var titleInput = document.createElement("INPUT")
             titleInput.setAttribute("type", "text");
-            titleInput.setAttribute("class", "form-control");
+            titleInput.setAttribute("class", "form-control mx-auto m-2");
             titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
             titleInput.setAttribute("id", i.toString() + "newFileNameOf");
             titleInput.setAttribute("maxlength", 30);
             titleInput.setAttribute("pattern", "^[0-9a-zA-Z_ ]+$");
             titleInput.setAttribute("title", "No special characters")
-            fileSection.appendChild(titleInput);
+            gridSection.appendChild(titleInput);
          }
 
          document.getElementById('finalSubmit').addEventListener('click', function(){
@@ -198,6 +200,11 @@ function listFiles() {
          element.removeChild(element.firstChild);
       }
       //end of reference
+
+      //Remove content from bootstrap grid of previews
+      for (let i = 0; i < 5; i++) {
+         document.getElementById("preview"+i.toString()).innerHTML='';
+      }
       listFiles();
    }
 
