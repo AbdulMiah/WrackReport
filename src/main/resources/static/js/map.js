@@ -48,7 +48,7 @@ function setLatLongInField(latLong) {
     var field = document.getElementById("latLongField");
     var postcodeField = document.getElementById("postcodeField");
     field.setAttribute("value", latLong);
-    postcodeField.setAttribute("placeholder", latLong);
+    postcodeField.setAttribute("placeholder", "Co-ordinates: "+latLong);
 }
 
 var popup = L.popup();
