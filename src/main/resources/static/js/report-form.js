@@ -157,15 +157,16 @@ function listFiles() {
             if (validImgTypes.includes(f.type)) {
                //image preview
                //Reference create preview from image
-               //Adapted from https://stackoverflow.com/a/4459419/14457259
+               //Taken from https://stackoverflow.com/a/4459419/14457259
                var imgPreview =document.createElement("IMG");
                imgPreview.setAttribute("id", i.toString() + "imgPreview");
                imgPreview.setAttribute("src", URL.createObjectURL(f));
                imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block rounded")
                //End of reference
+               //Add preview to bootstrap grid
                gridSection.appendChild(imgPreview);
             } else if (validVideoTypes.includes(f.type)) {
-               console.log("adding video preview")
+               //video preview
                var videoPreview = document.createElement("video");
                videoPreview.setAttribute("controls", "true");
                videoPreview.innerHTML = "Your browser does not support this video";
@@ -214,7 +215,6 @@ function updateFiles() {
    //Add renamed files to hidden html element that will get submitted
    //adapted from https://stackoverflow.com/a/56447852/14457259
    //Create new list of files
-   console.log("updating files")
    let newFiles = new DataTransfer();
    var files = fileUpload.files;
    var valid = true;
