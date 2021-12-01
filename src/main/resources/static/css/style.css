@@ -185,3 +185,20 @@ body{
     font-family: Montserrat, sans-serif;
     color: #FFFFFF;
 }
+
+/*File upload CSS*/
+#fileSection input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+#fileSection img {
+    max-width: 50%;
+    max-height: 50%;
+    border:solid white;
+}
+
+#fileSection input {
+    display: block;
+    max-width: 50%;
+}

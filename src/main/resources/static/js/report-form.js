@@ -157,11 +157,13 @@ function listFiles() {
             var imgPreview =document.createElement("IMG");
             imgPreview.setAttribute("id", i.toString() + "imgPreview");
             imgPreview.setAttribute("src", URL.createObjectURL(f));
+            imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block m-2 rounded")
             //End of reference
             fileSection.appendChild(imgPreview);
 
             var titleInput = document.createElement("INPUT")
             titleInput.setAttribute("type", "text");
+            titleInput.setAttribute("class", "form-control");
             titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
             titleInput.setAttribute("id", i.toString() + "newFileNameOf");
             titleInput.setAttribute("maxlength", 30);
