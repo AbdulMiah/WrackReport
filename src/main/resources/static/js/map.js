@@ -81,7 +81,7 @@ function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
         .setContent("Setting location of your report here")           // Let user know location is being set here
-        .openOn(map)
+        .openOn(map);
 
     // Adding flyTo animation when user clicks on map to help pin-point a more specific location
     map.flyTo(e.latlng, 16, {
