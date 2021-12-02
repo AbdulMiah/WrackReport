@@ -144,8 +144,8 @@ public class ReportController {
         String datetime = datetimeSplit[0].concat(" " + datetimeSplit[1] + ":00");
         log.info("datetime: " + datetime);
 
-        // if the postcode field from the form is not empty, then ...
-        if (!reportForm.getPostcode().isEmpty()) {
+        // if the postcode field from the form is not empty and lat long field is empty, then ...
+        if ((!reportForm.getPostcode().isEmpty()) && (reportForm.getLatLong().isEmpty())) {
             // Making the postcode into lower case and removing whitespaces
             String postcodeToSearch = reportForm.getPostcode().toLowerCase().replaceAll("\\s+", "");
             // Adapted from https://www.geeksforgeeks.org/how-to-call-or-consume-external-api-in-spring-boot/
