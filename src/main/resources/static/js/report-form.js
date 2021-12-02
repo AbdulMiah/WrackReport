@@ -4,6 +4,8 @@ const remainingCharsText = document.getElementById('remaining-chars');
 const seeManualDepthEntry = document.getElementById('seeManualDepthEntry');
 const manualDepthEntryDiv = document.getElementById('manualDepthEntry');
 const measurementType = document.getElementById('measurementType');
+var latLongField = document.getElementById("latLongField");
+var postcodeField = document.getElementById("postcodeField");
 
 const MAX_Chars = 2500;
 
@@ -25,6 +27,54 @@ if(description != null){
 }
 else{
    console.log("doesnt work")
+}
+
+// Adapted from https://www.w3schools.com/html/html5_geolocation.asp
+function getGPSLocation() {
+   if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+   } else {
+      console.log("Geolocation is not supported by this browser.");
+   }
+}
+
+// Adds latLong retrieved from GPS into the latLong field in report form
+function showPosition(position) {
+   latLongGPS = position.coords.latitude+", "+position.coords.longitude;
+   latLongField.value = latLongGPS;
+   // Change placeholder of postcode field to let user know coords retrieved from GPS
+   postcodeField.setAttribute("placeholder", "Co-ords from GPS: "+latLongGPS);
+
+   // Zoom into current location on map
+   map.flyTo([position.coords.latitude, position.coords.longitude], 16, {
+      animate: true,
+      duration: 1.5
+   });
+
+   // Let user know report location is being set here
+   var popup = L.popup()
+       .setLatLng([position.coords.latitude, position.coords.longitude])
+       .setContent("Setting location of your report here")
+       .openOn(map);
+}
+
+// Error handling for geolocation
+function showError(error) {
+   var x = document.getElementById("gpsErrors");
+   switch(error.code) {
+      case error.PERMISSION_DENIED:
+         x.innerHTML = "You denied the request for Geolocation. Go to permission settings and 'Allow' us to use your location."
+         break;
+      case error.POSITION_UNAVAILABLE:
+         x.innerHTML = "Location information is unavailable."
+         break;
+      case error.TIMEOUT:
+         x.innerHTML = "The request to get user location timed out."
+         break;
+      case error.UNKNOWN_ERROR:
+         x.innerHTML = "An unknown error occurred."
+         break;
+   }
 }
 
 // Does conversion on submit
@@ -51,7 +101,6 @@ function convertDepthMeters() {
 function hideManualDepthEntry() {
    // Get the selected value from depth category
    const value = seeManualDepthEntry.options[seeManualDepthEntry.selectedIndex].text;
-   let convertedValue = document.getElementById('convertedVal');
 
    // If the user chose 'Other' and the input field for manual entry is invisible
    if (value == "Other" && manualDepthEntryDiv.style.display==="none") {

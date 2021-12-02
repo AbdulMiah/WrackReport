@@ -72,7 +72,7 @@ function setLatLongInField(latLong) {
     var field = document.getElementById("latLongField");
     var postcodeField = document.getElementById("postcodeField");
     field.setAttribute("value", latLong);
-    postcodeField.setAttribute("placeholder", "Co-ordinates: "+latLong);
+    postcodeField.setAttribute("placeholder", "Co-ords from map: "+latLong);
 }
 
 var popup = L.popup();
@@ -80,8 +80,14 @@ var popup = L.popup();
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
-        .setContent("Setting location of your report here")           // Create a button in the popup
+        .setContent("Setting location of your report here")           // Let user know location is being set here
         .openOn(map);
+
+    // Adding flyTo animation when user clicks on map to help pin-point a more specific location
+    map.flyTo(e.latlng, 16, {
+        animate: true,
+        duration: 1.5
+    });
 
     // Remove unnecessary values from .toString
     var latLongTemp = e.latlng.toString().replace(/^\D+/g, '');         // Only get digits
