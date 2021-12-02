@@ -185,3 +185,29 @@ body{
     font-family: Montserrat, sans-serif;
     color: #FFFFFF;
 }
+
+/*File upload CSS*/
+#filePreviews input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 300px;
+}
+#filePreviews img {
+    width: 300px;
+    height: 270px;
+    border:solid white;
+    object-fit: cover;
+}
+#filePreviews video {
+    display: block;
+    padding: 2px;
+    margin: 0 auto;
+    width: 300px;
+    height: 270px;
+    border:solid white;
+}
+
+#filePreviews img:hover, video:hover {
+    filter: brightness(110%);
+}
