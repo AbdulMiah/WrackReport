@@ -44,6 +44,18 @@ function showPosition(position) {
    latLongField.value = latLongGPS;
    // Change placeholder of postcode field to let user know coords retrieved from GPS
    postcodeField.setAttribute("placeholder", "Co-ords from GPS: "+latLongGPS);
+
+   // Zoom into current location on map
+   map.flyTo([position.coords.latitude, position.coords.longitude], 16, {
+      animate: true,
+      duration: 1.5
+   });
+
+   // Let user know report location is being set here
+   var popup = L.popup()
+       .setLatLng([position.coords.latitude, position.coords.longitude])
+       .setContent("Setting location of your report here")
+       .openOn(map);
 }
 
 // Error handling for geolocation
