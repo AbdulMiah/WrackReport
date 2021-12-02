@@ -211,3 +211,20 @@ body{
 #filePreviews img:hover, video:hover {
     filter: brightness(110%);
 }
+
+/*Account creation styling*/
+.account-content {
+    font-family: Montserrat, sans-serif;
+    color: white;
+}
+
+.account-heading h1{
+    color: white;
+    text-align: left;
+    font-weight: 700;
+    font-size: 5em;
+    /*padding-top: 3%;*/
+    /*padding-bottom: 3%;*/
+    /*padding-left: 3%;*/
+    font-family: Montserrat, sans-serif;
+}
