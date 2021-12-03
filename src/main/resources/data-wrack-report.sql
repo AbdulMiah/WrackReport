@@ -20,15 +20,15 @@ INSERT INTO `users`
 VALUES(NULL, 'ROLE_ADMIN', 'admin', 'user', 'admin@gmail.com', null, "$2a$10$J.n9gEYayF9kTfQsqTT5u.KjH7JTpU57jImc1sX0/Em38kzHgTYoK", true);
 
 INSERT INTO `categories`
-VALUES(NULL, 'sewer flooding'); 
+VALUES(NULL, 'Sewer flooding');
 INSERT INTO `categories`
-VALUES(NULL, 'river flooding');
+VALUES(NULL, 'River flooding');
 INSERT INTO `categories`
-VALUES(NULL, 'coastal flooding');
+VALUES(NULL, 'Coastal flooding');
 INSERT INTO `categories`
-VALUES(NULL, 'debris');
+VALUES(NULL, 'Debris');
 INSERT INTO `categories`
-VALUES(NULL, 'flash flooding');
+VALUES(NULL, 'Flash flooding');
 INSERT INTO `categories`
 VALUES(NULL, 'N/A');
 
