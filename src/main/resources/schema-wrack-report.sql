@@ -81,3 +81,12 @@ ADD FOREIGN KEY (`metadata_id`) REFERENCES `metadata`(`metadata_id`);
 
 -- ALTER TABLE `users`
 -- ADD FOREIGN KEY (`user_type_id`) REFERENCES `user_types`(`user_type_id`);
+
+-- Views --
+
+CREATE VIEW report_overview AS
+SELECT r.report_id, r.datetime, c.category_name, r.depth_meters, r.postcode, r.local_authority
+FROM reports r
+INNER JOIN categories c
+ON r.category_id = c.category_id;
+SELECT * FROM report_overview;
