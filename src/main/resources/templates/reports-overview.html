@@ -34,13 +34,13 @@
                     <th>Local Authority</th>
                     <th>butt</th>
                 </tr>
-                <tr id="table-contents">
-                    <td>10/10/2021</td>
+                <tr id="table-contents" th:each = "reportOverview: ${allReports}">
+                    <td th:text="${reportOverview.datetime}"></td>
                     <td>12:49</td>
-                    <td>Debris</td>
-                    <td>5m</td>
-                    <td>CF14 3BZ</td>
-                    <td>Cardiff</td>
+                    <td th:text="${reportOverview.categoryName}"></td>
+                    <td th:text="${reportOverview.depthMeters}"></td>
+                    <td th:text="${reportOverview.postcode}"></td>
+                    <td th:text="${reportOverview.localAuthority}"></td>
                     <td>butt</td>
                 </tr>
             </table>

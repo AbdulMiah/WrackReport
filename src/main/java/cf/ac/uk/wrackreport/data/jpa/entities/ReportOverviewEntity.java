@@ -46,6 +46,7 @@ public class ReportOverviewEntity {
                 this.postcode,
                 this.localAuthority
         );
+        return domainReportOverview;
 
     }
 }
