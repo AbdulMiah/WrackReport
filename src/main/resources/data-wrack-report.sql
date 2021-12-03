@@ -45,15 +45,15 @@ INSERT INTO `users`
 VALUES(16, 'ROLE_USER', 'Steve', 'Wallace', 'swalls7@gmail.com', NULL, NULL, true);
 
 INSERT INTO `categories`
-VALUES(NULL, 'sewer flooding'); 
+VALUES(NULL, 'Sewer flooding');
 INSERT INTO `categories`
-VALUES(NULL, 'river flooding');
+VALUES(NULL, 'River flooding');
 INSERT INTO `categories`
-VALUES(NULL, 'coastal flooding');
+VALUES(NULL, 'Coastal flooding');
 INSERT INTO `categories`
-VALUES(NULL, 'debris');
+VALUES(NULL, 'Debris');
 INSERT INTO `categories`
-VALUES(NULL, 'flash flooding');
+VALUES(NULL, 'Flash flooding');
 INSERT INTO `categories`
 VALUES(NULL, 'N/A');
 

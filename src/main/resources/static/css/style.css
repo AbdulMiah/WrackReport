@@ -27,34 +27,37 @@ body{
     /*overflow: hidden !important;*/
 }
 
-.sidebar{
-    width: 40%;
-    /*overflow-y: scroll;*/
-    height: 100%;
-    float: left;
+/*Collapse at breakpoint 1000px*/
+@media (min-width: 1000px) {
+    .sidebar{
+        width: 40%;
+        /*overflow-y: scroll;*/
+        height: 100%;
+        float: left;
+    }
 
+    .form-control::placeholder{
+        font-size: 1.25vw;
+    }
 
-}
-.form-control::placeholder{
-    font-size: 1.25vw;
-}
-.sidebar-content{
-    background-color: #0A3D62;
-    font-family: Montserrat,sans-serif;
-    padding-left: 5%;
-    padding-right: 5%;
-    margin: 0px;
-    padding-bottom: 2.5%;
-    box-shadow: inset -5px 0px 10px;
-    height: 100%;
-    overflow: auto;
+    .sidebar-content {
+        background-color: #0A3D62;
+        font-family: Montserrat, sans-serif;
+        padding-left: 5%;
+        padding-right: 5%;
+        margin: 0px;
+        padding-bottom: 2.5%;
+        box-shadow: inset -5px 0px 10px;
+        height: 100%;
+        overflow: auto;
+    }
 
-}
-.sidebar-content::-webkit-scrollbar {
-    width: 0.5rem;
+    .sidebar-content::-webkit-scrollbar {
+        width: 0.5rem;
+    }
 }
 
-.sidebar h1{
+.sidebar h1 {
     color: white;
     text-align: center;
     font-weight: 700;
@@ -62,6 +65,7 @@ body{
     padding-top: 5%;
     padding-bottom: 5%;
 }
+
 #agree-text{
     font-size: 1vw;
     color: white;
@@ -166,6 +170,13 @@ body{
     width: 60%;
 }
 
+/*Set map width to 100% of screen once collapsed*/
+@media (max-width: 1000px) {
+    #map {
+        width: 100%;
+    }
+}
+
 /*Privacy Policy CSS*/
 .privacy-heading {
     color: white;
@@ -184,6 +195,32 @@ body{
 .privacy-content {
     font-family: Montserrat, sans-serif;
     color: #FFFFFF;
+}
+
+/*File upload CSS*/
+#filePreviews input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 300px;
+}
+#filePreviews img {
+    width: 300px;
+    height: 270px;
+    border:solid white;
+    object-fit: cover;
+}
+#filePreviews video {
+    display: block;
+    padding: 2px;
+    margin: 0 auto;
+    width: 300px;
+    height: 270px;
+    border:solid white;
+}
+
+#filePreviews img:hover, video:hover {
+    filter: brightness(110%);
 }
 
 /*File upload CSS*/
