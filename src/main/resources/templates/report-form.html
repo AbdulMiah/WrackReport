@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="js/exif-reader.js"></script>
 
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,7 +43,7 @@
                     <input th:field="*{latLong}" id="latLongField" type="hidden"/>
                     <h3 style= "color:white; background-color: crimson; border-color: darkred;" th:text="${errorMsg}"></h3>
 
-                    <button type="button" class="btn btn-outline-light btn-floating m-1" onclick="getGPSLocation()">
+                    <button type="button" class="btn btn-outline-light btn-floating m-1" id="locationButton" onclick="getGPSLocation()">
                         <span class="fa fa-location-arrow"></span>
                          Use my current location
                     </button>

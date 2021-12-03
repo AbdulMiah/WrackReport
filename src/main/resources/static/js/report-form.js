@@ -40,10 +40,10 @@ function getGPSLocation() {
 
 // Adds latLong retrieved from GPS into the latLong field in report form
 function showPosition(position) {
-   latLongGPS = position.coords.latitude+", "+position.coords.longitude;
+   latLongGPS = position.coords.latitude + ", " + position.coords.longitude;
    latLongField.value = latLongGPS;
    // Change placeholder of postcode field to let user know coords retrieved from GPS
-   postcodeField.setAttribute("placeholder", "Co-ords from GPS: "+latLongGPS);
+   postcodeField.setAttribute("placeholder", "Your current location: "+latLongGPS);
 
    // Zoom into current location on map
    map.flyTo([position.coords.latitude, position.coords.longitude], 16, {
@@ -176,7 +176,7 @@ function listFiles() {
       }
       if (fileTypeValid == false) {
          alert("Files must be JPG, PNG, MP4, MOV, or MKV")
-         fileUpload1.setCustomValidity("Files must not be larger than 150mb");
+         fileUpload1.setCustomValidity("Files must not be larger than 150MB");
          fileUpload1.value = null;         // Removes files
       }
       //give alert if more than 5 files uploaded
@@ -188,6 +188,41 @@ function listFiles() {
          fileUpload1.value = null;         // Removes files if more than 5 is uploaded
          //continue if all validations pass
       } else if (fileTypeValid != false && fileSizeValid != false){
+         //==Oliver Hardman==
+         //Get metadata from image to determine location
+         ExifReader.load(document.getElementById("fileUpload").files[0]).then((tags) => {
+            if(Object.keys(tags).includes("GPSLatitude")){
+               console.log(JSON.stringify(tags))
+               var latitude = tags['GPSLatitude'].description
+               if(tags['GPSLatitudeRef'].description == "South latitude"){
+                  latitude = latitude * -1
+               }
+
+               var longitude = tags['GPSLongitude'].description
+               if(tags['GPSLongitudeRef'].description == "West longitude"){
+                  longitude = longitude * -1
+               }
+
+               var latLongGPS = latitude + ", " + longitude
+               console.log("QUAL: " + latLongGPS)
+               latLongField.value = latLongGPS;
+               // Change placeholder of postcode field to let user know coords retrieved from GPS
+               postcodeField.setAttribute("placeholder", "Your current location: "+latLongGPS);
+
+               // Zoom into current location on map
+               map.flyTo([latitude, longitude], 16, {
+                  animate: true,
+                  duration: 1.5
+               });
+
+               // Let user know report location is being set here
+               var popup = L.popup()
+                   .setLatLng([latitude, longitude])
+                   .setContent("Setting location of your report here")
+                   .openOn(map);
+            }
+         }).catch((err) => {console.error(err)})
+
          // Reset custom validator
          fileUpload1.setCustomValidity("");
          //Create text to tell user to title files
