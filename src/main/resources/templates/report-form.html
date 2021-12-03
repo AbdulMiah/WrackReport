@@ -24,7 +24,12 @@
 
 <div class="sidebar">
     <div class="sidebar-content">
-        <h1>WrackReport</h1>
+        <a class="navbar-brand" href="/">
+            <h1>
+                <span class="fa fa-tint"></span>
+                 WrackReport
+            </h1>
+        </a>
 
         <div class="container">
             <form th:action="@{/report-form}" th:method="post" enctype="multipart/form-data" th:object="${reportForm}">
@@ -118,6 +123,26 @@
                 </div>
 
 
+                <div class="container" id="filePreviews">
+                    <div class="row">
+                        <div class="col" id="preview0">
+                        </div>
+                        <div class="col" id="preview1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="preview2">
+                        </div>
+                        <div class="col" id="preview3">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="preview4">
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="mb-3">
                     <p id="namesUpdated"></p>
                 </div>
@@ -142,24 +167,23 @@
                 <div class="mb-3">
                     <button id="finalSubmit" class="btn btn-primary">Submit</button>
                 </div>
-
             </form>
-        </div>
-        <div id="footer">
-            <ul>
-                <li><a href="privacy-policy">Privacy</a></li>
-                <li>•</li>
-                <li>Terms</li>
-                <li>•</li>
-                <li>About</li>
-                <li>•</li>
-                <li>Help</li>
-            </ul>
 
+            <div id="footer">
+                <ul>
+                    <li><a href="privacy-policy">Privacy</a></li>
+                    <li>•</li>
+                    <li>Terms</li>
+                    <li>•</li>
+                    <li>About</li>
+                    <li>•</li>
+                    <li>Help</li>
+                </ul>
+            </div>
         </div>
     </div>
-
 </div>
+
 <div id="map"></div>
 
 </body>
