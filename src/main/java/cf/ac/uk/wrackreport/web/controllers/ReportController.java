@@ -220,7 +220,7 @@ public class ReportController {
                     reportForm.getLatLong(),
                     datetime,
                     reportForm.getPostcode(),
-                    "Bridgend",
+                    reportForm.getLocalAuthority(),
                     mediaArrayList);
 
 
