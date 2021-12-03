@@ -2,6 +2,7 @@ package cf.ac.uk.wrackreport.data.jpa.entities;
 
 import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.domain.Report;
+import cf.ac.uk.wrackreport.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,9 @@ public class ReportEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private UserEntity user;
 
     @Column(name = "category_id")
     private short categoryId;
@@ -53,7 +55,9 @@ public class ReportEntity {
 //    Create report entity from domain object
     public ReportEntity(Report aReport) {
         this.reportId = aReport.getReportId();
-        this.userId = aReport.getUserId();
+        this.user = new UserEntity(aReport.getUser().getUserId(),aReport.getUser().getRoles(),aReport.getUser().getFirstName(),
+                aReport.getUser().getSurname(),aReport.getUser().getEmail(),aReport.getUser().getPhoneNumber(),
+                aReport.getUser().getPassword(),aReport.getUser().getActive());
         this.categoryId = aReport.getCategoryId();
         this.description = aReport.getDescription();
         this.depthCategoryId = aReport.getDepthCategoryId();
@@ -76,7 +80,7 @@ public class ReportEntity {
     public Report toDomain() {
         Report domainReport = new Report (
                 this.reportId,
-                this.userId,
+                this.user.toDomain(),
                 this.categoryId,
                 this.description,
                 this.depthCategoryId,

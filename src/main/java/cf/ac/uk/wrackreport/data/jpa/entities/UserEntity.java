@@ -16,6 +16,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(name = "roles")
@@ -49,6 +50,7 @@ public class UserEntity {
         this.password = aUser.getPassword();
         this.active = aUser.getActive();
     }
+
 
     public User toDomain() {
         User domainUser = new User (
