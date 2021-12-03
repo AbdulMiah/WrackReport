@@ -207,7 +207,7 @@ function listFiles() {
                console.log("QUAL: " + latLongGPS)
                latLongField.value = latLongGPS;
                // Change placeholder of postcode field to let user know coords retrieved from GPS
-               postcodeField.setAttribute("placeholder", "Your current location: "+latLongGPS);
+               postcodeField.setAttribute("placeholder", "Location from your photo: "+latLongGPS);
 
                // Zoom into current location on map
                map.flyTo([latitude, longitude], 16, {
