@@ -1,14 +1,11 @@
 package cf.ac.uk.wrackreport.data.interfaces;
 
 import cf.ac.uk.wrackreport.data.jpa.entities.CategoryEntity;
-import cf.ac.uk.wrackreport.domain.Category;
-import cf.ac.uk.wrackreport.domain.DepthCategory;
-import cf.ac.uk.wrackreport.domain.Report;
-import cf.ac.uk.wrackreport.domain.User;
-import cf.ac.uk.wrackreport.domain.Media;
+import cf.ac.uk.wrackreport.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface WrackReportRepository {
 
@@ -25,4 +22,5 @@ public interface WrackReportRepository {
 
     void saveMedia(Media aMedia);
 
+    Optional<StaffUser> findByEmail(String userName);
 }

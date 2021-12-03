@@ -1,28 +1,17 @@
 package cf.ac.uk.wrackreport.data.jpa.adaptors;
 
 import cf.ac.uk.wrackreport.data.interfaces.WrackReportRepository;
-import cf.ac.uk.wrackreport.data.jpa.entities.CategoryEntity;
-import cf.ac.uk.wrackreport.data.jpa.entities.MediaEntity;
-import cf.ac.uk.wrackreport.data.jpa.entities.DepthCategoryEntity;
-import cf.ac.uk.wrackreport.data.jpa.repositories.DepthCategoryRepository;
-import cf.ac.uk.wrackreport.data.jpa.entities.ReportEntity;
-import cf.ac.uk.wrackreport.data.jpa.repositories.CategoryRepository;
-import cf.ac.uk.wrackreport.data.jpa.repositories.MediaRepository;
-import cf.ac.uk.wrackreport.data.jpa.repositories.ReportRepository;
-import cf.ac.uk.wrackreport.data.jpa.repositories.UserRepository;
-import cf.ac.uk.wrackreport.domain.Category;
-import cf.ac.uk.wrackreport.domain.DepthCategory;
-import cf.ac.uk.wrackreport.domain.Media;
-import cf.ac.uk.wrackreport.domain.Report;
-import cf.ac.uk.wrackreport.domain.User;
+import cf.ac.uk.wrackreport.data.jpa.entities.*;
+import cf.ac.uk.wrackreport.data.jpa.repositories.*;
+import cf.ac.uk.wrackreport.domain.*;
 import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
-import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -34,13 +23,15 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private DepthCategoryRepository depthCategoryRepository;
     private UserRepository userRepository;
     private MediaRepository mediaRepository;
+    private StaffUserRepository staffUserRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, StaffUserRepository sRepo) {
         reportRepository = repo;
         categoryRepository = cat;
         depthCategoryRepository = depthCat;
         userRepository = uRepo;
         mediaRepository = mRepo;
+        staffUserRepository = sRepo;
     }
 
     public void saveReport(Report aReport) {
@@ -96,6 +87,15 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     public void saveMedia(Media aMedia) {
         MediaEntity mediaEntity = new MediaEntity(aMedia);
         mediaRepository.save(mediaEntity);
+    }
+
+    public Optional<StaffUser> findByEmail(String email) {
+        Optional<StaffUserEntity> staffUserEntity = staffUserRepository.findByEmail(email);
+        if (staffUserEntity.isPresent()) {
+            return Optional.of(staffUserEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
     }
 
 }

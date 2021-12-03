@@ -14,10 +14,11 @@ TRUNCATE TABLE `depth_categories`;
 -- INSERT INTO `user_types`
 -- VALUES(2, 'admin');
 
+INSERT INTO `staff_users`
+VALUES(NULL, 'ROLE_STAFF', 'john', 'jones', 'john@gmail.com', "$2a$10$g4qzJA3h7.7vTfcxrBtV6eaR9TyhP.C6wbKT8zmAPrbibHp8riw8C", true);
 INSERT INTO `users`
-VALUES(NULL, 'ROLE_USER', 'john', 'jones', 'john@gmail.com', 01823445668, "$2a$10$g4qzJA3h7.7vTfcxrBtV6eaR9TyhP.C6wbKT8zmAPrbibHp8riw8C", true);
-INSERT INTO `users`
-VALUES(NULL, 'ROLE_ADMIN', 'admin', 'user', 'admin@gmail.com', null, "$2a$10$J.n9gEYayF9kTfQsqTT5u.KjH7JTpU57jImc1sX0/Em38kzHgTYoK", true);
+VALUES(NULL, 'ROLE_ADMIN', 'admin', 'user', 'admin@gmail.com', "$2a$10$J.n9gEYayF9kTfQsqTT5u.KjH7JTpU57jImc1sX0/Em38kzHgTYoK", true);
+
 INSERT INTO `users`
 VALUES(3, 'ROLE_USER', 'John', 'Barnes', 'barnsey@gmail.com', "07888774635", NULL, true);
 INSERT INTO `users`
