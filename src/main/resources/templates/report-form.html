@@ -43,6 +43,7 @@
                     <input th:field="*{latLong}" id="latLongField" type="hidden"/>
                     <h3 style= "color:white; background-color: crimson; border-color: darkred;" th:text="${errorMsg}"></h3>
 
+                    <input th:field="*{localAuthority}" id="localAuthField" type="hidden"/>
                     <button type="button" class="btn btn-outline-light btn-floating m-1" id="locationButton" onclick="getGPSLocation()">
                         <span class="fa fa-location-arrow"></span>
                          Use my current location

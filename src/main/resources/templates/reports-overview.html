@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/overview.css">
+    <title>Reports Overview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <h1>
+        <span id="wrackReport">WrackReport</span>
+        <span id="admin">Admin</span>
+    </h1>
+    <div id="contents">
+        <div id="button-line">
+            <p class="contents-top-bar" id="latest-report-text">Latest Reports</p>
+            <input class="contents-top-bar" id="unreviewed-check" type="checkbox" checked>
+            <p class="contents-top-bar" id="unreviewed-check-text">Only Show\n Unreviewed Reports</p>
+            <button class="contents-top-bar" id="export-data"><span class="fa fa-database"></span> Export Data</button>
+            <button class="contents-top-bar" id="report-query"><span class="fa fa-search"></span> Report Query</button>
+        </div>
+        <div id="shown-reports">
+            <table id="reports-table">
+                <tr id="table-header">
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Category</th>
+                    <th>Depth</th>
+                    <th>Location</th>
+                    <th>Local Authority</th>
+                    <th>butt</th>
+                </tr>
+                <tr id="table-contents" th:each = "reportOverview: ${allReports}">
+                    <td th:text="${reportOverview.datetime}"></td>
+                    <td>12:49</td>
+                    <td th:text="${reportOverview.categoryName}"></td>
+                    <td th:text="${reportOverview.depthMeters}"></td>
+                    <td th:text="${reportOverview.postcode}"></td>
+                    <td th:text="${reportOverview.localAuthority}"></td>
+                    <td>butt</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
