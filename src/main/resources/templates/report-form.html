@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="js/exif-reader.js"></script>
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Leaflet libraries -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -21,7 +25,12 @@
 
 <div class="sidebar">
     <div class="sidebar-content">
-        <h1>WrackReport</h1>
+        <a class="navbar-brand" href="/">
+            <h1>
+                <span class="fa fa-tint"></span>
+                 WrackReport
+            </h1>
+        </a>
 
         <div class="container">
             <form th:action="@{/report-form}" th:method="post" enctype="multipart/form-data" th:object="${reportForm}">
@@ -35,6 +44,11 @@
                     <h3 style= "color:white; background-color: crimson; border-color: darkred;" th:text="${errorMsg}"></h3>
 
                     <input th:field="*{localAuthority}" id="localAuthField" type="hidden"/>
+                    <button type="button" class="btn btn-outline-light btn-floating m-1" id="locationButton" onclick="getGPSLocation()">
+                        <span class="fa fa-location-arrow"></span>
+                         Use my current location
+                    </button>
+                    <h3 id="gpsErrors" style= "color:white; background-color: crimson; border-color: darkred;"></h3>
                 </div>
 
                 <div class="mb-3">
@@ -87,9 +101,49 @@
                     <!--                hidden element to store renamed files-->
                     <input id="fileUploadToSubmit" class="form-control" style="display: none" th:field="*{files}" type="file" accept="image/jpeg, image/png, video/mp4, video/quicktime, video/x-msvideo, video/x-matroska" multiple/>
                     <div class="alert alert-warning" th:errors="*{files}" th:if="${#fields.hasErrors('files')}">Files error</div>
-                    <p id="fileUpload-text">*Files must be JPG, PNG, MP4, MOV, AVI or MKV</p>
+                    <p id="fileUpload-text">*Files must be JPG, PNG, MP4, MOV or MKV</p>
                 </div>
-                <div id="fileSection" ></div>
+                <div id="fileSection"></div>
+
+                <div class="container" id="filePreviews">
+                    <div class="row">
+                        <div class="col" id="preview0">
+                        </div>
+                        <div class="col" id="preview1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="preview2">
+                        </div>
+                        <div class="col" id="preview3">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="preview4">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container" id="filePreviews">
+                    <div class="row">
+                        <div class="col" id="preview0">
+                        </div>
+                        <div class="col" id="preview1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="preview2">
+                        </div>
+                        <div class="col" id="preview3">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="preview4">
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="mb-3">
                     <p id="namesUpdated"></p>
@@ -115,24 +169,23 @@
                 <div class="mb-3">
                     <button id="finalSubmit" class="btn btn-primary">Submit</button>
                 </div>
-
             </form>
-        </div>
-        <div id="footer">
-            <ul>
-                <li><a href="privacy-policy">Privacy</a></li>
-                <li>•</li>
-                <li>Terms</li>
-                <li>•</li>
-                <li>About</li>
-                <li>•</li>
-                <li>Help</li>
-            </ul>
 
+            <div id="footer">
+                <ul>
+                    <li><a href="privacy-policy">Privacy</a></li>
+                    <li>•</li>
+                    <li>Terms</li>
+                    <li>•</li>
+                    <li>About</li>
+                    <li>•</li>
+                    <li>Help</li>
+                </ul>
+            </div>
         </div>
     </div>
-
 </div>
+
 <div id="map"></div>
 
 </body>

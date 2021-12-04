@@ -4,6 +4,8 @@ const remainingCharsText = document.getElementById('remaining-chars');
 const seeManualDepthEntry = document.getElementById('seeManualDepthEntry');
 const manualDepthEntryDiv = document.getElementById('manualDepthEntry');
 const measurementType = document.getElementById('measurementType');
+var latLongField = document.getElementById("latLongField");
+var postcodeField = document.getElementById("postcodeField");
 
 const MAX_Chars = 2500;
 
@@ -25,6 +27,54 @@ if(description != null){
 }
 else{
    console.log("doesnt work")
+}
+
+// Adapted from https://www.w3schools.com/html/html5_geolocation.asp
+function getGPSLocation() {
+   if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+   } else {
+      console.log("Geolocation is not supported by this browser.");
+   }
+}
+
+// Adds latLong retrieved from GPS into the latLong field in report form
+function showPosition(position) {
+   latLongGPS = position.coords.latitude + ", " + position.coords.longitude;
+   latLongField.value = latLongGPS;
+   // Change placeholder of postcode field to let user know coords retrieved from GPS
+   postcodeField.setAttribute("placeholder", "Your current location: "+latLongGPS);
+
+   // Zoom into current location on map
+   map.flyTo([position.coords.latitude, position.coords.longitude], 16, {
+      animate: true,
+      duration: 1.5
+   });
+
+   // Let user know report location is being set here
+   var popup = L.popup()
+       .setLatLng([position.coords.latitude, position.coords.longitude])
+       .setContent("Setting location of your report here")
+       .openOn(map);
+}
+
+// Error handling for geolocation
+function showError(error) {
+   var x = document.getElementById("gpsErrors");
+   switch(error.code) {
+      case error.PERMISSION_DENIED:
+         x.innerHTML = "You denied the request for Geolocation. Go to permission settings and 'Allow' us to use your location."
+         break;
+      case error.POSITION_UNAVAILABLE:
+         x.innerHTML = "Location information is unavailable."
+         break;
+      case error.TIMEOUT:
+         x.innerHTML = "The request to get user location timed out."
+         break;
+      case error.UNKNOWN_ERROR:
+         x.innerHTML = "An unknown error occurred."
+         break;
+   }
 }
 
 // Does conversion on submit
@@ -51,7 +101,6 @@ function convertDepthMeters() {
 function hideManualDepthEntry() {
    // Get the selected value from depth category
    const value = seeManualDepthEntry.options[seeManualDepthEntry.selectedIndex].text;
-   let convertedValue = document.getElementById('convertedVal');
 
    // If the user chose 'Other' and the input field for manual entry is invisible
    if (value == "Other" && manualDepthEntryDiv.style.display==="none") {
@@ -109,13 +158,14 @@ function listFiles() {
       //validate file size and type
       var fileSizeValid = true;
       var fileTypeValid = true;
-      var validFileTypes = ["image/png", "image/jpg", "image/jpeg", "video/mp4", "video/quicktime", "video/avi", "video/x-matroska"];
+      var validImgTypes = ["image/png", "image/jpg", "image/jpeg"]
+      var validVideoTypes = ["video/mp4", "video/quicktime", "video/x-matroska"];
       for (let i = 0; i < files.length; i++) {
          console.log("file: " + files[i])
          console.log("type: " + files[i].type)
          if (files[i].size / 1024 / 1024 > 150) {
             fileSizeValid = false;
-         } else if (!validFileTypes.includes(files[i].type)) {
+         } else if (!validImgTypes.includes(files[i].type) && !validVideoTypes.includes(files[i].type)) {
             fileTypeValid = false;
          }
       }
@@ -125,8 +175,8 @@ function listFiles() {
          fileUpload1.value = null;         // Removes files
       }
       if (fileTypeValid == false) {
-         alert("Files must be JPG, PNG, MP4, MOV, AVI or MKV")
-         fileUpload1.setCustomValidity("Files must not be larger than 150mb");
+         alert("Files must be JPG, PNG, MP4, MOV, or MKV")
+         fileUpload1.setCustomValidity("Files must not be larger than 150MB");
          fileUpload1.value = null;         // Removes files
       }
       //give alert if more than 5 files uploaded
@@ -138,6 +188,41 @@ function listFiles() {
          fileUpload1.value = null;         // Removes files if more than 5 is uploaded
          //continue if all validations pass
       } else if (fileTypeValid != false && fileSizeValid != false){
+         //==Oliver Hardman==
+         //Get metadata from image to determine location
+         ExifReader.load(document.getElementById("fileUpload").files[0]).then((tags) => {
+            if(Object.keys(tags).includes("GPSLatitude")){
+               console.log(JSON.stringify(tags))
+               var latitude = tags['GPSLatitude'].description
+               if(tags['GPSLatitudeRef'].description == "South latitude"){
+                  latitude = latitude * -1
+               }
+
+               var longitude = tags['GPSLongitude'].description
+               if(tags['GPSLongitudeRef'].description == "West longitude"){
+                  longitude = longitude * -1
+               }
+
+               var latLongGPS = latitude + ", " + longitude
+               console.log("QUAL: " + latLongGPS)
+               latLongField.value = latLongGPS;
+               // Change placeholder of postcode field to let user know coords retrieved from GPS
+               postcodeField.setAttribute("placeholder", "Location from your photo: "+latLongGPS);
+
+               // Zoom into current location on map
+               map.flyTo([latitude, longitude], 16, {
+                  animate: true,
+                  duration: 1.5
+               });
+
+               // Let user know report location is being set here
+               var popup = L.popup()
+                   .setLatLng([latitude, longitude])
+                   .setContent("Setting location of your report here")
+                   .openOn(map);
+            }
+         }).catch((err) => {console.error(err)})
+
          // Reset custom validator
          fileUpload1.setCustomValidity("");
          //Create text to tell user to title files
@@ -151,18 +236,45 @@ function listFiles() {
          //Add input boxes for each file
          for (var i = 0; i < files.length; i++) {
             var f = files[i];
+            var gridSection = document.getElementById("preview" + i.toString());
+
+            if (validImgTypes.includes(f.type)) {
+               //image preview
+               //Reference create preview from image
+               //Taken from https://stackoverflow.com/a/4459419/14457259
+               var imgPreview =document.createElement("IMG");
+               imgPreview.setAttribute("id", i.toString() + "imgPreview");
+               imgPreview.setAttribute("src", URL.createObjectURL(f));
+               imgPreview.setAttribute("class", "img-fluid mx-auto d-block center-block rounded")
+               //End of reference
+               //Add preview to bootstrap grid
+               gridSection.appendChild(imgPreview);
+            } else if (validVideoTypes.includes(f.type)) {
+               //video preview
+               var videoPreview = document.createElement("video");
+               videoPreview.setAttribute("controls", "true");
+               videoPreview.innerHTML = "Your browser does not support this video";
+               videoPreview.setAttribute("src", URL.createObjectURL(f));
+               videoPreview.setAttribute("class", "center-block embed-responsive")
+               gridSection.appendChild(videoPreview);
+            }
+
+
             var titleInput = document.createElement("INPUT")
             titleInput.setAttribute("type", "text");
+            titleInput.setAttribute("class", "form-control mx-auto m-2");
             titleInput.setAttribute("value", f.name.substring(0, f.name.lastIndexOf('.')));
             titleInput.setAttribute("id", i.toString() + "newFileNameOf");
             titleInput.setAttribute("maxlength", 30);
             titleInput.setAttribute("pattern", "^[0-9a-zA-Z_ ]+$");
             titleInput.setAttribute("title", "No special characters")
-            fileSection.appendChild(titleInput);
+            gridSection.appendChild(titleInput);
          }
 
-         var finalSubmit = document.getElementById("finalSubmit")
-         finalSubmit.onclick = updateFiles;
+         document.getElementById('finalSubmit').addEventListener('click', function(){
+            convertDepthMeters();
+            updateFiles();
+         });
       }
       //   If files have already been added remove all input boxes and call function again to get the new files
    } else {
@@ -173,6 +285,11 @@ function listFiles() {
          element.removeChild(element.firstChild);
       }
       //end of reference
+
+      //Remove content from bootstrap grid of previews
+      for (let i = 0; i < 5; i++) {
+         document.getElementById("preview"+i.toString()).innerHTML='';
+      }
       listFiles();
    }
 
@@ -182,7 +299,6 @@ function updateFiles() {
    //Add renamed files to hidden html element that will get submitted
    //adapted from https://stackoverflow.com/a/56447852/14457259
    //Create new list of files
-   console.log("updating files")
    let newFiles = new DataTransfer();
    var files = fileUpload.files;
    var valid = true;

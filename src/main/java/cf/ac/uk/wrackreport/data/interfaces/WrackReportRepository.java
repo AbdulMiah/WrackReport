@@ -5,6 +5,7 @@ import cf.ac.uk.wrackreport.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface WrackReportRepository {
 
@@ -15,6 +16,8 @@ public interface WrackReportRepository {
     ArrayList<DepthCategory> findAllDepthCategories();
 
     List<Report> findAllReports();
+
+    Optional<Report> findByReportId(Long reportId);
 
     boolean checkValidCategoryID(short id);
     void saveUser(User aUser);

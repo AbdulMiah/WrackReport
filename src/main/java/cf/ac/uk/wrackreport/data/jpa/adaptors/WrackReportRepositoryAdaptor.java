@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -73,6 +74,16 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .stream()
                 .map(r -> r.toDomain())
                 .collect(Collectors.toList());
+    }
+
+    public Optional<Report> findByReportId(Long reportId) {
+        Optional<ReportEntity> reportEntity = reportRepository.findByReportId(reportId);
+
+        if (reportEntity.isPresent()) {
+            return Optional.of(reportEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
     }
 
     public boolean checkValidCategoryID(short id){

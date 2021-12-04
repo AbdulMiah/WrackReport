@@ -1,6 +1,7 @@
 package cf.ac.uk.wrackreport.service.impl;
 
 import cf.ac.uk.wrackreport.data.interfaces.WrackReportRepository;
+import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +35,21 @@ public class ReportServiceImpl implements ReportService {
                 .stream()
                 .map(r -> new ReportDTO(r))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<ReportDTO> findByReportId(Long reportId) {
+        log.debug("Searching for reports with reportId: " + reportId);
+
+        Optional<Report> report = wrackReportRepository.findByReportId(reportId);
+        if (report.isPresent()) {
+            log.debug("Found report. Converting to DTO");
+            ReportDTO reportDTO = new ReportDTO(report.get());
+            return Optional.of(reportDTO);
+        } else {
+            log.debug("Did not find report with reportId: " + reportId);
+            return Optional.empty();
+        }
     }
 
     @Override
