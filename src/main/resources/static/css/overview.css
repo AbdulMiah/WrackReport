@@ -109,3 +109,8 @@ tr:nth-child(even) {
     font-family: Montserrat, sans-serif;
     font-weight: bold;
 }
+
+.modal-content {
+    background-color: #0A3D61;
+    color: #FFFFFF;
+}
