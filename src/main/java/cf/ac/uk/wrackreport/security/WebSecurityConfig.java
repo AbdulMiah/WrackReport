@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/api/reports").permitAll()
                                 .mvcMatchers("/report-form").permitAll()
                                 .mvcMatchers("/ReportSubmitted").permitAll()
+                                .mvcMatchers("/detailed-report").permitAll()
                                 .anyRequest().denyAll()
                 )
                 .formLogin(formLogin ->
