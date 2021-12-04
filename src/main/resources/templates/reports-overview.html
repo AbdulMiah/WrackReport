@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Reports Overview</title>
@@ -31,7 +31,7 @@
                         <input class="float-end" id="unreviewed-check" type="checkbox" checked>
                         <span class="float-end" id="unreviewed-check-text">Only Show Unreviewed Reports</span>
                         <button class="float-end" id="export-data"><span class="fa fa-database"></span> Export Data</button>
-                        <button class="float-end" id="report-query"><span class="fa fa-search"></span> Report Query</button>
+                        <button class="float-end" id="report-query" data-bs-toggle="modal" data-bs-target="#queryModal"><span class="fa fa-search"></span> Report Query</button>
                     </div>
                 </div>
 
@@ -63,6 +63,50 @@
                 </div>
 
 </div>
+    </div>
+
+    <!-- Login modal -->
+    <div class="modal fade" id="queryModal" tabindex="-1" aria-labelledby="queryModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="queryPostcode" class="form-label">Postcode</label>
+                            <input id="queryPostcode" name="postcode" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="queryLocalAuthority" class="form-label">Local Authority</label>
+                            <input id="queryLocalAuthority" name="localAuthority" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" class="form-select">
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date Range</label>
+                            <div class="input-group">
+                                <!-- reference - placeholder for date field-->
+                                <!-- taken from https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/-->
+                                <input id="dateFrom" type="text" class="form-control" placeholder="From"
+                                       onfocus="(this.type='date')">
+                                <input id="dateTo" type="text" class="form-control" placeholder="To"
+                                       onfocus="(this.type='date')">
+                               <!-- end of reference -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input id="showRemoved" type="checkbox" class="form-check-input float-start">
+                    <label class="form-check-label float-start" for="showRemoved">Show removed reports</label>
+                    <button class="float-start" id="submitQuery"><span class="fa fa-search"></span> Search</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
