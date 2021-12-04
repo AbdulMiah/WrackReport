@@ -31,6 +31,7 @@ CREATE TABLE `reports` (
     `datetime` DATETIME NOT NULL,
     `postcode` VARCHAR(15),
     `local_authority` VARCHAR(50) NOT NULL,
+    `status` INT NOT NULL,
     CONSTRAINT `PK_reports` PRIMARY KEY (`report_id`)
 );
 

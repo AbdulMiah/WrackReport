@@ -187,6 +187,7 @@ public class ReportController {
                     datetime,
                     reportForm.getPostcode(),
                     localAuthority,
+                    0,
                     mediaArrayList);
 
             if (bindingResult.hasErrors()) {
@@ -221,6 +222,7 @@ public class ReportController {
                     datetime,
                     reportForm.getPostcode(),
                     reportForm.getLocalAuthority(),
+                    0,
                     mediaArrayList);
 
 

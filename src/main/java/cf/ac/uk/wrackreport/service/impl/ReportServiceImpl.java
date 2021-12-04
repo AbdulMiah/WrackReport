@@ -37,6 +37,12 @@ public class ReportServiceImpl implements ReportService {
                 .collect(Collectors.toList());
     }
 
+    public List<ReportDTO> findAllUnvalidatedReports() {
+        List<Report> reports = wrackReportRepository.findAllByStatus(0);
+        List<ReportDTO> reportDTOs = reports.stream().map(r -> new ReportDTO(r)).collect(Collectors.toList());
+        return reportDTOs;
+    }
+
     @Override
     public Optional<ReportDTO> findByReportId(Long reportId) {
         log.debug("Searching for reports with reportId: " + reportId);

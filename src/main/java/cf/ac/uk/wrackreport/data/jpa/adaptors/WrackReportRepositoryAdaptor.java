@@ -76,6 +76,18 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Report> findAllByStatus(int status){
+        ArrayList<ReportEntity> reportEntities = reportRepository.findAllByStatus(status);
+        for (ReportEntity r: reportEntities
+        ) {
+        }
+        return reportRepository.findAllByStatus(status)
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
+    }
+
+
     public Optional<Report> findByReportId(Long reportId) {
         Optional<ReportEntity> reportEntity = reportRepository.findByReportId(reportId);
 

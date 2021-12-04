@@ -20,6 +20,7 @@ public class ReportDTO {
     String datetime;
     String postcode;
     String localAuthority;
+    int status;
     List<Media> media;
 
     public ReportDTO(Report aReport) {
@@ -34,11 +35,12 @@ public class ReportDTO {
                 aReport.getDatetime(),
                 aReport.getPostcode(),
                 aReport.getLocalAuthority(),
+                aReport.getStatus(),
                 aReport.getMedia()
         );
     }
 
     public Report toReport() {
-        return new Report(reportId, userId, categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode, localAuthority, media);
+        return new Report(reportId, userId, categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode, localAuthority, status);
     }
 }
