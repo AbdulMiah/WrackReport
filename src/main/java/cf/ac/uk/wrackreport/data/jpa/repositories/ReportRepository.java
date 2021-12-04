@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
 
@@ -12,4 +13,6 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
 
     @EntityGraph(attributePaths = {"media"})
     ArrayList<ReportEntity> findAll();
+
+    Optional<ReportEntity> findByReportId(Long reportId);
 }

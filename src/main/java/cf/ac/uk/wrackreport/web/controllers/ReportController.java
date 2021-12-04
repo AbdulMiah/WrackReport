@@ -172,6 +172,9 @@ public class ReportController {
             String latLong = latitude.concat(", " + longitude);
             log.info("Lat, Long: " + latLong);
 
+            String localAuthority = result.getResult().getAdmin_district();
+            log.info("localAuthority: "+ localAuthority);
+
             ReportDTO reportDTO = new ReportDTO(
                                             reportForm.getReportId(),
                     //                        reportForm.getUserId(),
@@ -183,6 +186,7 @@ public class ReportController {
                     latLong,
                     datetime,
                     reportForm.getPostcode(),
+                    localAuthority,
                     mediaArrayList);
 
             if (bindingResult.hasErrors()) {
@@ -216,6 +220,7 @@ public class ReportController {
                     reportForm.getLatLong(),
                     datetime,
                     reportForm.getPostcode(),
+                    reportForm.getLocalAuthority(),
                     mediaArrayList);
 
 

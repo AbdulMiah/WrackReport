@@ -4,6 +4,7 @@ import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReportService {
 
@@ -12,5 +13,7 @@ public interface ReportService {
     void saveUser(UserDTO aUserDTO);
 
     List<ReportDTO> findAllReports();
+
+    Optional<ReportDTO> findByReportId(Long reportId);
 
 }

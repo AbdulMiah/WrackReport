@@ -11,7 +11,7 @@ public class Result {
     private String country;
     private String longitude;
     private String latitude;
-    private String parish;
+    private String admin_district;
 
     @Override
     public String toString() {
@@ -20,7 +20,7 @@ public class Result {
                 ", country='" + country + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", latitude='" + latitude + '\'' +
-                ", parish='" + parish + '\'' +
+                ", admin_district='" + admin_district + '\'' +
                 '}';
     }
 }
