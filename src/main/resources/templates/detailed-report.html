@@ -37,20 +37,19 @@
                 <div class="row">
                     <div class="col-6" id="detailsCol">
                         <div class="row">
-                            <p><b>Date:</b> 2020-10-10 12:12:00</p>
+                            <p><b>Date:</b> <span th:text="${report.datetime}"></span></p>
                             <p><b>Local Authority:</b> Cardiff</p>
-                            <p><b>Postcode:</b> CF14 3BZ</p>
-                            <p><b>Category:</b> River Flooding</p>
-                            <p><b>Depth:</b> 1m</p>
+                            <p><b>Postcode:</b> <span th:text="${report.postcode}"></span></p>
+                            <p><b>Category:</b> <span th:text="${report.categoryId}"></span></p>
+                            <p><b>Depth:</b> <span th:text="${report.depthMeters}"></span></p>
                             <b>Attachments:</b>
                             <ul class="fa-ul">
-                                <li><span class="fa-li">
-                      <i class="fa fa-image"></i></span>
-                                    Damage to my house (PNG)
+                                <li>
+                                    <span class="fa-li"><i class="fa fa-image"></i></span>
+                                     Damage to my house (PNG)
                                 </li>
-                                <li><span class="fa-li">
-                      <i class="fa fa-image"></i></span>
-                                    Debris left over from flood (JPG)
+                                <li><span class="fa-li"><i class="fa fa-image"></i></span>
+                                     Debris left over from flood (JPG)
                                 </li>
                             </ul>
                         </div><hr>

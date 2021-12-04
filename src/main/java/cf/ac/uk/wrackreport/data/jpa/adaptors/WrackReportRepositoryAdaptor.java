@@ -15,7 +15,6 @@ import cf.ac.uk.wrackreport.domain.DepthCategory;
 import cf.ac.uk.wrackreport.domain.Media;
 import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.domain.User;
-import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -82,6 +82,16 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .stream()
                 .map(r -> r.toDomain())
                 .collect(Collectors.toList());
+    }
+
+    public Optional<Report> findByReportId(Long reportId) {
+        Optional<ReportEntity> reportEntity = reportRepository.findByReportId(reportId);
+
+        if (reportEntity.isPresent()) {
+            return Optional.of(reportEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
     }
 
     public boolean checkValidCategoryID(short id){

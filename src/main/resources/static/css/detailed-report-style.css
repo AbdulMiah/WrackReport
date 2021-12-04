@@ -33,6 +33,7 @@ h1 {
 
 .btn {
     border: 1px solid lightgrey;
+    margin-bottom: 5px;
 }
 
 .btn:hover {
