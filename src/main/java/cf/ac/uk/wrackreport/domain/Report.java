@@ -20,9 +20,10 @@ public class Report {
     private String latLong;
     private String datetime;
     private String postcode;
+    private String localAuthority;
     private List<Media> media;
 
-    public Report(Long reportId, User user, short categoryId, String description, short depthCategoryId, Float depthMeters, String latLong, String datetime, String postcode) {
+    public Report(Long reportId, User user, short categoryId, String description, short depthCategoryId, Float depthMeters, String latLong, String datetime, String postcode, String localAuthority) {
         this.reportId = reportId;
         this.user = user;
         this.categoryId = categoryId;
@@ -32,6 +33,7 @@ public class Report {
         this.latLong = latLong;
         this.datetime = datetime;
         this.postcode = postcode;
+        this.localAuthority = localAuthority;
         this.media = new ArrayList<Media>();
     }
 

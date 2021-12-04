@@ -5,7 +5,6 @@ var map = L.map('map', {
 
 // Add the tile/style of the map from mapbox.com
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
     tileSize: 512,
@@ -33,6 +32,7 @@ function requestFromAPI(url){
 function getLatLongFromPostcode() {
     // Get the postcode from field
     const postcodeField = document.getElementById("postcodeField").value;
+    const localAuthField = document.getElementById("localAuthField");
     const postcodeAPI = "https://api.postcodes.io/postcodes/"+postcodeField;        // Add postcode to api
     console.log(postcodeAPI);
 
@@ -42,6 +42,8 @@ function getLatLongFromPostcode() {
         var results = apiData["result"];
         const lat = results["latitude"];            // Storing Latitude from results
         const long = results["longitude"];          // Storing Longitude from results
+        const localAuthority = results["admin_district"];
+        localAuthField.setAttribute("value", localAuthority);
         // Add animation to map, so that it zooms to location at duration of 1.5
         // Adapted from https://gis.stackexchange.com/questions/228273/how-to-slow-the-zoom-transition-speed-in-leaflet
         map.flyTo([lat, long], 16,{
@@ -94,5 +96,17 @@ function onMapClick(e) {
     var latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
     setLatLongInField(latLong);
     console.log(latLong)        // Console log the latLong (testing)
+
+    const localAuthField = document.getElementById("localAuthField");
+    var latLongSplit = latLong.split(", ");
+    const postcodeAPI = "https://api.postcodes.io/postcodes?lon=" + latLongSplit[1] + "&lat=" + latLongSplit[0];        // Add postcode to api
+    requestFromAPI(postcodeAPI).then((apiData) => {
+        console.log(apiData);
+        var results = apiData["result"];
+        var firstResult = results[0];
+        const localAuthority = firstResult["admin_district"];
+        localAuthField.value = localAuthority;
+    });
 }
+
 map.on('click', onMapClick);

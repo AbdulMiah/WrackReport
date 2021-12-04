@@ -21,6 +21,7 @@ public class ReportDTO {
     String latLong;
     String datetime;
     String postcode;
+    String localAuthority;
     List<Media> media;
 
     public ReportDTO(Report aReport) {
@@ -37,6 +38,7 @@ public class ReportDTO {
                 aReport.getLatLong(),
                 aReport.getDatetime(),
                 aReport.getPostcode(),
+                aReport.getLocalAuthority(),
                 aReport.getMedia()
         );
     }
@@ -46,6 +48,7 @@ public class ReportDTO {
                 new User(this.getUser().getUserId(),this.getUser().getRoles(),this.getUser().getFirstName(),
                         this.getUser().getSurname(),this.getUser().getEmail(),this.getUser().getPhoneNumber(),
                         this.getUser().getPassword(),this.getUser().getActive()),
-                categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode, media);
+                categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode, localAuthority, media);
     }
 }
+

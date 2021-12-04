@@ -47,6 +47,9 @@ public class ReportEntity {
     @Column(name = "postcode")
     private String postcode;
 
+    @Column(name = "local_authority")
+    private String localAuthority;
+
 //    Create one to many link between reports and media
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id")
@@ -65,6 +68,7 @@ public class ReportEntity {
         this.latLong = aReport.getLatLong();
         this.datetime = aReport.getDatetime();
         this.postcode = aReport.getPostcode();
+        this.localAuthority = aReport.getLocalAuthority();
 
         aReport.getMedia()
                 .stream()
@@ -87,7 +91,8 @@ public class ReportEntity {
                 this.depthMeters,
                 this.latLong,
                 this.datetime,
-                this.postcode
+                this.postcode,
+                this.localAuthority
         );
         if (this.hasMedia()) {
             this.getMedia()

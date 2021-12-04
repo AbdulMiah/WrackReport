@@ -24,14 +24,17 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private UserRepository userRepository;
     private MediaRepository mediaRepository;
     private StaffUserRepository staffUserRepository;
+    private ReportOverviewRepository reportOverviewRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, StaffUserRepository sRepo) {
+
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, StaffUserRepository sRepo, ReportOverviewRepository roRepo) {
         reportRepository = repo;
         categoryRepository = cat;
         depthCategoryRepository = depthCat;
         userRepository = uRepo;
         mediaRepository = mRepo;
         staffUserRepository = sRepo;
+        reportOverviewRepository = roRepo;
     }
 
     public void saveReport(Report aReport) {
@@ -75,6 +78,16 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .collect(Collectors.toList());
     }
 
+    public Optional<Report> findByReportId(Long reportId) {
+        Optional<ReportEntity> reportEntity = reportRepository.findByReportId(reportId);
+
+        if (reportEntity.isPresent()) {
+            return Optional.of(reportEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public boolean checkValidCategoryID(short id){
         return categoryRepository.getById(id).isPresent();
     }
@@ -98,4 +111,10 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         }
     }
 
+    public List<ReportOverview> findAllReportOverview() {
+        return reportOverviewRepository.findAll()
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
+    }
 }
