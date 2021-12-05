@@ -117,4 +117,12 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .map(r -> r.toDomain())
                 .collect(Collectors.toList());
     }
+
+    public List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo) {
+        return reportOverviewRepository.reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo)
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
+    }
+
 }

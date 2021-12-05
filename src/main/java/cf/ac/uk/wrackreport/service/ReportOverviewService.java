@@ -9,6 +9,6 @@ public interface ReportOverviewService {
     List<ReportOverviewDTO> findAllReportOverview();
 
     @Procedure("ReportQuery")
-    int reportQuery(String model);
+    List<ReportOverviewDTO> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo);
 
 }

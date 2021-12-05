@@ -50,6 +50,10 @@ public class OverviewController {
             return "/reports-overview";
         }
         System.out.println("results: " + reportQueryForm);
-        return "redirect:/reports-overview";
+
+        model.addAttribute("allReports", reportOverviewService.reportQuery(null, null, null, "2021-11-10", "2021-12-03"));
+        model.addAttribute("reportQueryForm", reportQueryForm);
+        model.addAttribute("categories", categoryService.findAll());
+        return "/reports-overview";
     }
 }

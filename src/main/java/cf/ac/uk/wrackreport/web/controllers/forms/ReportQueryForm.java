@@ -13,7 +13,7 @@ public class ReportQueryForm {
 
     private String localAuthority;
 
-    private short categoryId;
+    private String categoryName;
 
     private String dateFrom;
 
