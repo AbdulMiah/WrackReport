@@ -82,6 +82,7 @@
                         <div class="form-group">
                             <label for="category" class="form-label">Category</label>
                             <select id="category" class="form-select" th:field="*{categoryName}">
+                                <option th:value="null">All categories</option>
                                 <option th:each="category: ${categories}" th:value="${category.name}" th:utext="${category.name}"></option>
                             </select>
                         </div>
