@@ -176,8 +176,8 @@ public class ReportController {
             log.info("localAuthority: "+ localAuthority);
 
             ReportDTO reportDTO = new ReportDTO(
-                                            reportForm.getReportId(),
-                    //                        reportForm.getUserId(),
+                    reportForm.getReportId(),
+//                    reportForm.getUserId(),
                     2L,
                     reportForm.getCategoryId(),
                     reportForm.getDescription(),
@@ -210,10 +210,10 @@ public class ReportController {
             return "/report-form";
         } else {
             ReportDTO reportDTO = new ReportDTO(
-                                            reportForm.getReportId(),
-                    //                        reportForm.getUserId(),
+                    reportForm.getReportId(),
+//                    reportForm.getUserId(),
                     2L,
-                                            reportForm.getCategoryId(),
+                    reportForm.getCategoryId(),
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
                     reportForm.getDepthMeters(),

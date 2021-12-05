@@ -56,18 +56,16 @@
                         </div><hr>
 
                         <div class="row">
-                            <p><b>Name:</b> <span th:text="${report.firstName}"></span></p>
+                            <p><b>Name:</b> <span th:text="${report.firstName}+' '+${report.surname}"></span></p>
                             <p><b>E-mail:</b> <span th:text="${report.email}"></span></p>
                             <p><b>Phone:</b> <span th:text="${report.phoneNumber}"></span></p>
                         </div><hr>
 
                         <div class="row">
-                            <!-- <a href="mailto:mark.johnson@gmail.com"> -->
-                            <button type="button" class="btn btn-light">
+                            <a class="btn btn-light" role="button" th:href="'mailto:'+${report.email}">
                                 <span class="fa fa-envelope"></span>
                                 E-mail Reporter
-                            </button>
-                            <!-- </a> -->
+                            </a>
                             <button type="button" class="btn btn-light">
                                 <span class="fa fa-sticky-note"></span>
                                 Add Note
