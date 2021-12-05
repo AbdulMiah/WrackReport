@@ -28,4 +28,6 @@ public interface WrackReportRepository {
 
     List<DetailedReport> findAllDetailedReport();
 
+    Optional<DetailedReport> findAllByReportId(Long reportId);
+
 }

@@ -19,18 +19,4 @@ public class DetailedReport {
     private String surname;
     private String email;
     private String phoneNumber;
-
-    public DetailedReport(Long reportId, String datetime, String localAuthority, String postcode, String categoryName, Float depthMeters, String description, String firstName, String surname, String email, String phoneNumber) {
-        this.reportId = reportId;
-        this.datetime = datetime;
-        this.localAuthority = localAuthority;
-        this.postcode = postcode;
-        this.categoryName = categoryName;
-        this.depthMeters = depthMeters;
-        this.description = description;
-        this.firstName = firstName;
-        this.surname = surname;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
 }

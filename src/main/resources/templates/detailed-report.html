@@ -39,9 +39,9 @@
                     <div class="col-6" id="detailsCol">
                         <div class="row">
                             <p><b>Date:</b> <span th:text="${report.datetime}"></span></p>
-                            <p><b>Local Authority:</b> Cardiff</p>
+                            <p><b>Local Authority:</b> <span th:text="${report.localAuthority}"></span></p>
                             <p><b>Postcode:</b> <span th:text="${report.postcode}"></span></p>
-                            <p><b>Category:</b> <span th:text="${report.categoryId}"></span></p>
+                            <p><b>Category:</b> <span th:text="${report.categoryName}"></span></p>
                             <p><b>Depth:</b> <span th:text="${report.depthMeters}"></span></p>
                             <b>Attachments:</b>
                             <ul class="fa-ul">
@@ -56,9 +56,9 @@
                         </div><hr>
 
                         <div class="row">
-                            <p><b>Name:</b> Mark Johnson</p>
-                            <p><b>E-mail:</b> mark.johnson@example.com</p>
-                            <p><b>Phone:</b> 07881492280</p>
+                            <p><b>Name:</b> <span th:text="${report.firstName}"></span></p>
+                            <p><b>E-mail:</b> <span th:text="${report.email}"></span></p>
+                            <p><b>Phone:</b> <span th:text="${report.phoneNumber}"></span></p>
                         </div><hr>
 
                         <div class="row">
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="col-6" id="descCol">
-                        <p><b>Description:</b> my house is bare floodeded and my stuff is ruined plz halp :(((</p>
+                        <p><b>Description:</b> <span th:text="${report.description}"></span></p>
                     </div>
                 </div>
             </div>

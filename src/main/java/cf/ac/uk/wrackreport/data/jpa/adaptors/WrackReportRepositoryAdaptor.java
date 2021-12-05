@@ -116,4 +116,14 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .collect(Collectors.toList());
     }
 
+    public Optional<DetailedReport> findAllByReportId(Long reportId) {
+        Optional<DetailedReportEntity> detailedReportEntity = detailedReportRepository.findAllByReportId(reportId);
+
+        if (detailedReportEntity.isPresent()) {
+            return Optional.of(detailedReportEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
+    }
+
 }
