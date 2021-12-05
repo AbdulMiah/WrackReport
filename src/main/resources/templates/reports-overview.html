@@ -70,7 +70,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form th:action="@{/reports-overview}" th:method="post" th:object="${reportQueryForm}">
+                    <form id="reportQueryForm" th:action="@{/reports-overview}" th:method="post" th:object="${reportQueryForm}">
                         <div class="form-group">
                             <label for="queryPostcode" class="form-label">Postcode</label>
                             <input th:field="*{postcode}" id="queryPostcode" name="postcode" class="form-control" />
@@ -104,7 +104,7 @@
                         <input class="form-check-input" id="showRemoved" type="checkbox" >
                         <label class="form-check-label" for="showRemoved">Show removed reports</label>
                     </div>
-                    <button  id="submitQuery"><span class="fa fa-search"></span> Search</button>
+                    <button type="submit" form="reportQueryForm" id="submitQuery"><span class="fa fa-search"></span> Search</button>
             </div>
         </div>
     </div>

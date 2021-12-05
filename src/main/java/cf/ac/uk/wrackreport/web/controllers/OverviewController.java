@@ -49,6 +49,7 @@ public class OverviewController {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             return "/reports-overview";
         }
-        return "/reports-overview";
+        System.out.println("results: " + reportQueryForm);
+        return "redirect:/reports-overview";
     }
 }
