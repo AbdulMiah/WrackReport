@@ -24,14 +24,16 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private UserRepository userRepository;
     private MediaRepository mediaRepository;
     private ReportOverviewRepository reportOverviewRepository;
+    private DetailedReportRepository detailedReportRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, ReportOverviewRepository roRepo) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, ReportOverviewRepository roRepo, DetailedReportRepository drRepo) {
         reportRepository = repo;
         categoryRepository = cat;
         depthCategoryRepository = depthCat;
         userRepository = uRepo;
         mediaRepository = mRepo;
         reportOverviewRepository = roRepo;
+        detailedReportRepository = drRepo;
 
     }
 
@@ -102,6 +104,13 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     public List<ReportOverview> findAllReportOverview(){
         return reportOverviewRepository.findAll()
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
+    }
+
+    public List<DetailedReport> findAllDetailedReport() {
+        return detailedReportRepository.findAll()
                 .stream()
                 .map(r -> r.toDomain())
                 .collect(Collectors.toList());

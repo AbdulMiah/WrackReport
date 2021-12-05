@@ -26,6 +26,6 @@ public interface WrackReportRepository {
 
     List<ReportOverview> findAllReportOverview();
 
-
+    List<DetailedReport> findAllDetailedReport();
 
 }

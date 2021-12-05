@@ -33,7 +33,7 @@ const reportAPI = "http://localhost:8080/api/report/"+reportIdField;
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
     var marker = L.marker(result["latLong"].split(", ")).addTo(map);
-    marker.bindPopup("Description: "+result["description"]+"<br>Date and time reported: "+result["datetime"]+"<br>Depth of Flood (meters): "+result["depthMeters"]);
+    marker.bindPopup("Local Authority: "+result["localAuthority"]+"<br>Date and time reported: "+result["datetime"]+"<br>Depth of Flood (meters): "+result["depthMeters"]);
     map.flyTo(result["latLong"].split(", "), 16, {
         animate: true,
         duration: 1.5,
