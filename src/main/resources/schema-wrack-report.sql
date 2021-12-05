@@ -101,21 +101,3 @@ FROM reports r
 INNER JOIN categories c
 ON r.category_id = c.category_id;
 SELECT * FROM report_overview;
-
--- Stored Procedures -- 
-
-DROP PROCEDURE IF EXISTS ReportQuery;
-DELIMITER //
-CREATE PROCEDURE ReportQuery(
-	IN PostcodeIn VARCHAR(15),
-    IN LocalAuthorityIn VARCHAR(50),
-    IN CategoryIdIn INT,
-    IN DateFromIn DATE,
-    IN DateToIn DATE
-)
-BEGIN
-	SELECT * FROM `reports` WHERE (PostcodeIn IS NULL OR postcode = PostcodeIn)
-    AND (LocalAuthorityIn IS NULL OR local_authority = LocalAuthorityIn)
-    AND (CategoryIdIn IS NULL OR category_id = CategoryIdIn);
-END //
-DELIMITER ; 

@@ -1,6 +1,7 @@
 package cf.ac.uk.wrackreport.web.controllers;
 
 
+import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportOverviewService;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportQueryForm;
@@ -17,9 +18,12 @@ import java.io.IOException;
 public class OverviewController {
 
     private ReportOverviewService reportOverviewService;
+    private CategoryService categoryService;
 
-    public OverviewController(ReportOverviewService aReportOverviewService) {
+
+    public OverviewController(ReportOverviewService aReportOverviewService, CategoryService aCategoryService) {
         this.reportOverviewService = aReportOverviewService;
+        this.categoryService = aCategoryService;
     }
 
     @GetMapping({"/reports-overview"})
@@ -29,6 +33,7 @@ public class OverviewController {
 
         model.addAttribute("allReports", reportOverviewService.findAllReportOverview());
         model.addAttribute("reportQueryForm", reportQueryForm);
+        model.addAttribute("categories", categoryService.findAll());
         return "reports-overview.html";
 
     }
