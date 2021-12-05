@@ -22,17 +22,17 @@ public class UserDataJPATests {
     UserRepository userRepository;
 
     @Test
-    public void shouldGetTwoUsers() throws Exception{
+    public void shouldGetTwelveUsers() throws Exception{
         List<UserEntity> userList = userRepository.findAll();
-        assertEquals(2, userList.size());
+        assertEquals(12, userList.size());
     }
 
     @Test
-    public void shouldGetThreeUsersAfterInput() throws Exception{
+    public void shouldGetThirteenUsersAfterInput() throws Exception{
         UserEntity newUser = new UserEntity(null, "ROLE_USER", "test", "user", "test@gmail.com", "08847567364", "testpass", true);
         userRepository.save(newUser);
         List<UserEntity> userList = userRepository.findAll();
-        assertEquals(3, userList.size());
+        assertEquals(13, userList.size());
     }
 
 }
