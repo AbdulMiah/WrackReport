@@ -51,7 +51,31 @@ public class OverviewController {
         }
         System.out.println("results: " + reportQueryForm);
 
-        model.addAttribute("allReports", reportOverviewService.reportQuery(null, null, null, "2021-11-10", "2021-12-03"));
+        // Set form values to null if none inputted
+        String postcode = null;
+        if (reportQueryForm.getPostcode() != "") {
+            postcode = reportQueryForm.getPostcode();
+        }
+        String localAuthority = null;
+        if (reportQueryForm.getLocalAuthority() != "") {
+            localAuthority = reportQueryForm.getLocalAuthority();
+        }
+        String categoryName = null;
+        if (reportQueryForm.getCategoryName() != "") {
+            categoryName = reportQueryForm.getCategoryName();
+        }
+        String dateFrom = null;
+        if (reportQueryForm.getDateFrom() != "") {
+            dateFrom = reportQueryForm.getDateFrom();
+        }
+        String dateTo = null;
+        if (reportQueryForm.getDateTo() != "") {
+            dateTo = reportQueryForm.getDateTo();
+        }
+
+        //Add filtered results to model
+        model.addAttribute("allReports", reportOverviewService.reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo));
+
         model.addAttribute("reportQueryForm", reportQueryForm);
         model.addAttribute("categories", categoryService.findAll());
         return "/reports-overview";
