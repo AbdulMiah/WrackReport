@@ -17,8 +17,8 @@ public interface ReportOverviewRepository extends JpaRepository<ReportOverviewEn
 //    @Procedure("ReportQuery")
 //    ArrayList<ReportOverviewEntity> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo);
 
-    @Query(value = "SELECT * FROM `report_overview` WHERE (:postcode IS NULL OR postcode = :postcode) " +
-            "AND (:localAuthority IS NULL OR local_authority = :localAuthority) " +
+    @Query(value = "SELECT * FROM `report_overview` WHERE (:postcode IS NULL OR postcode LIKE Concat(:postcode,'%')) " +
+            "AND (:localAuthority IS NULL OR local_authority LIKE Concat('%',:localAuthority,'%')) " +
             "AND (:categoryName IS NULL OR category_name = :categoryName) " +
             "AND (:dateFrom IS NULL OR DATE(datetime) >= :dateFrom) " +
             "AND (:dateTo IS NULL OR DATE(datetime) <= :dateTo)",
