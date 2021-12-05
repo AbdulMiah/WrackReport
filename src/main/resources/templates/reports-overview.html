@@ -70,18 +70,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form>
+                    <form th:action="@{/reports-overview}" th:method="post" th:object="${reportQueryForm}">
                         <div class="form-group">
                             <label for="queryPostcode" class="form-label">Postcode</label>
-                            <input id="queryPostcode" name="postcode" class="form-control" />
+                            <input th:field="*{postcode}" id="queryPostcode" name="postcode" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="queryLocalAuthority" class="form-label">Local Authority</label>
-                            <input id="queryLocalAuthority" name="localAuthority" class="form-control" />
+                            <input th:field="*{localAuthority}" id="queryLocalAuthority" name="localAuthority" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Category</label>
-                            <select id="category" class="form-select">
+                            <select th:field="*{categoryId}" id="category" class="form-select">
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -92,9 +92,9 @@
                             <div class="input-group">
                                 <!-- reference - placeholder for date field-->
                                 <!-- taken from https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/-->
-                                <input id="dateFrom" type="text" class="form-control" placeholder="From"
+                                <input th:field="*{dateFrom}" id="dateFrom" type="text" class="form-control" placeholder="From"
                                        onfocus="(this.type='date')">
-                                <input id="dateTo" type="text" class="form-control" placeholder="To"
+                                <input th:field="*{dateTo}" id="dateTo" type="text" class="form-control" placeholder="To"
                                        onfocus="(this.type='date')">
                                <!-- end of reference -->
                             </div>

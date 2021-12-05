@@ -19,4 +19,6 @@ public class ReportQueryForm {
 
     private String dateTo;
 
+    private Boolean showRemoved;
+
 }
