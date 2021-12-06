@@ -49,8 +49,6 @@ public class OverviewController {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             return "/reports-overview";
         }
-        System.out.println("results: " + reportQueryForm);
-
         // Set form values to null if none inputted
         String postcode = null;
         if (reportQueryForm.getPostcode() != "") {

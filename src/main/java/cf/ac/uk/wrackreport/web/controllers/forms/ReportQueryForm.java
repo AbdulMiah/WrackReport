@@ -1,5 +1,6 @@
 package cf.ac.uk.wrackreport.web.controllers.forms;
 
+import cf.ac.uk.wrackreport.web.controllers.forms.validators.ValidQueryPostcode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReportQueryForm {
 
+    @ValidQueryPostcode
     private String postcode;
 
     private String localAuthority;
