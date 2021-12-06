@@ -114,3 +114,16 @@ tr:nth-child(even) {
     background-color: #0A3D61;
     color: #FFFFFF;
 }
+
+#showRemoved {
+    height: 2em;
+    width: 2em;
+}
+
+#dateFrom {
+    margin-right: 2%;
+}
+
+#dateTo {
+    margin-left: 2%;
+}

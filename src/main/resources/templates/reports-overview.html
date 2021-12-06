@@ -73,15 +73,15 @@
                     <form id="reportQueryForm" th:action="@{/reports-overview}" th:method="post" th:object="${reportQueryForm}">
                         <div class="form-group">
                             <label for="queryPostcode" class="form-label">Postcode</label>
-                            <input th:field="*{postcode}" id="queryPostcode" name="postcode" class="form-control" />
+                            <input th:field="*{postcode}" id="queryPostcode" name="postcode" class="form-control mb-3" />
                         </div>
                         <div class="form-group">
                             <label for="queryLocalAuthority" class="form-label">Local Authority</label>
-                            <input th:field="*{localAuthority}" id="queryLocalAuthority" name="localAuthority" class="form-control" />
+                            <input th:field="*{localAuthority}" id="queryLocalAuthority" name="localAuthority" class="form-control mb-3" />
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Category</label>
-                            <select id="category" class="form-select" th:field="*{categoryName}">
+                            <select id="category" class="form-select mb-3" th:field="*{categoryName}">
                                 <option th:value="null">All categories</option>
                                 <option th:each="category: ${categories}" th:value="${category.name}" th:utext="${category.name}"></option>
                             </select>
@@ -102,8 +102,8 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <div>
-                        <input class="form-check-input" id="showRemoved" type="checkbox" >
-                        <label class="form-check-label" for="showRemoved">Show removed reports</label>
+                        <input class="form-check-input align-middle m-1" id="showRemoved" type="checkbox" >
+                        <span class="align-middle">Show removed reports</span>
                     </div>
                     <button type="submit" form="reportQueryForm" id="submitQuery"><span class="fa fa-search"></span> Search</button>
             </div>
