@@ -1,6 +1,5 @@
 package cf.ac.uk.wrackreport.data.interfaces;
 
-import cf.ac.uk.wrackreport.data.jpa.entities.CategoryEntity;
 import cf.ac.uk.wrackreport.domain.*;
 
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ public interface WrackReportRepository {
     List<ReportOverview> findAllReportOverview();
 
     List<DetailedReport> findAllDetailedReport();
+    Optional<StaffUser> findByEmail(String userName);
 
     Optional<DetailedReport> findAllByReportId(Long reportId);
 

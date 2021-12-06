@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS `wrack-report`;
 USE `wrack-report`;
 
 CREATE TABLE `users` (
-	`user_id` INT NOT NULL AUTO_INCREMENT,
+	`user_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
     `roles` VARCHAR(45) NOT NULL,
     `first_name` VARCHAR(30) NOT NULL,
     `surname` VARCHAR(30) NOT NULL,
@@ -14,6 +14,17 @@ CREATE TABLE `users` (
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 ); 
 
+CREATE TABLE `staff_users` (
+	`user_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+    `roles` VARCHAR(45) NOT NULL,
+    `first_name` VARCHAR(30) NOT NULL,
+    `surname` VARCHAR(30) NOT NULL,
+    `email` VARCHAR(75) NOT NULL,
+    `password` VARCHAR(100),
+    `active` BOOLEAN,
+    CONSTRAINT `PK_staff_users` PRIMARY KEY (`user_id`)
+); 
+
 -- CREATE TABLE `user_types` (
 -- 	`user_type_id` INT NOT NULL AUTO_INCREMENT,
 --     `user_type` VARCHAR(45),
@@ -21,7 +32,7 @@ CREATE TABLE `users` (
 -- );
 
 CREATE TABLE `reports` (
-	`report_id` INT NOT NULL AUTO_INCREMENT,
+	`report_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
     `user_id` INT NOT NULL,
     `category_id` INT NOT NULL,
     `description` VARCHAR(2500) NOT NULL,

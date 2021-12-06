@@ -1,6 +1,7 @@
 package cf.ac.uk.wrackreport.security;
 
 import cf.ac.uk.wrackreport.data.jpa.entities.UserEntity;
+import cf.ac.uk.wrackreport.service.dto.StaffUserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,7 +19,7 @@ public class WrackReportUserDetails implements UserDetails {
     private boolean active;
     private List<GrantedAuthority> authorities;
 
-    public WrackReportUserDetails(UserEntity user) {
+    public WrackReportUserDetails(StaffUserDTO user) {
         this.userName = user.getEmail();
         this.password = user.getPassword();
         this.active = user.getActive();

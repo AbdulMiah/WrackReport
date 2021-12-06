@@ -150,7 +150,7 @@ public class ReportController {
         );
 
         // save user to db
-        reportService.saveUser(userDTO);
+//        reportService.saveUser(userDTO);
 
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
@@ -177,8 +177,8 @@ public class ReportController {
 
             ReportDTO reportDTO = new ReportDTO(
                     reportForm.getReportId(),
-//                    reportForm.getUserId(),
-                    2L,
+                    userDTO,
+//                    2L,
                     reportForm.getCategoryId(),
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
@@ -211,8 +211,8 @@ public class ReportController {
         } else {
             ReportDTO reportDTO = new ReportDTO(
                     reportForm.getReportId(),
-//                    reportForm.getUserId(),
-                    2L,
+                    userDTO,
+//                    2L,
                     reportForm.getCategoryId(),
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
