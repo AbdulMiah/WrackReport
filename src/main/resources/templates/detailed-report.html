@@ -53,19 +53,22 @@
                                      Debris left over from flood (JPG)
                                 </li>
                             </ul>
-                        </div><hr>
+                        </div>
 
-                        <div class="row">
-                            <p><b>Name:</b> <span th:text="${report.firstName}+' '+${report.surname}"></span></p>
-                            <p><b>E-mail:</b> <span th:text="${report.email}"></span></p>
-                            <p><b>Phone:</b> <span th:text="${report.phoneNumber}"></span></p>
-                        </div><hr>
+                        <div th:if="${authenticated}">
+                            <hr>
+                            <div class="row">
+                                <p><b>Name:</b> <span th:text="${report.firstName}+' '+${report.surname}"></span></p>
+                                <p><b>E-mail:</b> <span th:text="${report.email}"></span></p>
+                                <p><b>Phone:</b> <span th:text="${report.phoneNumber}"></span></p>
+                            </div><hr>
 
-                        <div class="row">
-                            <a class="btn btn-light" role="button" th:href="'mailto:'+${report.email}">
-                                <span class="fa fa-envelope"></span>
-                                E-mail Reporter
-                            </a>
+                            <div class="row">
+                                <a class="btn btn-light" role="button" th:href="'mailto:'+${report.email}">
+                                    <span class="fa fa-envelope"></span>
+                                    E-mail Reporter
+                                </a>
+                            </div>
                         </div>
                     </div>
 
