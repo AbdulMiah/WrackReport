@@ -25,7 +25,9 @@ public interface WrackReportRepository {
 
     List<ReportOverview> findAllReportOverview();
 
+    List<DetailedReport> findAllDetailedReport();
     Optional<StaffUser> findByEmail(String userName);
 
+    Optional<DetailedReport> findAllByReportId(Long reportId);
 
 }

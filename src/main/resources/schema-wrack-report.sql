@@ -100,4 +100,13 @@ SELECT r.report_id, r.datetime, c.category_name, r.depth_meters, r.postcode, r.l
 FROM reports r
 INNER JOIN categories c
 ON r.category_id = c.category_id;
-SELECT * FROM report_overview;
+-- SELECT * FROM report_overview;
+
+CREATE VIEW detailed_report AS
+SELECT r.report_id, r.datetime, r.local_authority, r.postcode, c.category_name, r.depth_meters, r.description, u.first_name, u.surname, u.email, u.phone_number
+FROM reports r
+INNER JOIN categories c
+ON r.category_id = c.category_id
+INNER JOIN users u
+ON r.user_id = u.user_id;
+-- SELECT * FROM detailed_report;

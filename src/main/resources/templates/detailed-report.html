@@ -33,15 +33,16 @@
                 </a>
             </div>
 
+            <input id="reportIdField" th:value="${report.reportId}" type="hidden">
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-6" id="detailsCol">
                         <div class="row">
                             <p><b>Date:</b> <span th:text="${report.datetime}"></span></p>
-                            <p><b>Local Authority:</b> Cardiff</p>
+                            <p><b>Local Authority:</b> <span th:text="${report.localAuthority}"></span></p>
                             <p><b>Postcode:</b> <span th:text="${report.postcode}"></span></p>
-                            <p><b>Category:</b> <span th:text="${report.categoryId}"></span></p>
-                            <p><b>Depth:</b> <span th:text="${report.depthMeters}"></span></p>
+                            <p><b>Category:</b> <span th:text="${report.categoryName}"></span></p>
+                            <p><b>Depth (meters):</b> <span th:text="${report.depthMeters}"></span></p>
                             <b>Attachments:</b>
                             <ul class="fa-ul">
                                 <li>
@@ -52,30 +53,27 @@
                                      Debris left over from flood (JPG)
                                 </li>
                             </ul>
-                        </div><hr>
+                        </div>
 
-                        <div class="row">
-                            <p><b>Name:</b> Mark Johnson</p>
-                            <p><b>E-mail:</b> mark.johnson@example.com</p>
-                            <p><b>Phone:</b> 07881492280</p>
-                        </div><hr>
+                        <div th:if="${authenticated}">
+                            <hr>
+                            <div class="row">
+                                <p><b>Name:</b> <span th:text="${report.firstName}+' '+${report.surname}"></span></p>
+                                <p><b>E-mail:</b> <span th:text="${report.email}"></span></p>
+                                <p><b>Phone:</b> <span th:text="${report.phoneNumber}"></span></p>
+                            </div><hr>
 
-                        <div class="row">
-                            <!-- <a href="mailto:mark.johnson@gmail.com"> -->
-                            <button type="button" class="btn btn-light">
-                                <span class="fa fa-envelope"></span>
-                                E-mail Reporter
-                            </button>
-                            <!-- </a> -->
-                            <button type="button" class="btn btn-light">
-                                <span class="fa fa-sticky-note"></span>
-                                Add Note
-                            </button>
+                            <div class="row">
+                                <a class="btn btn-light" role="button" th:href="'mailto:'+${report.email}">
+                                    <span class="fa fa-envelope"></span>
+                                    E-mail Reporter
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-6" id="descCol">
-                        <p><b>Description:</b> my house is bare floodeded and my stuff is ruined plz halp :(((</p>
+                        <p><b>Description:</b> <span th:text="${report.description}"></span></p>
                     </div>
                 </div>
             </div>
