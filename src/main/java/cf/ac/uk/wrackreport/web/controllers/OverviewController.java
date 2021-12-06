@@ -2,6 +2,7 @@ package cf.ac.uk.wrackreport.web.controllers;
 
 
 import cf.ac.uk.wrackreport.service.ReportOverviewService;
+import cf.ac.uk.wrackreport.service.ReportService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ public class OverviewController {
 
 private ReportOverviewService reportOverviewService;
 
-public OverviewController(ReportOverviewService aReportOverviewService){
+public OverviewController(ReportOverviewService aReportOverviewService, ReportService aReportService){
     this.reportOverviewService = aReportOverviewService;
 }
 

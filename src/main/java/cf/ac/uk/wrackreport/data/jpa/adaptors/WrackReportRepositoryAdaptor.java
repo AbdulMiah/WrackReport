@@ -32,7 +32,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         userRepository = uRepo;
         mediaRepository = mRepo;
         reportOverviewRepository = roRepo;
-
     }
 
     public void saveReport(Report aReport) {

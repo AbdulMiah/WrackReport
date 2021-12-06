@@ -15,4 +15,5 @@ public class ReportOverview {
     private Float depthMeters;
     private String postcode;
     private String localAuthority;
+    private int status;
 }
