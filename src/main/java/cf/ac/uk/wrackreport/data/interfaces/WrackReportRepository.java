@@ -32,14 +32,6 @@ public interface WrackReportRepository {
 
     Optional<StaffUser> findByEmail(String userName);
 
-    @Query(value = "SELECT * FROM `report_overview` WHERE (:postcode IS NULL OR postcode LIKE Concat(:postcode,'%')) " +
-            "AND (:localAuthority IS NULL OR local_authority LIKE Concat('%',:localAuthority,'%')) " +
-            "AND (:categoryName IS NULL OR category_name = :categoryName) " +
-            "AND (:dateFrom IS NULL OR DATE(datetime) >= :dateFrom) " +
-            "AND (:dateTo IS NULL OR DATE(datetime) <= :dateTo)",
-            nativeQuery = true)
-    List<ReportOverview> reportQuery(
-            @Param("postcode") String postcode, @Param("localAuthority") String localAuthority, @Param("categoryName") String categoryName,
-            @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
+    List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo);
 
 }
