@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/").permitAll()
                                 .mvcMatchers("/privacy-policy").permitAll()
                                 .mvcMatchers("/api/reports").permitAll()
+                                .mvcMatchers("/api/report/{furl}").permitAll()
                                 .mvcMatchers("/report-form").permitAll()
                                 .mvcMatchers("/ReportSubmitted").permitAll()
                                 .mvcMatchers("/reports-overview").permitAll()
