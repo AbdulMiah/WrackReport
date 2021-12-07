@@ -22,8 +22,9 @@ public class Report {
     private String postcode;
     private String localAuthority;
     private List<Media> media;
+    private int status;
 
-    public Report(Long reportId, User user, short categoryId, String description, short depthCategoryId, Float depthMeters, String latLong, String datetime, String postcode, String localAuthority) {
+    public Report(Long reportId, User user, short categoryId, String description, short depthCategoryId, Float depthMeters, String latLong, String datetime, String postcode, String localAuthority, int status) {
         this.reportId = reportId;
         this.user = user;
         this.categoryId = categoryId;
@@ -35,6 +36,7 @@ public class Report {
         this.postcode = postcode;
         this.localAuthority = localAuthority;
         this.media = new ArrayList<Media>();
+        this.status = status;
     }
 
     public void addMedia(Media aMedia) {

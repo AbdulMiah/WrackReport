@@ -21,6 +21,8 @@ public interface WrackReportRepository {
 
     List<Report> findAllReports();
 
+    List<Report> findAllByStatus(int status);
+
     Optional<Report> findByReportId(Long reportId);
 
     boolean checkValidCategoryID(short id);

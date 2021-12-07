@@ -14,7 +14,7 @@ public class ReportOverviewDTO {
     Float depthMeters;
     String postcode;
     String localAuthority;
-
+    int status;
 
     public ReportOverviewDTO(ReportOverview reportOverview){
         this(
@@ -23,12 +23,13 @@ public class ReportOverviewDTO {
                 reportOverview.getCategoryName(),
                 reportOverview.getDepthMeters(),
                 reportOverview.getPostcode(),
-                reportOverview.getLocalAuthority()
+                reportOverview.getLocalAuthority(),
+                reportOverview.getStatus()
         );
 
     }
     public ReportOverview toReportOverview(){
-        return new ReportOverview(reportId,datetime,categoryName,depthMeters,postcode,localAuthority);
+        return new ReportOverview(reportId,datetime,categoryName,depthMeters,postcode,localAuthority,status);
     }
 
 }

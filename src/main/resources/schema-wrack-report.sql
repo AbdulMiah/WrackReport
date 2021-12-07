@@ -42,6 +42,7 @@ CREATE TABLE `reports` (
     `datetime` DATETIME NOT NULL,
     `postcode` VARCHAR(15),
     `local_authority` VARCHAR(50) NOT NULL,
+    `status` INT NOT NULL,
     CONSTRAINT `PK_reports` PRIMARY KEY (`report_id`)
 );
 
@@ -96,7 +97,7 @@ ADD FOREIGN KEY (`metadata_id`) REFERENCES `metadata`(`metadata_id`);
 -- Views --
 
 CREATE VIEW report_overview AS
-SELECT r.report_id, r.datetime, c.category_name, r.depth_meters, r.postcode, r.local_authority
+SELECT r.report_id, r.datetime, c.category_name, r.depth_meters, r.postcode, r.local_authority, r.status
 FROM reports r
 INNER JOIN categories c
 ON r.category_id = c.category_id;
