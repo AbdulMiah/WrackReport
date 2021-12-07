@@ -3,7 +3,7 @@ package cf.ac.uk.wrackreport.web.controllers;
 
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportOverviewService;
-import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
+
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportQueryForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -46,14 +45,15 @@ public class OverviewController {
             BindingResult bindingResult,
             Model model) {
 
+
         // Check form doesn't have errors before form data is retrieved
         if (bindingResult.hasErrors()) {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
             model.addAttribute("allReports", reportOverviewService.findAllReportOverview());
-//            model.addAttribute("reportQueryForm", reportQueryForm);
             model.addAttribute("categories", categoryService.findAll());
             return "/reports-overview";
         } else {
+            System.out.println("checked: " + reportQueryForm.getShowRemoved());
             // Create list of report form items
             ArrayList<String> formItems = new ArrayList<String>(Arrays.asList(reportQueryForm.getPostcode(), reportQueryForm.getLocalAuthority(),
                     reportQueryForm.getCategoryName(), reportQueryForm.getDateFrom(), reportQueryForm.getDateTo()));

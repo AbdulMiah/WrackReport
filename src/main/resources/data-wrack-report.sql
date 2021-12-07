@@ -80,13 +80,13 @@ VALUES (NULL, 5, 5, "Huge flash flood in affecting the town. This is affecting t
 INSERT INTO `reports`
 VALUES (NULL, 6, 3, "Huge storm and waves last night. Some houses nearest to the sea have been damaged", 0.25, 0.3456, "52.251609, -4.229779", "2021-12-02  06:15:00", NULL, "Ceredigion", 0);
 INSERT INTO `reports`
-VALUES (NULL, 7, 1, "Sewage drain unit near my house is bubbling and overflowing", 1, 0.3456, "51.856139, -4.290161", "2021-10-07  08:20:00", NULL, "Carmarthenshire", 0);
+VALUES (NULL, 7, 1, "Sewage drain unit near my house is bubbling and overflowing", 1, 0.3456, "51.856139, -4.290161", "2021-10-07  08:20:00", NULL, "Carmarthenshire", -1);
 INSERT INTO `reports`
 VALUES (NULL, 8, 2, "River has completely overflowed and the flooding has reached the park", 1, 0.3456, "51.744038, -3.378296", "2021-11-29  14:17:00", NULL, "Merthyr Tydfil", 0);
 INSERT INTO `reports`
-VALUES (NULL, 9, 4, "Lots of rubbish washed up near my shop from flood on 01/12/2021", 0, 0.3456, "51.500194, -3.562317", "2021-12-01  13:25:00", NULL, "Bridgend", 0);
+VALUES (NULL, 9, 4, "Lots of rubbish washed up near my shop from flood on 01/12/2021", 0, 0.3456, "51.500194, -3.562317", "2021-12-01  13:25:00", NULL, "Bridgend", -1);
 INSERT INTO `reports`
-VALUES (NULL, 12, 4, "Plastic waste left behind after flooding", 6, 0, "53.131942, -4.265442", "2021-11-29  19:50:00", NULL, "Gwynedd", 0);
+VALUES (NULL, 12, 4, "Plastic waste left behind after flooding", 6, 0, "53.131942, -4.265442", "2021-11-29  19:50:00", NULL, "Gwynedd", -1);
 INSERT INTO `reports`
 VALUES (NULL, 13, 5, "Very bad flooding from storm", 2, 0.25, "52.218966, -3.931732", "2021-10-13  13:00:00", NULL, "Ceredigion", 0);
 INSERT INTO `reports`
