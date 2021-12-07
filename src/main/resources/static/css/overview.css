@@ -9,6 +9,19 @@ body{
     margin: 0;
 
 }
+.action-btn-active {
+    background-color: #D5D5D5;
+    box-shadow: 4px 4px 4px #B6B6B6;
+}
+.action-btn-inactive {
+    background-color: #F3F3F3;
+    box-shadow: 4px 4px 4px #B6B6B6;
+}
+bi:before {
+    left: 0;
+    position: absolute;
+    top: -4px;
+}
 #title-header{
     color: #FFFFFF;
 }

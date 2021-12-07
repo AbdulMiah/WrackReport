@@ -47,7 +47,8 @@
         <a class="bottom-link" href="#">Privacy</a>
         <a class="bottom-link" href="#">Terms</a>
         <a class="bottom-link" href="#">About</a>
-        <a class="bottom-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+        <a th:if="${!authenticated}"class="bottom-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+        <a th:if="${authenticated}" class="bottom-link" href="/reports-overview">Admin</a>
     </div>
 </div>
 

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 import java.security.Security;
 
@@ -22,6 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+
         //Configure which pages require logging in
         http
                 .authorizeRequests(authorizeRequests ->
@@ -36,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/ReportSubmitted").permitAll()
                                 .mvcMatchers("/reports-overview").permitAll()
                                 .mvcMatchers("/detailed-report/{furl}").permitAll()
+                                .mvcMatchers("/api/report/**").authenticated()
                                 .anyRequest().denyAll()
                 )
                 .formLogin(formLogin ->

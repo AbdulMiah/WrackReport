@@ -9,16 +9,79 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
+<script type="text/javascript">
+    function confirmReport(reportID, caller){
+        var otherButton = caller.parentNode.getElementsByClassName("remove-button")[0]
+
+        caller.classList.remove("action-btn-inactive")
+        caller.classList.add("action-btn-active")
+
+        var otherButtonState = ""
+        if(otherButton.classList.contains("action-btn-active")){
+            otherButtonState = "active"
+        }else{
+            otherButtonState = "inactive"
+        }
+
+        otherButton.classList.remove("action-btn-active")
+        otherButton.classList.add("action-btn-inactive")
+
+        axios.post("/api/report/" + reportID + "/confirm").then((res) => {
+            if(res.status != 200){
+                alert("Failed to update report. Try logging out and back in.")
+            }
+        }).catch((err) => {
+            caller.classList.remove("action-btn-active")
+            caller.classList.add("action-btn-inactive")
+            if(otherButtonState == "active"){
+                otherButton.classList.remove("action-btn-inactive")
+                otherButton.classList.add("action-btn-active")
+            }
+            alert("Failed to update report. Please check your internet connection and try again.")
+        })
+    }
+    function removeReport(reportID, caller){
+        var otherButton = caller.parentNode.getElementsByClassName("confirm-button")[0]
+
+        caller.classList.remove("action-btn-inactive")
+        caller.classList.add("action-btn-active")
+
+        var otherButtonState = ""
+        if(otherButton.classList.contains("action-btn-active")){
+            otherButtonState = "active"
+        }else{
+            otherButtonState = "inactive"
+        }
+
+        otherButton.classList.remove("action-btn-active")
+        otherButton.classList.add("action-btn-inactive")
+
+        axios.post("/api/report/" + reportID + "/remove").then((res) => {
+            if(res.status != 200){
+                alert("Failed to update report. Try logging out and back in.")
+            }
+        }).catch((err) => {
+            caller.classList.remove("action-btn-active")
+            caller.classList.add("action-btn-inactive")
+            if(otherButtonState == "active"){
+                otherButton.classList.remove("action-btn-inactive")
+                otherButton.classList.add("action-btn-active")
+            }
+            alert("Failed to update report. Please check your internet connection and try again.")
+        })
+    }
+</script>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h1 id="title-header">
+                <a href="/" style="text-decoration: none;color:#FFFFFF;"><h1 id="title-header">
                     <span id="wrackReport">WrackReport</span>
                     <span id="admin">Admin</span>
-                </h1>
+                </h1></a>
             </div>
         </div>
 
@@ -46,7 +109,7 @@
                                     <th>Depth (m)</th>
                                     <th>Location</th>
                                     <th>Local Authority</th>
-                                    <th>butt</th>
+                                    <th>Actions</th>
                                 </tr>
                                 <tr id="table-contents" th:each = "reportOverview: ${allReports}">
                                     <td th:text="${reportOverview.datetime}"></td>
@@ -55,7 +118,10 @@
                                     <td th:text="${reportOverview.depthMeters}"></td>
                                     <td th:text="${reportOverview.postcode}"></td>
                                     <td th:text="${reportOverview.localAuthority}"></td>
-                                    <td th:text="${reportOverview.status}"></td>
+                                    <td>
+                                        <button type="button" th:onclick="'confirmReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != 1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn confirm-button"><i class="fas fa-check"></i></button>
+                                        <button type="button" th:onclick="'removeReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn remove-button"><i class="fas fa-times"></i></button>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

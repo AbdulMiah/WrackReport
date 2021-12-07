@@ -17,16 +17,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.SizeLimitExceededException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
@@ -49,6 +47,12 @@ public class ReportController {
         this.categoryService = categoryService;
         this.depthCategoryService = depthCategoryService1;
         this.reportRepository = reportRepository;
+    }
+
+    //API for report updates
+    @PostMapping("/api/{reportID}/confirm")
+    public String confirmReport(@PathVariable int reportID, HttpServletRequest request){
+        return "xd";
     }
 
     // Route to report form
