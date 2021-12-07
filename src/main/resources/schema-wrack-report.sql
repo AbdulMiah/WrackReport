@@ -156,6 +156,8 @@ BEGIN
     
 END //
 DELIMITER ;
--- Testing this trigger
+-- Testing trigger `check_datetime_BEFORE_INSERT`
 -- INSERT INTO `reports`
--- VALUES (NULL, 4, 4, "Debris left behind from flooding yesterday", 6, 0.02, "51.496361, -3.186669", "2022-12-12  09:09:00", "cf24 4lr", "Cardiff");
+-- VALUES (NULL, 4, 4, "Testing future date time", 6, 0.02, "51.496361, -3.186669", "2022-12-12 09:09:00", "cf24 4lr", "Cardiff");
+-- INSERT INTO `reports`
+-- VALUES (NULL, 4, 4, "Testing past date time", 6, 0.02, "51.496361, -3.186669", "2020-12-12 09:09:00", "cf24 4lr", "Cardiff");
