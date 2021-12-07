@@ -110,3 +110,20 @@ ON r.category_id = c.category_id
 INNER JOIN users u
 ON r.user_id = u.user_id;
 -- SELECT * FROM detailed_report;
+
+
+-- -- TRIGGERS -- -- 
+
+DELIMITER //
+CREATE TRIGGER `check_postcode_BEFORE_INSERT`
+BEFORE INSERT ON `reports`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.postcode IS NULL OR NEW.postcode = ""
+	THEN
+		SET NEW.postcode = "N/A";
+	END IF;
+    
+END //
+DELIMITER ;
