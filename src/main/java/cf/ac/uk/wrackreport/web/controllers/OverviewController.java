@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class OverviewController {
@@ -47,35 +49,28 @@ public class OverviewController {
         // Check form doesn't have errors before form data is retrieved
         if (bindingResult.hasErrors()) {
             System.out.println("THERE ARE ERRORS" + bindingResult.getAllErrors());
+            model.addAttribute("allReports", reportOverviewService.findAllReportOverview());
+//            model.addAttribute("reportQueryForm", reportQueryForm);
+            model.addAttribute("categories", categoryService.findAll());
+            return "/reports-overview";
+        } else {
+            // Create list of report form items
+            ArrayList<String> formItems = new ArrayList<String>(Arrays.asList(reportQueryForm.getPostcode(), reportQueryForm.getLocalAuthority(),
+                    reportQueryForm.getCategoryName(), reportQueryForm.getDateFrom(), reportQueryForm.getDateTo()));
+            // If report form item was not empty, add it to database query
+            ArrayList<String> queryItems = new ArrayList<String>(Arrays.asList(null,null,null,null,null));
+            for (int i = 0; i < formItems.size(); i++) {
+                if (formItems.get(i) != "") {
+                    queryItems.set(i, formItems.get(i));
+                }
+            }
+
+            //Add filtered results to model
+            model.addAttribute("allReports", reportOverviewService.reportQuery(queryItems.get(0), queryItems.get(1), queryItems.get(2), queryItems.get(3), queryItems.get(4)));
+            model.addAttribute("reportQueryForm", reportQueryForm);
+            model.addAttribute("categories", categoryService.findAll());
             return "/reports-overview";
         }
-        // Set form values to null if none inputted
-        String postcode = null;
-        if (reportQueryForm.getPostcode() != "") {
-            postcode = reportQueryForm.getPostcode();
-        }
-        String localAuthority = null;
-        if (reportQueryForm.getLocalAuthority() != "") {
-            localAuthority = reportQueryForm.getLocalAuthority();
-        }
-        String categoryName = null;
-        if (reportQueryForm.getCategoryName() != "") {
-            categoryName = reportQueryForm.getCategoryName();
-        }
-        String dateFrom = null;
-        if (reportQueryForm.getDateFrom() != "") {
-            dateFrom = reportQueryForm.getDateFrom();
-        }
-        String dateTo = null;
-        if (reportQueryForm.getDateTo() != "") {
-            dateTo = reportQueryForm.getDateTo();
-        }
 
-        //Add filtered results to model
-        model.addAttribute("allReports", reportOverviewService.reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo));
-
-        model.addAttribute("reportQueryForm", reportQueryForm);
-        model.addAttribute("categories", categoryService.findAll());
-        return "/reports-overview";
     }
 }

@@ -16,10 +16,8 @@ public class QueryPostcodeValidator implements ConstraintValidator<ValidQueryPos
             return false;
         }
         if (postcode.matches("([a-zA-Z0-9\\s]+)")) {
-            System.out.println("matches");
             return true;
         } else {
-            System.out.println("doesn't match");
             return false;
         }
     }
