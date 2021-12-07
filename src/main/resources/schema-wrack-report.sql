@@ -8,7 +8,7 @@ CREATE TABLE `users` (
     `first_name` VARCHAR(30) NOT NULL,
     `surname` VARCHAR(30) NOT NULL,
     `email` VARCHAR(75) NOT NULL,
-    `phone_number` VARCHAR(15),
+    `phone_number` VARCHAR(15) NOT NULL,
     `password` VARCHAR(100),
     `active` BOOLEAN,
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
@@ -40,7 +40,7 @@ CREATE TABLE `reports` (
     `depth_meters` DECIMAL(6,4) NOT NULL,
     `lat_long` VARCHAR(50) NOT NULL,
     `datetime` DATETIME NOT NULL,
-    `postcode` VARCHAR(15),
+    `postcode` VARCHAR(15) NOT NULL,
     `local_authority` VARCHAR(50) NOT NULL,
     CONSTRAINT `PK_reports` PRIMARY KEY (`report_id`)
 );
@@ -123,6 +123,20 @@ BEGIN
 	IF NEW.postcode IS NULL OR NEW.postcode = ""
 	THEN
 		SET NEW.postcode = "N/A";
+	END IF;
+    
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `check_phone_number_BEFORE_INSERT`
+BEFORE INSERT ON `users`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.phone_number IS NULL OR NEW.phone_number = ""
+	THEN
+		SET NEW.phone_number = "N/A";
 	END IF;
     
 END //
