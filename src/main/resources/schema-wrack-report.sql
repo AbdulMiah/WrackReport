@@ -120,9 +120,9 @@ BEFORE INSERT ON `reports`
 FOR EACH ROW
 BEGIN
 
-	IF NEW.postcode IS NULL OR NEW.postcode = ""
+	IF NEW.`postcode` IS NULL OR NEW.`postcode` = ''
 	THEN
-		SET NEW.postcode = "N/A";
+		SET NEW.`postcode` = 'N/A';
 	END IF;
     
 END //
@@ -134,10 +134,28 @@ BEFORE INSERT ON `users`
 FOR EACH ROW
 BEGIN
 
-	IF NEW.phone_number IS NULL OR NEW.phone_number = ""
+	IF NEW.`phone_number` IS NULL OR NEW.`phone_number` = ''
 	THEN
-		SET NEW.phone_number = "N/A";
+		SET NEW.`phone_number` = 'N/A';
 	END IF;
     
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `check_datetime_BEFORE_INSERT`
+BEFORE INSERT ON `reports`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`datetime` > NOW()
+	THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Date and time cannot be in the future. Please enter a valid date and time!';
+	END IF;
+    
+END //
+DELIMITER ;
+-- Testing this trigger
+-- INSERT INTO `reports`
+-- VALUES (NULL, 4, 4, "Debris left behind from flooding yesterday", 6, 0.02, "51.496361, -3.186669", "2022-12-12  09:09:00", "cf24 4lr", "Cardiff");
