@@ -53,9 +53,9 @@ public class ReportEntity {
     @Column(name = "status")
     private int status;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category = new CategoryEntity();
+//    @OneToOne(cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "category_id")
+//    private CategoryEntity category = new CategoryEntity();
 
 
 //    Create one to many link between reports and media
