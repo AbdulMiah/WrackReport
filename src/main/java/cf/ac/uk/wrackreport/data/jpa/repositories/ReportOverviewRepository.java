@@ -18,10 +18,11 @@ public interface ReportOverviewRepository extends JpaRepository<ReportOverviewEn
             "AND (:localAuthority IS NULL OR local_authority LIKE Concat('%',:localAuthority,'%')) " +
             "AND (:categoryName IS NULL OR category_name = :categoryName) " +
             "AND (:dateFrom IS NULL OR DATE(datetime) >= :dateFrom) " +
-            "AND (:dateTo IS NULL OR DATE(datetime) <= :dateTo)",
+            "AND (:dateTo IS NULL OR DATE(datetime) <= :dateTo)" +
+            "AND (status >= :status)",
             nativeQuery = true)
     List<ReportOverviewEntity> reportQuery(
             @Param("postcode") String postcode, @Param("localAuthority") String localAuthority, @Param("categoryName") String categoryName,
-            @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
+            @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo, @Param("status") Integer status);
 
 }

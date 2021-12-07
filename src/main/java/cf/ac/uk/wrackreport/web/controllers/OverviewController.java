@@ -64,9 +64,13 @@ public class OverviewController {
                     queryItems.set(i, formItems.get(i));
                 }
             }
+            Integer status = 0;
+            if (reportQueryForm.getShowRemoved() == true) {
+                status = -1;
+            }
 
             //Add filtered results to model
-            model.addAttribute("allReports", reportOverviewService.reportQuery(queryItems.get(0), queryItems.get(1), queryItems.get(2), queryItems.get(3), queryItems.get(4)));
+            model.addAttribute("allReports", reportOverviewService.reportQuery(queryItems.get(0), queryItems.get(1), queryItems.get(2), queryItems.get(3), queryItems.get(4), status));
             model.addAttribute("reportQueryForm", reportQueryForm);
             model.addAttribute("categories", categoryService.findAll());
             return "/reports-overview";

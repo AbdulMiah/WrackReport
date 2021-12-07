@@ -34,6 +34,6 @@ public interface WrackReportRepository {
 
     Optional<StaffUser> findByEmail(String userName);
 
-    List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo);
+    List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status);
 
 }
