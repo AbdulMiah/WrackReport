@@ -1,8 +1,13 @@
 package cf.ac.uk.wrackreport.data.interfaces;
 
 import cf.ac.uk.wrackreport.domain.*;
+import cf.ac.uk.wrackreport.service.dto.ReportOverviewDTO;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +21,8 @@ public interface WrackReportRepository {
 
     List<Report> findAllReports();
 
+    List<Report> findAllByStatus(int status);
+
     Optional<Report> findByReportId(Long reportId);
 
     boolean checkValidCategoryID(short id);
@@ -28,6 +35,7 @@ public interface WrackReportRepository {
     List<DetailedReport> findAllDetailedReport();
     Optional<StaffUser> findByEmail(String userName);
 
+    List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status);
     Optional<DetailedReport> findAllByReportId(Long reportId);
 
 }

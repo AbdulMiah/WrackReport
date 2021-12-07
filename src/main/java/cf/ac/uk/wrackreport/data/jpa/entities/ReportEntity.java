@@ -50,6 +50,14 @@ public class ReportEntity {
     @Column(name = "local_authority")
     private String localAuthority;
 
+    @Column(name = "status")
+    private int status;
+
+//    @OneToOne(cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "category_id")
+//    private CategoryEntity category = new CategoryEntity();
+
+
 //    Create one to many link between reports and media
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id")
@@ -69,6 +77,7 @@ public class ReportEntity {
         this.datetime = aReport.getDatetime();
         this.postcode = aReport.getPostcode();
         this.localAuthority = aReport.getLocalAuthority();
+        this.status = aReport.getStatus();
 
         aReport.getMedia()
                 .stream()
@@ -92,7 +101,8 @@ public class ReportEntity {
                 this.latLong,
                 this.datetime,
                 this.postcode,
-                this.localAuthority
+                this.localAuthority,
+                this.status
         );
         if (this.hasMedia()) {
             this.getMedia()

@@ -27,6 +27,8 @@ public class ReportOverviewEntity {
     private String postcode;
     @Column(name = "local_authority")
     private String localAuthority;
+    @Column(name = "status")
+    private int status;
 
     public ReportOverviewEntity(ReportOverview aReportOverview){
         this.reportId = aReportOverview.getReportId();
@@ -35,6 +37,7 @@ public class ReportOverviewEntity {
         this.depthMeters = aReportOverview.getDepthMeters();
         this.postcode = aReportOverview.getPostcode();
         this.localAuthority = aReportOverview.getLocalAuthority();
+        this.status = aReportOverview.getStatus();
     }
 
     public ReportOverview toDomain(){
@@ -44,7 +47,8 @@ public class ReportOverviewEntity {
                 this.categoryName,
                 this.depthMeters,
                 this.postcode,
-                this.localAuthority
+                this.localAuthority,
+                this.status
         );
         return domainReportOverview;
 
