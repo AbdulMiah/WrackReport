@@ -55,3 +55,8 @@ function sortTable(n) {
     }
 }
 // end of reference
+
+function clearDate() {
+    document.getElementById("dateFrom").value = "";
+    document.getElementById("dateTo").value = "";
+}
