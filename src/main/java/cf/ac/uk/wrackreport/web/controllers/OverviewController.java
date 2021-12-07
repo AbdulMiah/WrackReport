@@ -53,7 +53,6 @@ public class OverviewController {
             model.addAttribute("categories", categoryService.findAll());
             return "/reports-overview";
         } else {
-            System.out.println("checked: " + reportQueryForm.getShowRemoved());
             // Create list of report form items
             ArrayList<String> formItems = new ArrayList<String>(Arrays.asList(reportQueryForm.getPostcode(), reportQueryForm.getLocalAuthority(),
                     reportQueryForm.getCategoryName(), reportQueryForm.getDateFrom(), reportQueryForm.getDateTo()));
@@ -69,7 +68,7 @@ public class OverviewController {
                 status = -1;
             }
 
-            //Add filtered results to model
+            //Add filtered results from query to model
             model.addAttribute("allReports", reportOverviewService.reportQuery(queryItems.get(0), queryItems.get(1), queryItems.get(2), queryItems.get(3), queryItems.get(4), status));
             model.addAttribute("reportQueryForm", reportQueryForm);
             model.addAttribute("categories", categoryService.findAll());
