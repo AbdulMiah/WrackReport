@@ -6,49 +6,63 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.security.Security;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {//extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //Configure which pages require logging in
-        http
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .mvcMatchers("/report-info").authenticated()
-                                .antMatchers("/js/**", "/css/**").permitAll()
-                                .mvcMatchers("/api/report-info").authenticated()
-                                .mvcMatchers("/").permitAll()
-                                .mvcMatchers("/privacy-policy").permitAll()
-                                .mvcMatchers("/api/reports").permitAll()
-                                .mvcMatchers("/api/report/{furl}").permitAll()
-                                .mvcMatchers("/report-form").permitAll()
-                                .mvcMatchers("/ReportSubmitted").permitAll()
-                                .mvcMatchers("/reports-overview").permitAll()
-                                .mvcMatchers("/detailed-report/{furl}").permitAll()
-                                .anyRequest().denyAll()
-                )
-                .formLogin(formLogin ->
-                        formLogin
-                                .permitAll()
-                ).logout(logout ->
-                        logout
-                                .permitAll());
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        //Configure which pages require logging in
+//        http
+//                .authorizeRequests(authorizeRequests ->
+//                        authorizeRequests
+//                                .mvcMatchers("/report-info").authenticated()
+//                                .antMatchers("/js/**", "/css/**").permitAll()
+//                                .mvcMatchers("/api/report-info").authenticated()
+//                                .mvcMatchers("/").permitAll()
+//                                .mvcMatchers("/privacy-policy").permitAll()
+//                                .mvcMatchers("/api/reports").permitAll()
+//                                .mvcMatchers("/api/report/{furl}").permitAll()
+//                                .mvcMatchers("/report-form").permitAll()
+//                                .mvcMatchers("/ReportSubmitted").permitAll()
+//                                .mvcMatchers("/reports-overview").permitAll()
+//                                .mvcMatchers("/detailed-report/{furl}").permitAll()
+//                                .anyRequest().denyAll()
+//                )
+//                .formLogin(formLogin ->
+//                        formLogin
+//                                .permitAll()
+//                ).logout(logout ->
+//                        logout
+//                                .permitAll());
+//    }
+
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .requiresChannel(channel ->
+                        channel.anyRequest().requiresSecure())
+                .authorizeRequests(authorize ->
+                        authorize.anyRequest().permitAll())
+                .build();
     }
 
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/**")
+//                .permitAll();
+//    }
+
     //Create Authentication Manager Builder to configure authentication
-    @Override
+//    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
     }
