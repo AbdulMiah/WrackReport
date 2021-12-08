@@ -10,11 +10,6 @@ TRUNCATE TABLE `depth_categories`;
 TRUNCATE TABLE `staff_users`;
 
 
--- INSERT INTO `user_types`
--- VALUES(1, 'user');
--- INSERT INTO `user_types`
--- VALUES(2, 'admin');
-
 INSERT INTO `staff_users`
 VALUES(NULL, 'ROLE_STAFF', 'john', 'jones', 'john@gmail.com', "$2a$10$g4qzJA3h7.7vTfcxrBtV6eaR9TyhP.C6wbKT8zmAPrbibHp8riw8C", true);
 INSERT INTO `staff_users`

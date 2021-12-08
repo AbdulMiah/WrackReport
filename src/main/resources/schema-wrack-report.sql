@@ -25,12 +25,6 @@ CREATE TABLE `staff_users` (
     CONSTRAINT `PK_staff_users` PRIMARY KEY (`user_id`)
 ); 
 
--- CREATE TABLE `user_types` (
--- 	`user_type_id` INT NOT NULL AUTO_INCREMENT,
---     `user_type` VARCHAR(45),
---     CONSTRAINT `PK_user_types` PRIMARY KEY (`user_type_id`)
--- );
-
 CREATE TABLE `reports` (
 	`report_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
     `user_id` INT NOT NULL,
@@ -90,9 +84,6 @@ ADD FOREIGN KEY (`report_id`) REFERENCES `reports`(`report_id`);
 ALTER TABLE `media`
 ADD FOREIGN KEY (`metadata_id`) REFERENCES `metadata`(`metadata_id`);
 
--- ALTER TABLE `users`
--- ADD FOREIGN KEY (`user_type_id`) REFERENCES `user_types`(`user_type_id`);
-
 -- Views --
 
 CREATE VIEW report_overview AS
@@ -123,16 +114,15 @@ BEGIN
 	IF NEW.`postcode` IS NULL OR NEW.`postcode` = ''
 	THEN
 		SET NEW.`postcode` = 'N/A';
+	
+    ELSEIF NEW.`postcode` NOT REGEXP '^$|^[A-Za-z]{1,2}[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}'
+    THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Postcode does not follow UK pattern. Please enter a valid postcode!';
 	END IF;
     
 END //
 DELIMITER ;
--- Testing trigger `check_postcode_BEFORE_INSERT`
--- INSERT INTO `reports`
--- VALUES (NULL, 4, 4, "Testing empty postcode field", 6, 0.02, "51.496361, -3.186669", "2020-12-12 09:09:00", "", "Cardiff");
--- INSERT INTO `reports`
--- VALUES (NULL, 4, 4, "Testing null postcode field", 6, 0.02, "51.496361, -3.186669", "2020-12-12 09:09:00", NULL, "Cardiff");
--- SELECT * FROM `reports`;
 
 DELIMITER //
 CREATE TRIGGER `check_phone_number_BEFORE_INSERT`
@@ -147,12 +137,6 @@ BEGIN
     
 END //
 DELIMITER ;
--- Testing trigger `check_phone_number_BEFORE_INSERT`
--- INSERT INTO `users`
--- VALUES(NULL, 'ROLE_USER', 'TestEmpty', 'TestSurname', 'test@empty.com', "", NULL, true);
--- INSERT INTO `users`
--- VALUES(NULL, 'ROLE_USER', 'TestNull', 'TestSurname', 'test@null.com', NULL, NULL, true);
--- SELECT * FROM `users`;
 
 DELIMITER //
 CREATE TRIGGER `check_datetime_BEFORE_INSERT`
@@ -168,8 +152,3 @@ BEGIN
     
 END //
 DELIMITER ;
--- Testing trigger `check_datetime_BEFORE_INSERT`
--- INSERT INTO `reports`
--- VALUES (NULL, 4, 4, "Testing future date time", 6, 0.02, "51.496361, -3.186669", "2022-12-12 09:09:00", "cf24 4lr", "Cardiff");
--- INSERT INTO `reports`
--- VALUES (NULL, 4, 4, "Testing past date time", 6, 0.02, "51.496361, -3.186669", "2020-12-12 09:09:00", "cf24 4lr", "Cardiff");
