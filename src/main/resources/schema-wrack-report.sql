@@ -127,6 +127,12 @@ BEGIN
     
 END //
 DELIMITER ;
+-- Testing trigger `check_postcode_BEFORE_INSERT`
+-- INSERT INTO `reports`
+-- VALUES (NULL, 4, 4, "Testing empty postcode field", 6, 0.02, "51.496361, -3.186669", "2020-12-12 09:09:00", "", "Cardiff");
+-- INSERT INTO `reports`
+-- VALUES (NULL, 4, 4, "Testing null postcode field", 6, 0.02, "51.496361, -3.186669", "2020-12-12 09:09:00", NULL, "Cardiff");
+-- SELECT * FROM `reports`;
 
 DELIMITER //
 CREATE TRIGGER `check_phone_number_BEFORE_INSERT`
@@ -141,6 +147,12 @@ BEGIN
     
 END //
 DELIMITER ;
+-- Testing trigger `check_phone_number_BEFORE_INSERT`
+-- INSERT INTO `users`
+-- VALUES(NULL, 'ROLE_USER', 'TestEmpty', 'TestSurname', 'test@empty.com', "", NULL, true);
+-- INSERT INTO `users`
+-- VALUES(NULL, 'ROLE_USER', 'TestNull', 'TestSurname', 'test@null.com', NULL, NULL, true);
+-- SELECT * FROM `users`;
 
 DELIMITER //
 CREATE TRIGGER `check_datetime_BEFORE_INSERT`
