@@ -7,6 +7,7 @@ import cf.ac.uk.wrackreport.domain.*;
 import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -153,6 +154,8 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     public List<Media> findAllMediaByReportId(Long reportId){
         ArrayList<MediaEntity> mediaEntities = mediaRepository.findAllMediaByReportId(reportId);
+        log.debug("media returned in adaptor layer: ", mediaEntities);
+        System.out.println("getting media entities: " + mediaEntities);
         return mediaRepository.findAllMediaByReportId(reportId)
                 .stream()
                 .map(m -> m.toDomain())

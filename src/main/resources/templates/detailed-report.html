@@ -55,14 +55,13 @@
                             <p><b>Postcode:</b> <span th:text="${report.postcode}"></span></p>
                             <p><b>Category:</b> <span th:text="${report.categoryName}"></span></p>
                             <p><b>Depth (meters):</b> <span th:text="${report.depthMeters}"></span></p>
-                            <b>Attachments:</b>
-                            <ul class="fa-ul">
-                                <li>
+                            <b th:if="${#lists.isEmpty(media)}">No Attachments Uploaded</b>
+                            <b th:if="${not #lists.isEmpty(media)}">Attachments:</b>
+
+                            <ul th:if="${not #lists.isEmpty(media)}" class="fa-ul">
+                                <li th:each="m:${media}">
                                     <span class="fa-li"><i class="fa fa-image"></i></span>
-                                     Damage to my house (PNG)
-                                </li>
-                                <li><span class="fa-li"><i class="fa fa-image"></i></span>
-                                     Debris left over from flood (JPG)
+                                    <span th:utext="${m.title}"></span>
                                 </li>
                             </ul>
                         </div>
