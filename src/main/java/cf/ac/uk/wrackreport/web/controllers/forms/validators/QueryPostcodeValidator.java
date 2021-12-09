@@ -15,7 +15,7 @@ public class QueryPostcodeValidator implements ConstraintValidator<ValidQueryPos
             context.buildConstraintViolationWithTemplate("Postcode is too long").addConstraintViolation();
             return false;
         }
-        if (postcode.matches("([a-zA-Z0-9\\s]+)")) {
+        if (postcode.matches("([a-zA-Z/0-9\\s]+)")) {
             return true;
         } else {
             return false;

@@ -15,7 +15,7 @@ public class QueryLocalAuthorityValidator implements ConstraintValidator<ValidQu
             context.buildConstraintViolationWithTemplate("Local Authority is too long").addConstraintViolation();
             return false;
         }
-        if (localAuthority.matches("([a-zA-Z\\s]+)")) {
+        if (localAuthority.matches("([a-z/A-Z\\s]+)")) {
             return true;
         } else {
             return false;
