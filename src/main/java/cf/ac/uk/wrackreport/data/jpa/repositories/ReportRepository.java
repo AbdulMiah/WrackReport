@@ -15,4 +15,6 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
     ArrayList<ReportEntity> findAll();
 
     Optional<ReportEntity> findByReportId(Long reportId);
+
+    ArrayList<ReportEntity> findAllByStatus(int status);
 }

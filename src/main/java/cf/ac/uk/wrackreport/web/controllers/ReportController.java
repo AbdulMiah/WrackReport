@@ -187,8 +187,8 @@ public class ReportController {
                     datetime,
                     reportForm.getPostcode(),
                     localAuthority,
-                    mediaArrayList
-            );
+                    0,
+                    mediaArrayList);
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("categories", categoryService.findAll());
@@ -222,6 +222,7 @@ public class ReportController {
                     datetime,
                     reportForm.getPostcode(),
                     reportForm.getLocalAuthority(),
+                    0,
                     mediaArrayList);
 
 

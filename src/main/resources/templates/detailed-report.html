@@ -19,18 +19,30 @@
         <div class="col-md-8">
             <a class="navbar-brand" href="/">
                 <h1>
-                    <span class="fa fa-tint"></span>
                     <b>WrackReport</b> Admin
                 </h1>
             </a>
 
-            <div class="row">
-                <a href="#" id="backBtn">
-                    <h4>
-                        <span class="fa fa-arrow-left"></span>
-                        Back to search results
-                    </h4>
-                </a>
+            <div th:if="${authenticated}">
+                <div class="row">
+                    <a href="/reports-overview" id="backBtn">
+                        <h4>
+                            <span class="fa fa-arrow-left"></span>
+                            Back to Reports Overview
+                        </h4>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${authenticated==false}">
+                <div class="row">
+                    <a href="/" id="backBtn">
+                        <h4>
+                            <span class="fa fa-arrow-left"></span>
+                            Back to home page
+                        </h4>
+                    </a>
+                </div>
             </div>
 
             <input id="reportIdField" th:value="${report.reportId}" type="hidden">

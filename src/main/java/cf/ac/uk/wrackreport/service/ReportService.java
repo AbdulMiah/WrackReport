@@ -14,6 +14,8 @@ public interface ReportService {
 
     List<ReportDTO> findAllReports();
 
+    List<ReportDTO> findAllUnvalidatedReports();
+
     Optional<ReportDTO> findByReportId(Long reportId);
 
 }
