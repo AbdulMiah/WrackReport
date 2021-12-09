@@ -19,47 +19,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        //Configure which pages require logging in
-//        http
-//                .authorizeRequests(authorizeRequests ->
-//                        authorizeRequests
-//                                .mvcMatchers("/report-info").authenticated()
-//                                .antMatchers("/js/**", "/css/**").permitAll()
-//                                .mvcMatchers("/api/report-info").authenticated()
-//                                .mvcMatchers("/").permitAll()
-//                                .mvcMatchers("/privacy-policy").permitAll()
-//                                .mvcMatchers("/api/reports").permitAll()
-//                                .mvcMatchers("/api/report/{furl}").permitAll()
-//                                .mvcMatchers("/report-form").permitAll()
-//                                .mvcMatchers("/ReportSubmitted").permitAll()
-//                                .mvcMatchers("/reports-overview").permitAll()
-//                                .mvcMatchers("/detailed-report/{furl}").permitAll()
-//                                .anyRequest().denyAll()
-//                )
-//                .formLogin(formLogin ->
-//                        formLogin
-//                                .permitAll()
-//                ).logout(logout ->
-//                        logout
-//                                .permitAll());
-//    }
-
-//    @Bean
-//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
-//                .authorizeRequests(authorize -> authorize.anyRequest().permitAll())
-//                .build();
-//    }
-
     //// Baeldung version ////
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/**")
-                .permitAll();
+        http.authorizeRequests(authorizeRequests ->
+                authorizeRequests
+                        .mvcMatchers("/report-info").authenticated()
+                        .antMatchers("/js/**", "/css/**").permitAll()
+                        .mvcMatchers("/").permitAll()
+                        .mvcMatchers("/privacy-policy").permitAll()
+                        .mvcMatchers("/api/reports").permitAll()
+                        .mvcMatchers("/api/report/{furl}").permitAll()
+                        .mvcMatchers("/report-form").permitAll()
+                        .mvcMatchers("/ReportSubmitted").permitAll()
+                        .mvcMatchers("/reports-overview").permitAll()
+                        .mvcMatchers("/detailed-report/{furl}").permitAll()
+                        .anyRequest().denyAll()
+        )
+                .formLogin(formLogin ->
+                        formLogin
+                                .permitAll()
+                ).logout(logout ->
+                        logout
+                                .permitAll());
     }
 
 
