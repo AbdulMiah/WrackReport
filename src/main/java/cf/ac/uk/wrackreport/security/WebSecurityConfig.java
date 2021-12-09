@@ -13,11 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-//@EnableWebSecurity
-public class WebSecurityConfig {//} extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    UserDetailsService userDetailsService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
@@ -46,33 +46,33 @@ public class WebSecurityConfig {//} extends WebSecurityConfigurerAdapter {
 //                                .permitAll());
 //    }
 
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
-                .authorizeRequests(authorize -> authorize.anyRequest().permitAll())
-                .build();
-    }
+//    @Bean
+//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
+//                .authorizeRequests(authorize -> authorize.anyRequest().permitAll())
+//                .build();
+//    }
 
     //// Baeldung version ////
-    //    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/**")
-//                .permitAll();
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/**")
+                .permitAll();
+    }
 
 
     //Create Authentication Manager Builder to configure authentication
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
-//    }
-//
-//    //Create BCrypt Password Encoder
-//    @Bean
-//    public PasswordEncoder getPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+    }
+
+    //Create BCrypt Password Encoder
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }

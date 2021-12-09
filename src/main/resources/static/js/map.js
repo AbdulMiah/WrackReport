@@ -59,7 +59,7 @@ function getLatLongFromPostcode() {
 
 ////// Add markers to the map from report form //////
 // Requesting data for reports and adding markers to map
-const reportAPI = "http://localhost:8080/api/reports";
+const reportAPI = "https://localhost:8443/api/reports";
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
 
