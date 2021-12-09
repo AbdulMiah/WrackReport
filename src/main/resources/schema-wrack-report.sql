@@ -8,7 +8,7 @@ CREATE TABLE `users` (
     `first_name` VARCHAR(30) NOT NULL,
     `surname` VARCHAR(30) NOT NULL,
     `email` VARCHAR(75) NOT NULL,
-    `phone_number` VARCHAR(15),
+    `phone_number` VARCHAR(15) NOT NULL,
     `password` VARCHAR(100),
     `active` BOOLEAN,
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
@@ -25,12 +25,6 @@ CREATE TABLE `staff_users` (
     CONSTRAINT `PK_staff_users` PRIMARY KEY (`user_id`)
 ); 
 
--- CREATE TABLE `user_types` (
--- 	`user_type_id` INT NOT NULL AUTO_INCREMENT,
---     `user_type` VARCHAR(45),
---     CONSTRAINT `PK_user_types` PRIMARY KEY (`user_type_id`)
--- );
-
 CREATE TABLE `reports` (
 	`report_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
     `user_id` INT NOT NULL,
@@ -40,7 +34,7 @@ CREATE TABLE `reports` (
     `depth_meters` DECIMAL(6,4) NOT NULL,
     `lat_long` VARCHAR(50) NOT NULL,
     `datetime` DATETIME NOT NULL,
-    `postcode` VARCHAR(15),
+    `postcode` VARCHAR(15) NOT NULL,
     `local_authority` VARCHAR(50) NOT NULL,
     `status` INT NOT NULL,
     CONSTRAINT `PK_reports` PRIMARY KEY (`report_id`)
@@ -91,9 +85,6 @@ ADD FOREIGN KEY (`report_id`) REFERENCES `reports`(`report_id`);
 ALTER TABLE `media`
 ADD FOREIGN KEY (`metadata_id`) REFERENCES `metadata`(`metadata_id`);
 
--- ALTER TABLE `users`
--- ADD FOREIGN KEY (`user_type_id`) REFERENCES `user_types`(`user_type_id`);
-
 -- Views --
 
 CREATE VIEW report_overview AS
@@ -111,3 +102,68 @@ ON r.category_id = c.category_id
 INNER JOIN users u
 ON r.user_id = u.user_id;
 -- SELECT * FROM detailed_report;
+
+
+-- -- TRIGGERS -- -- 
+
+DELIMITER //
+CREATE TRIGGER `check_postcode_BEFORE_INSERT`
+BEFORE INSERT ON `reports`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`postcode` IS NULL OR NEW.`postcode` = ''
+	THEN
+		SET NEW.`postcode` = 'N/A';
+	
+    ELSEIF NEW.`postcode` NOT REGEXP '^$|^[A-Za-z]{1,2}[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}'
+    THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Postcode does not follow UK pattern. Please enter a valid postcode!';
+	END IF;
+    
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `check_phone_number_BEFORE_INSERT`
+BEFORE INSERT ON `users`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`phone_number` IS NULL OR NEW.`phone_number` = ''
+	THEN
+		SET NEW.`phone_number` = 'N/A';
+	END IF;
+    
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `check_local_authority_BEFORE_INSERT`
+BEFORE INSERT ON `reports`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`local_authority` IS NULL OR NEW.`local_authority` = ''
+	THEN
+		SET NEW.`local_authority` = 'N/A';
+	END IF;
+    
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER `check_datetime_BEFORE_INSERT`
+BEFORE INSERT ON `reports`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`datetime` > NOW()
+	THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Date and time cannot be in the future. Please enter a valid date and time!';
+	END IF;
+    
+END //
+DELIMITER ;
