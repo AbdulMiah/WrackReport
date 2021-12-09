@@ -139,6 +139,20 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE TRIGGER `check_local_authority_BEFORE_INSERT`
+BEFORE INSERT ON `reports`
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`local_authority` IS NULL OR NEW.`local_authority` = ''
+	THEN
+		SET NEW.`local_authority` = 'N/A';
+	END IF;
+    
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE TRIGGER `check_datetime_BEFORE_INSERT`
 BEFORE INSERT ON `reports`
 FOR EACH ROW
