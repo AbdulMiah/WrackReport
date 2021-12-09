@@ -61,7 +61,7 @@
                             <ul th:if="${not #lists.isEmpty(media)}" class="fa-ul">
                                 <li th:each="m:${media}">
                                     <span class="fa-li"><i class="fa fa-image"></i></span>
-                                    <span th:utext="${m.title}"></span>
+                                    <a th:utext="${m.title}" th:href="'.' + ${m.mediaPath}" target="_blank"></a>
                                 </li>
                             </ul>
                         </div>

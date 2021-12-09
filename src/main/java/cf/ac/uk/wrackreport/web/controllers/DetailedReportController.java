@@ -36,7 +36,6 @@ public class DetailedReportController {
 
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getAuthorities());
 
         SimpleGrantedAuthority adminAuth = new SimpleGrantedAuthority("ROLE_ADMIN");
         SimpleGrantedAuthority staffAuth = new SimpleGrantedAuthority("ROLE_STAFF");

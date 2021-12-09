@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .antMatchers("/js/**", "/css/**").permitAll()
                                 .mvcMatchers("/api/report-info").authenticated()
                                 .mvcMatchers("/").permitAll()
+                                .mvcMatchers("/test-data/**").permitAll()
+                                .mvcMatchers("/images/**").permitAll()
                                 .mvcMatchers("/privacy-policy").permitAll()
                                 .mvcMatchers("/api/reports").permitAll()
                                 .mvcMatchers("/api/report/{furl}").permitAll()

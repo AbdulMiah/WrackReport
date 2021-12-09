@@ -153,9 +153,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     }
 
     public List<Media> findAllMediaByReportId(Long reportId){
-        ArrayList<MediaEntity> mediaEntities = mediaRepository.findAllMediaByReportId(reportId);
-        log.debug("media returned in adaptor layer: ", mediaEntities);
-        System.out.println("getting media entities: " + mediaEntities);
         return mediaRepository.findAllMediaByReportId(reportId)
                 .stream()
                 .map(m -> m.toDomain())
