@@ -128,7 +128,7 @@ public class ReportController {
                         os.write(f.getBytes());
                     }
                     //Add media to list that will be added to ReportDTO
-                    mediaArrayList.add(new Media(null,null, fileTitle,type,filePath));
+                    mediaArrayList.add(new Media(null, null, null, fileTitle,type,filePath));
                 }
             }
         } catch (IOException e) {

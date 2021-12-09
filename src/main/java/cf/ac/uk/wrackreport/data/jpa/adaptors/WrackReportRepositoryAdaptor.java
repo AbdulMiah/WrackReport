@@ -71,9 +71,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     public List<Report> findAllReports() {
         ArrayList<ReportEntity> reportEntities = reportRepository.findAll();
-        for (ReportEntity r: reportEntities
-             ) {
-        }
         return reportRepository.findAll()
                 .stream()
                 .map(r -> r.toDomain())
@@ -82,9 +79,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     public List<Report> findAllByStatus(int status){
         ArrayList<ReportEntity> reportEntities = reportRepository.findAllByStatus(status);
-        for (ReportEntity r: reportEntities
-        ) {
-        }
         return reportRepository.findAllByStatus(status)
                 .stream()
                 .map(r -> r.toDomain())
@@ -155,5 +149,13 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         } else {
             return Optional.empty();
         }
+    }
+
+    public List<Media> findAllMediaByReportId(Long reportId){
+        ArrayList<MediaEntity> mediaEntities = mediaRepository.findAllMediaByReportId(reportId);
+        return mediaRepository.findAllMediaByReportId(reportId)
+                .stream()
+                .map(m -> m.toDomain())
+                .collect(Collectors.toList());
     }
 }

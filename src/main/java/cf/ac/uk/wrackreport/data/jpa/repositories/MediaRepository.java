@@ -12,4 +12,6 @@ public interface MediaRepository extends JpaRepository<MediaEntity, Long> {
 
     ArrayList<MediaEntity> findAll();
 
+    ArrayList<MediaEntity> findAllMediaByReportId(Long reportId);
+
 }

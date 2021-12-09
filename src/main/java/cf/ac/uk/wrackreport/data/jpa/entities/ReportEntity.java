@@ -83,6 +83,7 @@ public class ReportEntity {
                 .stream()
                 .forEach(m -> this.addMedia(new MediaEntity(
                         m.getMediaId(),
+                        m.getReportId(),
                         m.getMetadataId(),
                         m.getTitle(),
                         m.getType(),
@@ -110,6 +111,7 @@ public class ReportEntity {
                     .forEach(m -> domainReport.addMedia(
                             new Media(
                                     m.getMediaId(),
+                                    m.getReportId(),
                                     m.getMetadataId(),
                                     m.getTitle(),
                                     m.getType(),
