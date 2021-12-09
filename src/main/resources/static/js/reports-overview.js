@@ -3,6 +3,12 @@ console.log("script loaded")
 function sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("reports-table");
+    var sortButton = document.getElementById("dateSortButton");
+    if (sortButton.getAttribute("class") == "fas fa-chevron-up") {
+        sortButton.setAttribute("class", "fas fa-chevron-down")
+    } else {
+        sortButton.setAttribute("class", "fas fa-chevron-up")
+    }
     switching = true;
     // Set the sorting direction to ascending:
     dir = "asc";

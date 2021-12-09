@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin(formLogin ->
                         formLogin
                                 .permitAll()
+                                .defaultSuccessUrl("/reports-overview", true)
                 ).logout(logout ->
                         logout
                                 .permitAll());
