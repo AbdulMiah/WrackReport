@@ -18,4 +18,7 @@ public interface ReportService {
 
     Optional<ReportDTO> findByReportId(Long reportId);
 
+    void confirmReport(ReportDTO aReportDTO);
+
+    void removeReport(ReportDTO aReportDTO);
 }

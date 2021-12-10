@@ -13,26 +13,26 @@ import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.SizeLimitExceededException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @ControllerAdvice
@@ -49,6 +49,36 @@ public class ReportController {
         this.categoryService = categoryService;
         this.depthCategoryService = depthCategoryService1;
         this.reportRepository = reportRepository;
+    }
+
+    //API for report updates
+    @PostMapping("/api/report/{reportID}/confirm")
+    public ResponseEntity<?> confirmReport(@PathVariable long reportID, HttpServletRequest request){
+        Optional<ReportDTO> reportToConfirm = reportService.findByReportId(reportID);
+        if(reportToConfirm.isPresent()){
+            //Valid report ID
+            //Now mark report as confirmed
+            reportService.confirmReport(reportToConfirm.get());
+            return ResponseEntity.ok().build();
+        }else{
+            //Invalid report ID
+            return ResponseEntity.badRequest().body("invalid report ID");
+        }
+    }
+
+    //API for report updates
+    @PostMapping("/api/report/{reportID}/remove")
+    public ResponseEntity<?> removeReport(@PathVariable long reportID, HttpServletRequest request){
+        Optional<ReportDTO> reportToRemove = reportService.findByReportId(reportID);
+        if(reportToRemove.isPresent()){
+            //Valid report ID
+            //Now mark report as confirmed
+            reportService.removeReport(reportToRemove.get());
+            return ResponseEntity.ok().build();
+        }else{
+            //Invalid report ID
+            return ResponseEntity.badRequest().body("invalid report ID");
+        }
     }
 
     // Route to report form

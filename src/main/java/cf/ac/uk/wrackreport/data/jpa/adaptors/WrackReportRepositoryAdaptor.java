@@ -59,6 +59,16 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         return categories;
     }
 
+    public void approveReport(Report aReport){
+        ReportEntity reportEntity = new ReportEntity(aReport);
+        reportRepository.setStatus(1, reportEntity.getReportId());
+    }
+
+    public void removeReport(Report aReport){
+        ReportEntity reportEntity = new ReportEntity(aReport);
+        reportRepository.setStatus(-1, reportEntity.getReportId());
+    }
+
     public ArrayList<DepthCategory> findAllDepthCategories(){
         ArrayList<DepthCategoryEntity> depthCategoryEntities = depthCategoryRepository.findAll();
         ArrayList<DepthCategory> depthCategories = new ArrayList<DepthCategory>();

@@ -32,10 +32,15 @@ public interface WrackReportRepository {
 
     List<ReportOverview> findAllReportOverview();
 
+    void approveReport(Report aReport);
+
+    void removeReport(Report aReport);
+
     List<DetailedReport> findAllDetailedReport();
     Optional<StaffUser> findByEmail(String userName);
 
     List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status);
+    
     Optional<DetailedReport> findAllByReportId(Long reportId);
 
     List<Media> findAllMediaByReportId(Long reportId);
