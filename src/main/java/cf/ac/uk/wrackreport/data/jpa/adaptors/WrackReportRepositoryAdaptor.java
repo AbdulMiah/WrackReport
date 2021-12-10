@@ -7,6 +7,7 @@ import cf.ac.uk.wrackreport.domain.*;
 import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -23,15 +24,20 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     private DepthCategoryRepository depthCategoryRepository;
     private UserRepository userRepository;
     private MediaRepository mediaRepository;
+    private StaffUserRepository staffUserRepository;
     private ReportOverviewRepository reportOverviewRepository;
+    private DetailedReportRepository detailedReportRepository;
 
-    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, ReportOverviewRepository roRepo) {
+    public WrackReportRepositoryAdaptor(ReportRepository repo, CategoryRepository cat, DepthCategoryRepository depthCat, UserRepository uRepo, MediaRepository mRepo, StaffUserRepository sRepo, ReportOverviewRepository roRepo, DetailedReportRepository drRepo) {
         reportRepository = repo;
         categoryRepository = cat;
         depthCategoryRepository = depthCat;
         userRepository = uRepo;
         mediaRepository = mRepo;
+        staffUserRepository = sRepo;
         reportOverviewRepository = roRepo;
+        detailedReportRepository = drRepo;
+
     }
 
     public void saveReport(Report aReport) {
@@ -76,9 +82,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     public List<Report> findAllReports() {
         ArrayList<ReportEntity> reportEntities = reportRepository.findAll();
-        for (ReportEntity r: reportEntities
-             ) {
-        }
         return reportRepository.findAll()
                 .stream()
                 .map(r -> r.toDomain())
@@ -87,9 +90,6 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
 
     public List<Report> findAllByStatus(int status){
         ArrayList<ReportEntity> reportEntities = reportRepository.findAllByStatus(status);
-        for (ReportEntity r: reportEntities
-        ) {
-        }
         return reportRepository.findAllByStatus(status)
                 .stream()
                 .map(r -> r.toDomain())
@@ -121,11 +121,51 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         mediaRepository.save(mediaEntity);
     }
 
-    public List<ReportOverview> findAllReportOverview(){
+    public Optional<StaffUser> findByEmail(String email) {
+        Optional<StaffUserEntity> staffUserEntity = staffUserRepository.findByEmail(email);
+        if (staffUserEntity.isPresent()) {
+            return Optional.of(staffUserEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public List<ReportOverview> findAllReportOverview() {
         return reportOverviewRepository.findAll()
                 .stream()
                 .map(r -> r.toDomain())
                 .collect(Collectors.toList());
     }
 
+    public List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status) {
+        return reportOverviewRepository.reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo, status)
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
+    }
+
+
+    public List<DetailedReport> findAllDetailedReport() {
+        return detailedReportRepository.findAll()
+                .stream()
+                .map(r -> r.toDomain())
+                .collect(Collectors.toList());
+    }
+
+    public Optional<DetailedReport> findAllByReportId(Long reportId) {
+        Optional<DetailedReportEntity> detailedReportEntity = detailedReportRepository.findAllByReportId(reportId);
+
+        if (detailedReportEntity.isPresent()) {
+            return Optional.of(detailedReportEntity.get().toDomain());
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public List<Media> findAllMediaByReportId(Long reportId){
+        return mediaRepository.findAllMediaByReportId(reportId)
+                .stream()
+                .map(m -> m.toDomain())
+                .collect(Collectors.toList());
+    }
 }

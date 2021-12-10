@@ -56,6 +56,19 @@ function showPosition(position) {
        .setLatLng([position.coords.latitude, position.coords.longitude])
        .setContent("Setting location of your report here")
        .openOn(map);
+
+   // Get local authority from current location
+   const opencageAPI = "https://api.opencagedata.com/geocode/v1/json?key=e0e009282aec4b119ca5cd7d25c7c20d&q="+position.coords.latitude+"%2C+"+position.coords.longitude+"&pretty=1&no_annotations=1";
+   requestFromAPI(opencageAPI).then((apiData) => {
+      console.log(apiData);
+      var results = apiData["results"];
+      var firstResult = results[0];
+      var components = firstResult["components"]
+      const localAuthField = document.getElementById("localAuthField");
+      const localAuthority = components["county"];
+      localAuthField.value = localAuthority;          // Set value of field to local authority from API
+   });
+
 }
 
 // Error handling for geolocation

@@ -158,7 +158,7 @@ public class ReportController {
                         os.write(f.getBytes());
                     }
                     //Add media to list that will be added to ReportDTO
-                    mediaArrayList.add(new Media(null,null, fileTitle,type,filePath));
+                    mediaArrayList.add(new Media(null, null, null, fileTitle,type,filePath));
                 }
             }
         } catch (IOException e) {
@@ -180,7 +180,7 @@ public class ReportController {
         );
 
         // save user to db
-        reportService.saveUser(userDTO);
+//        reportService.saveUser(userDTO);
 
         String dtString = reportForm.getDateTime();
         String[] datetimeSplit = dtString.split("T");
@@ -206,9 +206,9 @@ public class ReportController {
             log.info("localAuthority: "+ localAuthority);
 
             ReportDTO reportDTO = new ReportDTO(
-                                            reportForm.getReportId(),
-                    //                        reportForm.getUserId(),
-                    2L,
+                    reportForm.getReportId(),
+                    userDTO,
+//                    2L,
                     reportForm.getCategoryId(),
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
@@ -241,10 +241,10 @@ public class ReportController {
             return "/report-form";
         } else {
             ReportDTO reportDTO = new ReportDTO(
-                                            reportForm.getReportId(),
-                    //                        reportForm.getUserId(),
-                    2L,
-                                            reportForm.getCategoryId(),
+                    reportForm.getReportId(),
+                    userDTO,
+//                    2L,
+                    reportForm.getCategoryId(),
                     reportForm.getDescription(),
                     reportForm.getDepthCategoryId(),
                     reportForm.getDepthMeters(),

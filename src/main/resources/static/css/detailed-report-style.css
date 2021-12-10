@@ -1,8 +1,8 @@
 html, body, .container-fluid, #container-row {
     height: 100%;
     margin: 0px;
-    background-color: #0A3D55;
-    font-family: Montserrat,sans-serif;
+    background-color: #0A3D62;
+    font-family: "Montserrat", sans-serif;
     padding: 0px;
 }
 
@@ -26,9 +26,8 @@ h1 {
 
 .jumbotron {
     background-color: white;
-    padding: 25px;
+    padding: 15px 15px 0px 15px;
     border-radius: 5px;
-    word-break: break-all;
 }
 
 .btn {
@@ -55,9 +54,15 @@ h1 {
 
 .col-md-8 {
     padding-bottom: 10px;
+    box-shadow: inset -5px 0px 10px;
 }
 
 .col-md-4 {
     height: 100%;
     padding: 0px;
+}
+
+.modal-content {
+    background-color: #487EB0;
+    color: #FFFFFF;
 }

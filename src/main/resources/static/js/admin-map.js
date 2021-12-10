@@ -27,13 +27,14 @@ function requestFromAPI(url){
 }
 
 ////// Change this to get the specific report selected by admin //////
-const reportAPI = "http://localhost:8080/api/reports";
+const reportIdField = document.getElementById("reportIdField").value;
+console.log(reportIdField);
+const reportAPI = "https://localhost:8443/api/report/"+reportIdField;
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
-    const report = result[0];
-    var marker = L.marker(report["latLong"].split(", ")).addTo(map);
-    marker.bindPopup("Description: "+report["description"]+"<br>Date and time reported: "+report["datetime"]+"<br>Depth of Flood (meters): "+report["depthMeters"]);
-    map.flyTo(report["latLong"].split(", "), 16, {
+    var marker = L.marker(result["latLong"].split(", ")).addTo(map);
+    marker.bindPopup("Local Authority: "+result["localAuthority"]+"<br>Date and time reported: "+result["datetime"]+"<br>Depth of Flood (meters): "+result["depthMeters"]);
+    map.flyTo(result["latLong"].split(", "), 16, {
         animate: true,
         duration: 1.5,
     });

@@ -59,13 +59,13 @@ function getLatLongFromPostcode() {
 
 ////// Add markers to the map from report form //////
 // Requesting data for reports and adding markers to map
-const reportAPI = "http://localhost:8080/api/reports";
+const reportAPI = "https://localhost:8443/api/reports";
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
 
     result.forEach((report) => {
         var marker = L.marker(report["latLong"].split(", ")).addTo(map);
-        marker.bindPopup("Description: "+report["description"]+"<br>Date and time reported: "+report["datetime"]+"<br>Depth of Flood (meters): "+report["depthMeters"]);
+        marker.bindPopup("Description: "+report["description"]+"<br>Date and time reported: "+report["datetime"]+"<br>Depth of Flood (meters): "+report["depthMeters"]+"<hr><center><a class='btn btn-secondary' role='button' style='color: white' href='/detailed-report/"+report["reportId"]+"'>View More Details</a></center>");
     })
 });
 
@@ -79,33 +79,71 @@ function setLatLongInField(latLong) {
 
 var popup = L.popup();
 
+// Create function that will get latlong from when user clicks on map
+// This function does various functionality using the latlong
 function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("Setting location of your report here")           // Let user know location is being set here
-        .openOn(map);
-
-    // Adding flyTo animation when user clicks on map to help pin-point a more specific location
-    map.flyTo(e.latlng, 16, {
-        animate: true,
-        duration: 1.5
-    });
-
     // Remove unnecessary values from .toString
     var latLongTemp = e.latlng.toString().replace(/^\D+/g, '');         // Only get digits
     var latLong = latLongTemp.replace(/([()])/g, '');           // Remove parentheses
-    setLatLongInField(latLong);
-    console.log(latLong)        // Console log the latLong (testing)
-
-    const localAuthField = document.getElementById("localAuthField");
+    console.log(latLong)
     var latLongSplit = latLong.split(", ");
-    const postcodeAPI = "https://api.postcodes.io/postcodes?lon=" + latLongSplit[1] + "&lat=" + latLongSplit[0];        // Add postcode to api
-    requestFromAPI(postcodeAPI).then((apiData) => {
+
+    const opencageAPI = "https://api.opencagedata.com/geocode/v1/json?key=e0e009282aec4b119ca5cd7d25c7c20d&q="+latLongSplit[0]+"%2C+"+latLongSplit[1]+"&pretty=1&no_annotations=1";
+    requestFromAPI(opencageAPI).then((apiData) => {
         console.log(apiData);
-        var results = apiData["result"];
+        var results = apiData["results"];
         var firstResult = results[0];
-        const localAuthority = firstResult["admin_district"];
-        localAuthField.value = localAuthority;
+        var components = firstResult["components"];
+        const country = components["state"];
+        if (country!="Wales") {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("Cannot set location outside of Wales")           // Let user know location is being set here
+                .openOn(map);
+        } else {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("Setting location of your report here")           // Let user know location is being set here
+                .openOn(map);
+
+            // Adding flyTo animation when user clicks on map to help pin-point a more specific location
+            map.flyTo(e.latlng, 16, {
+                animate: true,
+                duration: 1.5
+            });
+
+            // Set lat long in latLong field
+            setLatLongInField(latLong);
+            console.log(latLong)        // Console log the latLong (testing)
+
+            // Get local authority and postcode from API and set those values in the report form
+            const localAuthField = document.getElementById("localAuthField");
+            const localAuthority = components["county"];
+            const postcodeOpencage = components["postcode"];
+            localAuthField.value = localAuthority;          // Set value of field to local authority from API
+
+            const postcodeField = document.getElementById("postcodeField");
+            const postcodeAPI = "https://api.postcodes.io/postcodes?lon=" + latLongSplit[1] + "&lat=" + latLongSplit[0];        // Add postcode to api
+            requestFromAPI(postcodeAPI).then((apiData) => {
+                console.log(apiData);
+                try {
+                    var results = apiData["result"];
+                    var firstResult = results[0];
+                    var postcodeIO = firstResult["postcode"];
+                } catch(err) {
+                    console.log("There is an error trying to get postcode: "+err)
+                }
+
+                // If postcode exists in postcode.io API, then set value of field to postcode from API
+                if (postcodeIO) {
+                    postcodeField.value = postcodeIO;
+                } else if (postcodeOpencage) {
+                    postcodeField.value = postcodeOpencage;           // If postcode exists in api.opencagedata API, then set value of field to postcode from API
+                } else {
+                    postcodeField.value = "";           // Otherwise, keep field empty
+                }
+            });
+        }
     });
 }
 

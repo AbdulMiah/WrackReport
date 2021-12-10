@@ -12,8 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
-import java.security.Security;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -21,8 +19,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
-    @Override
+    //Configure which pages require logging in
+     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
         //Configure which pages require logging in
         http
@@ -30,24 +30,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         authorizeRequests
                                 .mvcMatchers("/report-info").authenticated()
                                 .antMatchers("/js/**", "/css/**").permitAll()
+                                .mvcMatchers("/test-data/**").permitAll()
+                                .mvcMatchers("/images/**").permitAll()
                                 .mvcMatchers("/api/report-info").authenticated()
                                 .mvcMatchers("/").permitAll()
                                 .mvcMatchers("/privacy-policy").permitAll()
                                 .mvcMatchers("/api/reports").permitAll()
+                                .mvcMatchers("/api/report/{furl}").permitAll()
                                 .mvcMatchers("/report-form").permitAll()
                                 .mvcMatchers("/ReportSubmitted").permitAll()
                                 .mvcMatchers("/reports-overview").permitAll()
                                 .mvcMatchers("/detailed-report/{furl}").permitAll()
                                 .mvcMatchers("/api/**").permitAll()
                                 .anyRequest().denyAll()
-                )
+                
+        )
+
                 .formLogin(formLogin ->
                         formLogin
                                 .permitAll()
+                                .defaultSuccessUrl("/reports-overview", true)
                 ).logout(logout ->
                         logout
                                 .permitAll());
     }
+
 
     //Create Authentication Manager Builder to configure authentication
     @Override

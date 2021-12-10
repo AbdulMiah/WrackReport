@@ -87,7 +87,6 @@ bi:before {
     border-radius: 5px;
     height: calc(100% - 50px);
 
-
 }
 
 #reports-table{
@@ -111,3 +110,33 @@ tr:nth-child(even) {
 /*#shown-reports::-webkit-scrollbar {*/
 /*    width: 0.5rem;*/
 /*}*/
+
+/*Modal CSS*/
+#submitQuery {
+    background-color: #487EB0;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: white;
+    padding: 10px 15px;
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+}
+
+.modal-content {
+    background-color: #0A3D61;
+    color: #FFFFFF;
+}
+
+#showRemoved {
+    height: 2em;
+    width: 2em;
+}
+
+#dateFrom {
+    margin-right: 2%;
+}
+
+#dateTo {
+    margin-left: 2%;
+}
