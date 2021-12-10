@@ -29,7 +29,7 @@ public class ReportOverviewServiceImpl implements ReportOverviewService {
                 .collect(Collectors.toList());
     }
 
-    public List<ReportOverviewDTO> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status) {
+    public List<ReportOverviewDTO> reportQuery(String postcode, String localAuthority, String categoryName, LocalDate dateFrom, LocalDate dateTo, Integer status) {
         log.debug("Getting all report overview from ReportOverviewServiceImpl");
         return wrackReportRepository
                 .reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo, status)

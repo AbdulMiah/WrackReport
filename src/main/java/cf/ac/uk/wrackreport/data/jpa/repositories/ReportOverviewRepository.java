@@ -25,11 +25,11 @@ public interface ReportOverviewRepository extends JpaRepository<ReportOverviewEn
     @Query("SELECT r FROM ReportOverviewEntity r WHERE (:postcode is null or r.postcode like Concat(:postcode,'%')) and " +
             "(:localAuthority is null or r.localAuthority = :localAuthority) and " +
             "(:categoryName is null or r.categoryName = :categoryName) and " +
-            "(:dateFrom is null or r.datetime >= :dateFrom) and" +
-            "(:dateTo is null or r.datetime <= :dateTo) and " +
+            "(:dateFrom is null or function('date_format', r.datetime, '%Y, %m, %d') >= :dateFrom) and" +
+            "(:dateTo is null or function('date_format', r.datetime, '%Y, %m, %d') <= :dateTo) and " +
             "(r.status >= :status)")
     List<ReportOverviewEntity> reportQuery(
             @Param("postcode") String postcode, @Param("localAuthority") String localAuthority, @Param("categoryName") String categoryName,
-            @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo, @Param("status") Integer status);
+            @Param("dateFrom") LocalDate dateFrom, @Param("dateTo") LocalDate dateTo, @Param("status") Integer status);
 
 }
