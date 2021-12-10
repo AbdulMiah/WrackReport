@@ -60,7 +60,8 @@
 
                             <ul th:if="${not #lists.isEmpty(media)}" class="fa-ul">
                                 <li th:each="m:${media}">
-                                    <span class="fa-li"><i class="fa fa-image"></i></span>
+                                    <span th:if="${m.type} == 1" class="fa-li"><i class="fa fa-image"></i></span>
+                                    <span th:if="${m.type} == 2" class="fa-li"><i class="fa fa-play-circle"></i></span>
                                     <a th:utext="${m.title}" href="#" data-bs-toggle="modal" th:data-bs-target="'#'+'modal'+${m.mediaId}"></a>
                                 </li>
                             </ul>
@@ -100,21 +101,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediaModalLabel">Modal title</h5>
+                <h5 th:utext="${m.title}" class="modal-title" id="mediaModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div th:if="${m.type} == 1">
-                <img style="max-width: 100%" th:src="'.' + ${m.mediaPath}">
+                <img class="img-fluid p-1 rounded mx-auto d-block" th:src="'.' + ${m.mediaPath}">
             </div>
             <div th:if="${m.type} == 2">
-                <video style="max-width: 100%" controls>
+                <video class="embed-responsive p-1"  style="max-width: 100%" controls>
                     <source th:src="'.' + ${m.mediaPath}">
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

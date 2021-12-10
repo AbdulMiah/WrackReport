@@ -91,19 +91,19 @@ INSERT INTO `reports`
 VALUES (NULL, 16, 3, "Coastal flooding has reached some holiday homes on the beach", 3, 0.5, "51.650061, -4.761457", "2021-06-16  06:00:00", "SA70 7SB", "Pembrokeshire", 0);
 
 INSERT INTO `media`
-VALUES(NULL, 7, NULL, "debris", 1, "./images/test-data/LLFE0kQn10CVS9DaK7nu.jpeg");
+VALUES(NULL, 2, NULL, "debris", 1, "./images/test-data/LLFE0kQn10CVS9DaK7nu.jpeg");
 INSERT INTO `media`
 VALUES(NULL, 9, NULL, "waves from yesterday", 1, "./images/test-data/aShY7z8oejsIAhpgdFAz.jpg");
 INSERT INTO `media`
-VALUES(NULL, 10, NULL, "Sewer flood", 2, "./images/test-data/hL8SHyamFZVsWeXmbdqG.mp4");
+VALUES(NULL, 5, NULL, "Sewer flood", 2, "./images/test-data/hL8SHyamFZVsWeXmbdqG.mp4");
 INSERT INTO `media`
-VALUES(NULL, 11, NULL, "trees in water", 1, "./images/test-data/HhRPnadTeS7diuaxW4jW.jpg");
+VALUES(NULL, 6, NULL, "trees in water", 1, "./images/test-data/HhRPnadTeS7diuaxW4jW.jpg");
 INSERT INTO `media`
-VALUES(NULL, 11, NULL, "benches partly covered", 1, "./images/test-data/2mh7Yyq5mB2Hx75BFofV.jpg");
+VALUES(NULL, 6, NULL, "benches partly covered", 1, "./images/test-data/2mh7Yyq5mB2Hx75BFofV.jpg");
 INSERT INTO `media`
-VALUES(NULL, 12, NULL, "rubbish", 1, "./images/test-data/qW1t93BTJD4jyv7zDqtk.jpg");
+VALUES(NULL, 7, NULL, "rubbish", 1, "./images/test-data/qW1t93BTJD4jyv7zDqtk.jpg");
 INSERT INTO `media`
-VALUES(NULL, 13, NULL, "coastal flooding", 1, "./images/test-data/2imVP6Sy5shUMUBoTOiH.jpg");
+VALUES(NULL, 12, NULL, "coastal flooding", 1, "./images/test-data/2imVP6Sy5shUMUBoTOiH.jpg");
 
 
 
