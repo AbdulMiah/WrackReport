@@ -51,8 +51,8 @@
                             <th>butt</th>
                         </tr>
                         <tr id="table-contents" th:each = "reportOverview: ${allReports}">
-                            <td th:text="${reportOverview.datetime}"></td>
-                            <td>12:49</td>
+                            <td th:text="${(reportOverview.datetime.substring(0,10))}"></td>
+                            <td th:text="${(reportOverview.datetime.substring(11,16))}"></td>
                             <td th:text="${reportOverview.categoryName}"></td>
                             <td th:text="${reportOverview.depthMeters}"></td>
                             <td th:text="${reportOverview.postcode}"></td>
