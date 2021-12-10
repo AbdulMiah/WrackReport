@@ -27,6 +27,14 @@ public class ReportServiceImpl implements ReportService {
         wrackReportRepository.saveReport(aReportDTO.toReport());
     }
 
+    public void confirmReport(ReportDTO aReportDTO) {
+        wrackReportRepository.approveReport(aReportDTO.toReport());
+    }
+
+    public void removeReport(ReportDTO aReportDTO){
+        wrackReportRepository.removeReport(aReportDTO.toReport());
+    }
+
     public List<ReportDTO> findAllReports() {
         log.debug("Getting all reports from ReportServiceImpl");
 

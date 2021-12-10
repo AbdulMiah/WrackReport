@@ -13,7 +13,10 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-<script type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    const csrfToken = /*[[${_csrf.token}]]*/ '';
+        /*}}>*/
     function confirmReport(reportID, caller){
         var otherButton = caller.parentNode.getElementsByClassName("remove-button")[0]
 
@@ -30,7 +33,15 @@
         otherButton.classList.remove("action-btn-active")
         otherButton.classList.add("action-btn-inactive")
 
-        axios.post("/api/report/" + reportID + "/confirm").then((res) => {
+        axios.post("/api/report/" + reportID + "/confirm", {}, {
+            "headers": {
+                /*<![CDATA[*/
+        /*[[${_csrf.headerName}]]*/
+    :
+        /*[[${_csrf.token}]]*/
+                /*}}>*/
+            }
+        }).then((res) => {
             if(res.status != 200){
                 alert("Failed to update report. Try logging out and back in.")
             }
@@ -60,7 +71,15 @@
         otherButton.classList.remove("action-btn-active")
         otherButton.classList.add("action-btn-inactive")
 
-        axios.post("/api/report/" + reportID + "/remove").then((res) => {
+        axios.post("/api/report/" + reportID + "/remove", {}, {
+            "headers": {
+        /*<![CDATA[*/
+        /*[[${_csrf.headerName}]]*/
+    :
+        /*[[${_csrf.token}]]*/
+        /*}}>*/
+    }
+    }).then((res) => {
             if(res.status != 200){
                 alert("Failed to update report. Try logging out and back in.")
             }

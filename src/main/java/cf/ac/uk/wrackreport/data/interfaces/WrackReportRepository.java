@@ -28,6 +28,7 @@ public interface WrackReportRepository {
 
     List<ReportOverview> findAllReportOverview();
 
+    void approveReport(Report aReport);
 
-
+    void removeReport(Report aReport);
 }

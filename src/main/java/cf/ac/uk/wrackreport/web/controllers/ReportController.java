@@ -13,6 +13,7 @@ import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
@@ -31,6 +32,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @ControllerAdvice
@@ -50,9 +52,33 @@ public class ReportController {
     }
 
     //API for report updates
-    @PostMapping("/api/{reportID}/confirm")
-    public String confirmReport(@PathVariable int reportID, HttpServletRequest request){
-        return "xd";
+    @PostMapping("/api/report/{reportID}/confirm")
+    public ResponseEntity<?> confirmReport(@PathVariable long reportID, HttpServletRequest request){
+        Optional<ReportDTO> reportToConfirm = reportService.findByReportId(reportID);
+        if(reportToConfirm.isPresent()){
+            //Valid report ID
+            //Now mark report as confirmed
+            reportService.confirmReport(reportToConfirm.get());
+            return ResponseEntity.ok().build();
+        }else{
+            //Invalid report ID
+            return ResponseEntity.badRequest().body("invalid report ID");
+        }
+    }
+
+    //API for report updates
+    @PostMapping("/api/report/{reportID}/remove")
+    public ResponseEntity<?> removeReport(@PathVariable long reportID, HttpServletRequest request){
+        Optional<ReportDTO> reportToRemove = reportService.findByReportId(reportID);
+        if(reportToRemove.isPresent()){
+            //Valid report ID
+            //Now mark report as confirmed
+            reportService.removeReport(reportToRemove.get());
+            return ResponseEntity.ok().build();
+        }else{
+            //Invalid report ID
+            return ResponseEntity.badRequest().body("invalid report ID");
+        }
     }
 
     // Route to report form

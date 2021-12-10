@@ -24,7 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
-
         //Configure which pages require logging in
         http
                 .authorizeRequests(authorizeRequests ->
@@ -39,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/ReportSubmitted").permitAll()
                                 .mvcMatchers("/reports-overview").permitAll()
                                 .mvcMatchers("/detailed-report/{furl}").permitAll()
-                                .mvcMatchers("/api/report/**").authenticated()
+                                .mvcMatchers("/api/**").permitAll()
                                 .anyRequest().denyAll()
                 )
                 .formLogin(formLogin ->

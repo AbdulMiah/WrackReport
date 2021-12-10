@@ -12,9 +12,9 @@ public class OverviewController {
 
 private ReportOverviewService reportOverviewService;
 
-public OverviewController(ReportOverviewService aReportOverviewService, ReportService aReportService){
-    this.reportOverviewService = aReportOverviewService;
-}
+    public OverviewController(ReportOverviewService aReportOverviewService, ReportService aReportService){
+        this.reportOverviewService = aReportOverviewService;
+    }
 
     @GetMapping({"/reports-overview"})
     public String displayOverview(Model model) {
