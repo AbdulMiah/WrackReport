@@ -118,7 +118,7 @@
 
             <div class="row" id="shown-reports">
                 <div class="col-sm-12">
-                    <div class="table-responsive">
+                    <a class="table-responsive">
                         <table class="table" id="reports-table">
                             <tr id="table-header">
                                 <th>Date</th>
@@ -129,13 +129,13 @@
                                 <th>Local Authority</th>
                                 <th>Actions</th>
                             </tr>
-                            <tr id="table-contents" th:each = "reportOverview: ${allReports}">
-                                <td th:text="${reportOverview.datetime}"></td>
-                                <td>12:49</td>
-                                <td th:text="${reportOverview.categoryName}"></td>
-                                <td th:text="${reportOverview.depthMeters}"></td>
-                                <td th:text="${reportOverview.postcode}"></td>
-                                <td th:text="${reportOverview.localAuthority}"></td>
+                            <tr class="table-contents" th:each = "reportOverview: ${allReports}">
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.depthMeters}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.postcode}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.localAuthority}"></td>
                                 <td>
                                     <button type="button" th:onclick="'confirmReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != 1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn confirm-button"><i class="fas fa-check"></i></button>
                                     <button type="button" th:onclick="'removeReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn remove-button"><i class="fas fa-times"></i></button>

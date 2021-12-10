@@ -7,7 +7,6 @@ body{
     padding: 0;
     height: inherit;
     margin: 0;
-
 }
 .action-btn-active {
     background-color: #D5D5D5;
@@ -42,6 +41,7 @@ bi:before {
     padding-left: 2vh;
     padding-right: 2vh;
     margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 #button-line{
     height: 50px;
@@ -139,4 +139,12 @@ tr:nth-child(even) {
 
 #dateTo {
     margin-left: 2%;
+}
+.table-contents:hover {
+    background-color: #487EB0;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.table-responsive {
+    text-decoration: none;
 }

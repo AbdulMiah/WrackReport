@@ -66,3 +66,10 @@ h1 {
     background-color: #487EB0;
     color: #FFFFFF;
 }
+
+.action-btn-active {
+    background-color: #D5D5D5;
+}
+.action-btn-inactive {
+    background-color: #F3F3F3;
+}
