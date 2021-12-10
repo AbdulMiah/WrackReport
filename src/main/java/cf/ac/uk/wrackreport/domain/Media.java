@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Media {
 
     private Long mediaId;
+    private Long reportId;
     private Long metadataId;
     private String title;
     private int type;

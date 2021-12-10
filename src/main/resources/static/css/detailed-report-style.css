@@ -61,3 +61,8 @@ h1 {
     height: 100%;
     padding: 0px;
 }
+
+.modal-content {
+    background-color: #487EB0;
+    color: #FFFFFF;
+}
