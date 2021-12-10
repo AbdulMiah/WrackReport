@@ -24,15 +24,14 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.naming.SizeLimitExceededException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @ControllerAdvice
@@ -49,6 +48,19 @@ public class ReportController {
         this.categoryService = categoryService;
         this.depthCategoryService = depthCategoryService1;
         this.reportRepository = reportRepository;
+    }
+
+    @GetMapping("/api/report/{reportID}/")
+    public ResponseEntity<?> fetchReport(@PathVariable long reportID, HttpServletRequest request) throws IOException {
+        Optional<ReportDTO> report = reportService.findByReportId(reportID);
+        if(report.isPresent()){
+            ObjectMapper objectMapper = new ObjectMapper();
+            ReportDTO reportDTO = report.get();
+            return ResponseEntity.ok().body(objectMapper.writeValueAsString(reportDTO));
+        }else{
+            //Invalid report ID
+            return ResponseEntity.badRequest().body("invalid report ID");
+        }
     }
 
     //API for report updates

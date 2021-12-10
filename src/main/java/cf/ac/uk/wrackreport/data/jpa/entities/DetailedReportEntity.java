@@ -48,6 +48,9 @@ public class DetailedReportEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "status")
+    private int status;
+
     public DetailedReportEntity(DetailedReport detailedReport) {
         this.reportId = detailedReport.getReportId();
         this.datetime = detailedReport.getDatetime();
@@ -60,6 +63,7 @@ public class DetailedReportEntity {
         this.surname = detailedReport.getSurname();
         this.email = detailedReport.getEmail();
         this.phoneNumber = detailedReport.getPhoneNumber();
+        this.status = detailedReport.getStatus();
     }
 
     public DetailedReport toDomain() {
@@ -74,7 +78,8 @@ public class DetailedReportEntity {
                 this.firstName,
                 this.surname,
                 this.email,
-                this.phoneNumber
+                this.phoneNumber,
+                this.status
         );
         return domainDetailedReport;
     }
