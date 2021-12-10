@@ -34,9 +34,9 @@ public class MediaJPATests {
     public void shouldGetEightMedia() throws Exception {
         List<MediaEntity> media = new ArrayList<MediaEntity>();
         UserEntity user = new UserEntity(null, "ROLE_USER", "firstname", "lastname", "test@gmail.com", "07888747748", null, true);
-        MediaEntity testMedia = new MediaEntity(null,null,"testMedia",1,"testpath");
+        MediaEntity testMedia = new MediaEntity(null,null,null,"testMedia",1,"testpath");
         media.add(testMedia);
-        ReportEntity reportEntity = new ReportEntity(null, user, (short)2, "test desc", (short)2, 0.2f, "51.896156,-3.933956", "2021-11-19 22:20:00", "CF24 4LR", "Cardiff", media);
+        ReportEntity reportEntity = new ReportEntity(null, user, (short)2, "test desc", (short)2, 0.2f, "51.896156,-3.933956", "2021-11-19 22:20:00", "CF24 4LR", "Cardiff", 0, media);
         reportRepository.save(reportEntity);
         List<MediaEntity> res = mediaRepository.findAll();
         System.out.println(res);
