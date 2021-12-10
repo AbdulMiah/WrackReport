@@ -29,7 +29,7 @@ function requestFromAPI(url){
 ////// Change this to get the specific report selected by admin //////
 const reportIdField = document.getElementById("reportIdField").value;
 console.log(reportIdField);
-const reportAPI = "http://localhost:8080/api/report/"+reportIdField;
+const reportAPI = "https://localhost:8443/api/report/"+reportIdField;
 requestFromAPI(reportAPI).then((result) => {
     console.log(result)
     var marker = L.marker(result["latLong"].split(", ")).addTo(map);
