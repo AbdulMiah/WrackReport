@@ -98,7 +98,7 @@
 
 <!--Media Modal-->
 <div th:each="m:${media}" class="modal fade" th:id="'modal'+${m.mediaId}" tabindex="-1" aria-labelledby="mediaModal" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 th:utext="${m.title}" class="modal-title" id="mediaModalLabel"></h5>
