@@ -13,7 +13,23 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body onload="processCheckbox()">
+<script type="text/javascript">
+    function exportQuery(){
+        //Build URL
+        var params = "?"
+        params += "postcode=" + document.getElementById("queryPostcode").value
+        params += "&localAuthority=" + document.getElementById("queryLocalAuthority").value
+        params += "&categoryName=" + document.getElementById("category").value
+        params += "&dateFrom=" + document.getElementById("dateFrom").value
+        params += "&dateTo=" + document.getElementById("dateTo").value
+        params += "&showRemoved=" + document.getElementById("showRemoved").checked
+
+        window.location.href = "/api/report/exportQuery" + params
+    }
+</script>
+
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
     const csrfToken = /*[[${_csrf.token}]]*/ '';
@@ -112,7 +128,6 @@
                 <div class="d-flex align-items-center justify-content-end col-sm-12 col-md-10" id="buttons" style="text-align:right;">
                     <input class="float-end" id="unreviewed-check" type="checkbox" onclick="checkboxCheck()" checked>
                     <span class="float-end" id="unreviewed-check-text">Only Show Unreviewed Reports</span>
-                    <button class="float-end" id="export-data"><span class="fa fa-database"></span> Export Data</button>
                     <button class="float-end" id="report-query" data-bs-toggle="modal" data-bs-target="#queryModal" onclick="clearDate()"><span class="fa fa-search"></span> Report Query</button>                </div>
             </div>
 
@@ -167,7 +182,7 @@
 
 <!-- Query modal -->
 <div class="modal fade" id="queryModal" tabindex="-1" aria-labelledby="queryModal" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form id="reportQueryForm" th:action="@{/reports-overview}" th:method="post" th:object="${reportQueryForm}">
             <div class="modal-content">
 
@@ -207,7 +222,10 @@
                         <input th:field="*{showRemoved}" value="showRemoved" class="form-check-input align-middle m-1" id="showRemoved" type="checkbox" name="showRemoved">
                         <span class="align-middle">Show removed reports</span>
                     </div>
-                    <button type="submit" form="reportQueryForm" id="submitQuery"><span class="fa fa-search"></span> Search</button>
+                    <div>
+                        <a onclick="exportQuery()" onsubmit="return false;" id="export-data"><span class="fa fa-database"></span> Export Query</a>
+                        <button type="submit" form="reportQueryForm" id="submitQuery"><span class="fa fa-search"></span> Search</button>
+                    </div>
                 </div>
             </div>
         </form>

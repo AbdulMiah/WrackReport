@@ -1,6 +1,7 @@
 package cf.ac.uk.wrackreport.service;
 
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
+import cf.ac.uk.wrackreport.service.dto.ReportOverviewDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 
 import java.util.List;
