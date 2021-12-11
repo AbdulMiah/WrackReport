@@ -178,4 +178,12 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<User> findAllByFirstName(String firstName){
+        ArrayList<UserEntity> userEntities = userRepository.findAllByFirstName(firstName);
+        return userRepository.findAllByFirstName(firstName)
+                .stream()
+                .map(u -> u.toDomain())
+                .collect(Collectors.toList());
+    }
+
 }

@@ -8,4 +8,6 @@ public interface UserService {
 
     List<UserDTO> findAllUsers();
 
+    List<UserDTO> findAllByFirstName(String firstName);
+
 }

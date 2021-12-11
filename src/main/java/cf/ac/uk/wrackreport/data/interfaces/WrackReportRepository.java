@@ -48,4 +48,6 @@ public interface WrackReportRepository {
 
     List<User> findAllUsers();
 
+    List<User> findAllByFirstName(String firstName);
+
 }
