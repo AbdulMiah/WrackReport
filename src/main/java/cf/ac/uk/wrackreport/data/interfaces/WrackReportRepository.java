@@ -46,4 +46,6 @@ public interface WrackReportRepository {
 
     List<Media> findAllMediaByReportId(Long reportId);
 
+    List<User> findAllUsers();
+
 }

@@ -169,4 +169,13 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .map(m -> m.toDomain())
                 .collect(Collectors.toList());
     }
+
+    public List<User> findAllUsers() {
+        ArrayList<UserEntity> userEntities = userRepository.findAll();
+        return userRepository.findAll()
+                .stream()
+                .map(u -> u.toDomain())
+                .collect(Collectors.toList());
+    }
+
 }
