@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -168,4 +169,28 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .map(m -> m.toDomain())
                 .collect(Collectors.toList());
     }
+
+    public List<User> findAllUsers() {
+        ArrayList<UserEntity> userEntities = userRepository.findAll();
+        return userRepository.findAll()
+                .stream()
+                .map(u -> u.toDomain())
+                .collect(Collectors.toList());
+    }
+
+    public List<User> findAllByFirstName(String firstName){
+        ArrayList<UserEntity> userEntities = userRepository.findAllByFirstName(firstName);
+        return userRepository.findAllByFirstName(firstName)
+                .stream()
+                .map(u -> u.toDomain())
+                .collect(Collectors.toList());
+    }
+
+    public List<Media> findAllMedia() {
+        return mediaRepository.findAll()
+                .stream()
+                .map(m -> m.toDomain())
+                .collect(Collectors.toList());
+    }
+
 }

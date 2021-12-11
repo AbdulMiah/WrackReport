@@ -4,7 +4,6 @@ package cf.ac.uk.wrackreport.web.controllers;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportOverviewService;
 
-import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportQueryForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -10,4 +10,6 @@ public interface MediaService {
 
     List<MediaDTO> findAllMediaByReportId(Long reportId);
 
+    List<MediaDTO> findAllMedia();
+
 }
