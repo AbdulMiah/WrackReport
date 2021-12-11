@@ -66,3 +66,50 @@ function clearDate() {
     document.getElementById("dateFrom").value = "";
     document.getElementById("dateTo").value = "";
 }
+
+function hideValidated(){
+    const validatedTable = document.getElementsByClassName('validated-reports');
+    const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
+    console.log(validatedTable)
+    for (let i = 0; i < validatedTable.length; i++) {
+        validatedTable.item(i).style.display = 'none';
+    }
+    for (let i = 0; i < unvalidatedTable.length; i++) {
+        unvalidatedTable.item(i).style.display = 'table-row';
+    }
+    // validatedTable.style.display = 'none'
+}
+function hideUnvalidated(){
+    const validatedTable = document.getElementsByClassName('validated-reports');
+    const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
+    console.log(unvalidatedTable)
+    for (let i = 0; i < unvalidatedTable.length; i++) {
+        unvalidatedTable.item(i).style.display = 'none';
+    }
+    for (let i = 0; i < validatedTable.length; i++) {
+        validatedTable.item(i).style.display = 'table-row';
+    }
+    // unvalidatedTable.style.display = 'none'
+}
+
+function processCheckbox(){
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const showUnreviewed = params.get("unreviewed");
+    const checkBox = document.getElementById("unreviewed-check")
+    if (showUnreviewed == 'false'){
+        checkBox.checked = false
+        hideUnvalidated()
+    }
+    else{
+        checkBox.checked = true;
+        hideValidated()
+    }
+}
+
+function checkboxCheck(){
+    window.location = "/reports-overview?unreviewed="+document.getElementById("unreviewed-check").checked
+}
+
+
+

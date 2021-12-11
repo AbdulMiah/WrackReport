@@ -95,7 +95,7 @@ ON r.category_id = c.category_id;
 -- SELECT * FROM report_overview;
 
 CREATE VIEW detailed_report AS
-SELECT r.report_id, r.datetime, r.local_authority, r.postcode, c.category_name, r.depth_meters, r.description, u.first_name, u.surname, u.email, u.phone_number
+SELECT r.report_id, r.datetime, r.local_authority, r.postcode, c.category_name, r.depth_meters, r.description, u.first_name, u.surname, u.email, u.phone_number, r.status
 FROM reports r
 INNER JOIN categories c
 ON r.category_id = c.category_id

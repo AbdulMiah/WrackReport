@@ -13,6 +13,7 @@ import cf.ac.uk.wrackreport.web.controllers.forms.ReportForm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.hql.internal.ast.tree.ResolvableNode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +25,14 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.naming.SizeLimitExceededException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @ControllerAdvice
@@ -49,6 +49,32 @@ public class ReportController {
         this.categoryService = categoryService;
         this.depthCategoryService = depthCategoryService1;
         this.reportRepository = reportRepository;
+    }
+
+
+    @GetMapping("/api/report/{reportID}/")
+    public ResponseEntity<?> fetchReport(@PathVariable long reportID, @RequestParam String format, HttpServletRequest request) throws IOException {
+        Optional<ReportDTO> report = reportService.findByReportId(reportID);
+        System.out.println("is pres");
+        if(report.isPresent()){
+            ObjectMapper objectMapper = new ObjectMapper();
+            ReportDTO reportDTO = report.get();
+            System.out.println("PRESENT: " + format);
+            if(format.toLowerCase(Locale.ROOT).equals("csv")){
+                String output = ReportDTO.class.getFields()[0].getName();
+                for(int i=1; i < ReportDTO.class.getFields().length; i++){
+                    output += ", " + ReportDTO.class.getFields()[i].getName();
+                }
+                return ResponseEntity.ok().body(output);
+            }else{
+                System.out.println("XD");
+                return ResponseEntity.ok().body("xd");
+                //return ResponseEntity.ok().body(objectMapper.writeValueAsString(reportDTO));
+            }
+        }else{
+            //Invalid report ID
+            return ResponseEntity.badRequest().body("invalid report ID");
+        }
     }
 
     //API for report updates
@@ -150,8 +176,8 @@ public class ReportController {
                     }
 
                    //path is random string + file extension
-                    String filePath = "./uploaded-media/" + generatedString + "." + ext;
-                    File file = new File("./uploaded-media/" +generatedString + "." + ext);
+                    String filePath = "./images/report-media/" + generatedString + "." + ext;
+                    File file = new File("src\\main\\resources\\static\\images\\report-media\\" +generatedString + "." + ext);
 
                     //Write file
                     try (OutputStream os = new FileOutputStream(file)) {
@@ -230,7 +256,7 @@ public class ReportController {
             reportService.saveReport(reportDTO);
             return "redirect:/ReportSubmitted";
 
-        //  if the postcode field in the form is empty, then...
+            //  if the postcode field in the form is empty, then...
         } else if (reportForm.getPostcode().isEmpty() && reportForm.getLatLong().isEmpty()) {
             String errorMsg = "Please enter a location for the report!";
             log.debug(errorMsg);

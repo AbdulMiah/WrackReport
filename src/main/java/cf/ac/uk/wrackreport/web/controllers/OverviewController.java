@@ -53,6 +53,7 @@ public class OverviewController {
             return "/reports-overview";
         } else {
             // Create list of report form items
+
             ArrayList<String> formItems = new ArrayList<String>(Arrays.asList(reportQueryForm.getPostcode(), reportQueryForm.getLocalAuthority(),
                     reportQueryForm.getCategoryName(), reportQueryForm.getDateFrom(), reportQueryForm.getDateTo()));
             // If report form item was not empty, add it to database query

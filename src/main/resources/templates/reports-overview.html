@@ -13,7 +13,23 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
+
+<body onload="processCheckbox()">
+<script type="text/javascript">
+    function exportQuery(){
+        //Build URL
+        var params = "?"
+        params += "postcode=" + document.getElementById("queryPostcode").value
+        params += "&localAuthority=" + document.getElementById("queryLocalAuthority").value
+        params += "&categoryName=" + document.getElementById("category").value
+        params += "&dateFrom=" + document.getElementById("dateFrom").value
+        params += "&dateTo=" + document.getElementById("dateTo").value
+        params += "&showRemoved=" + document.getElementById("showRemoved").checked
+
+        window.location.href = "/api/report/exportQuery" + params
+    }
+</script>
+
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
     const csrfToken = /*[[${_csrf.token}]]*/ '';
@@ -110,15 +126,14 @@
                     <h3 class="contents-top-bar" id="latest-report-text">Latest Reports</h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-end col-sm-12 col-md-10" id="buttons" style="text-align:right;">
-                    <input class="float-end" id="unreviewed-check" type="checkbox" checked>
+                    <input class="float-end" id="unreviewed-check" type="checkbox" onclick="checkboxCheck()" checked>
                     <span class="float-end" id="unreviewed-check-text">Only Show Unreviewed Reports</span>
-                    <button class="float-end" id="export-data"><span class="fa fa-database"></span> Export Data</button>
                     <button class="float-end" id="report-query" data-bs-toggle="modal" data-bs-target="#queryModal" onclick="clearDate()"><span class="fa fa-search"></span> Report Query</button>                </div>
             </div>
 
             <div class="row" id="shown-reports">
                 <div class="col-sm-12">
-                    <div class="table-responsive">
+                    <a class="table-responsive">
                         <table class="table" id="reports-table">
                             <tr id="table-header">
                                 <th>Date</th>
@@ -129,13 +144,27 @@
                                 <th>Local Authority</th>
                                 <th>Actions</th>
                             </tr>
-                            <tr id="table-contents" th:each = "reportOverview: ${allReports}">
-                                <td th:text="${reportOverview.datetime}"></td>
-                                <td>12:49</td>
-                                <td th:text="${reportOverview.categoryName}"></td>
-                                <td th:text="${reportOverview.depthMeters}"></td>
-                                <td th:text="${reportOverview.postcode}"></td>
-                                <td th:text="${reportOverview.localAuthority}"></td>
+<!--                            reviewed-->
+                            <tr class="table-contents validated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status != 0}">
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.depthMeters}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.postcode}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.localAuthority}"></td>
+                                <td>
+                                    <button type="button" th:onclick="'confirmReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != 1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn confirm-button"><i class="fas fa-check"></i></button>
+                                    <button type="button" th:onclick="'removeReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn remove-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+<!--                            unreviewed-->
+                            <tr class="table-contents unvalidated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status == 0}">
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.depthMeters}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.postcode}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.localAuthority}"></td>
                                 <td>
                                     <button type="button" th:onclick="'confirmReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != 1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn confirm-button"><i class="fas fa-check"></i></button>
                                     <button type="button" th:onclick="'removeReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn remove-button"><i class="fas fa-times"></i></button>
@@ -153,7 +182,7 @@
 
 <!-- Query modal -->
 <div class="modal fade" id="queryModal" tabindex="-1" aria-labelledby="queryModal" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form id="reportQueryForm" th:action="@{/reports-overview}" th:method="post" th:object="${reportQueryForm}">
             <div class="modal-content">
 
@@ -193,7 +222,10 @@
                         <input th:field="*{showRemoved}" value="showRemoved" class="form-check-input align-middle m-1" id="showRemoved" type="checkbox" name="showRemoved">
                         <span class="align-middle">Show removed reports</span>
                     </div>
-                    <button type="submit" form="reportQueryForm" id="submitQuery"><span class="fa fa-search"></span> Search</button>
+                    <div>
+                        <a onclick="exportQuery()" onsubmit="return false;" id="export-data"><span class="fa fa-database"></span> Export Query</a>
+                        <button type="submit" form="reportQueryForm" id="submitQuery"><span class="fa fa-search"></span> Search</button>
+                    </div>
                 </div>
             </div>
         </form>
