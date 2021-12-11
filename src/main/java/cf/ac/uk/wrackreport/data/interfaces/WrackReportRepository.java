@@ -50,4 +50,6 @@ public interface WrackReportRepository {
 
     List<User> findAllByFirstName(String firstName);
 
+    List<Media> findAllMedia();
+
 }

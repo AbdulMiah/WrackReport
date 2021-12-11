@@ -186,4 +186,11 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Media> findAllMedia() {
+        return mediaRepository.findAll()
+                .stream()
+                .map(m -> m.toDomain())
+                .collect(Collectors.toList());
+    }
+
 }

@@ -16,4 +16,5 @@ public interface MediaRepository extends JpaRepository<MediaEntity, Long> {
     @Query("select m from MediaEntity m where m.reportId = ?1")
     ArrayList<MediaEntity> findAllMediaByReportId(Long reportId);
 
+
 }
