@@ -1,7 +1,6 @@
 package cf.ac.uk.wrackreport.fullcontainer;
 
 import cf.ac.uk.wrackreport.data.jpa.repositories.MediaRepository;
-import cf.ac.uk.wrackreport.data.jpa.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
