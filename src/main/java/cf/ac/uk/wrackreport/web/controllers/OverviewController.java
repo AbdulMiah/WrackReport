@@ -4,7 +4,6 @@ package cf.ac.uk.wrackreport.web.controllers;
 import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportOverviewService;
 
-import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.web.controllers.forms.ReportQueryForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -70,12 +67,8 @@ public class OverviewController {
                 status = -1;
             }
 
-            //Convert strings to dates
-            LocalDate dateFromFormatted = LocalDate.parse(queryItems.get(3));
-            LocalDate dateToFormatted = LocalDate.parse(queryItems.get(4));
-
             //Add filtered results from query to model
-            model.addAttribute("allReports", reportOverviewService.reportQuery(queryItems.get(0), queryItems.get(1), queryItems.get(2), dateFromFormatted, dateToFormatted, status));
+            model.addAttribute("allReports", reportOverviewService.reportQuery(queryItems.get(0), queryItems.get(1), queryItems.get(2), queryItems.get(3), queryItems.get(4), status));
             model.addAttribute("reportQueryForm", reportQueryForm);
             model.addAttribute("categories", categoryService.findAll());
             return "/reports-overview";

@@ -40,7 +40,7 @@ public interface WrackReportRepository {
     List<DetailedReport> findAllDetailedReport();
     Optional<StaffUser> findByEmail(String userName);
 
-    List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, LocalDate dateFrom, LocalDate dateTo, Integer status);
+    List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status);
     
     Optional<DetailedReport> findAllByReportId(Long reportId);
 
