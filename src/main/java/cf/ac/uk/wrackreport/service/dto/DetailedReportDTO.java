@@ -18,6 +18,7 @@ public class DetailedReportDTO {
     String surname;
     String email;
     String phoneNumber;
+    int status;
 
     public DetailedReportDTO(DetailedReport aDetailedReport) {
         this(
@@ -31,11 +32,12 @@ public class DetailedReportDTO {
                 aDetailedReport.getFirstName(),
                 aDetailedReport.getSurname(),
                 aDetailedReport.getEmail(),
-                aDetailedReport.getPhoneNumber()
+                aDetailedReport.getPhoneNumber(),
+                aDetailedReport.getStatus()
         );
     }
 
     public DetailedReport toDetailedReport() {
-        return new DetailedReport(reportId, datetime, localAuthority, postcode, categoryName, depthMeters, description, firstName, surname, email, phoneNumber);
+        return new DetailedReport(reportId, datetime, localAuthority, postcode, categoryName, depthMeters, description, firstName, surname, email, phoneNumber, status);
     }
 }

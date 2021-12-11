@@ -11,9 +11,91 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="/css/detailed-report-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Report Details</title>
 </head>
 <body>
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    const csrfToken = /*[[${_csrf.token}]]*/ '';
+    /*}}>*/
+    function confirmReport(reportID, caller){
+        var otherButton = caller.parentNode.getElementsByClassName("remove-button")[0]
+
+        caller.classList.remove("action-btn-inactive")
+        caller.classList.add("action-btn-active")
+
+        var otherButtonState = ""
+        if(otherButton.classList.contains("action-btn-active")){
+            otherButtonState = "active"
+        }else{
+            otherButtonState = "inactive"
+        }
+
+        otherButton.classList.remove("action-btn-active")
+        otherButton.classList.add("action-btn-inactive")
+
+        axios.post("/api/report/" + reportID + "/confirm", {}, {
+            "headers": {
+        /*<![CDATA[*/
+        /*[[${_csrf.headerName}]]*/
+    :
+        /*[[${_csrf.token}]]*/
+        /*}}>*/
+    }
+    }).then((res) => {
+            if(res.status != 200){
+                alert("Failed to update report. Try logging out and back in.")
+            }
+        }).catch((err) => {
+            caller.classList.remove("action-btn-active")
+            caller.classList.add("action-btn-inactive")
+            if(otherButtonState == "active"){
+                otherButton.classList.remove("action-btn-inactive")
+                otherButton.classList.add("action-btn-active")
+            }
+            alert("Failed to update report. Please check your internet connection and try again.")
+        })
+    }
+    function removeReport(reportID, caller){
+        var otherButton = caller.parentNode.getElementsByClassName("confirm-button")[0]
+
+        caller.classList.remove("action-btn-inactive")
+        caller.classList.add("action-btn-active")
+
+        var otherButtonState = ""
+        if(otherButton.classList.contains("action-btn-active")){
+            otherButtonState = "active"
+        }else{
+            otherButtonState = "inactive"
+        }
+
+        otherButton.classList.remove("action-btn-active")
+        otherButton.classList.add("action-btn-inactive")
+
+        axios.post("/api/report/" + reportID + "/remove", {}, {
+            "headers": {
+        /*<![CDATA[*/
+        /*[[${_csrf.headerName}]]*/
+    :
+        /*[[${_csrf.token}]]*/
+        /*}}>*/
+    }
+    }).then((res) => {
+            if(res.status != 200){
+                alert("Failed to update report. Try logging out and back in.")
+            }
+        }).catch((err) => {
+            caller.classList.remove("action-btn-active")
+            caller.classList.add("action-btn-inactive")
+            if(otherButtonState == "active"){
+                otherButton.classList.remove("action-btn-inactive")
+                otherButton.classList.add("action-btn-active")
+            }
+            alert("Failed to update report. Please check your internet connection and try again.")
+        })
+    }
+</script>
 <div class="container-fluid">
     <div class="row" id="container-row">
         <div class="col-md-8">
@@ -79,6 +161,14 @@
                                 <a class="btn btn-light" role="button" th:href="'mailto:'+${report.email}">
                                     <span class="fa fa-envelope"></span>
                                     E-mail Reporter
+                                </a>
+                                <a role="button" th:onclick="'confirmReport(' + ${report.reportId} + ', this)'" th:classappend="${report.status != 1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn btn-light confirm-button">
+                                    <span class="fa fa-check"></span>
+                                    Confirm Report
+                                </a>
+                                <a role="button" th:onclick="'removeReport(' + ${report.reportId} + ', this)'" th:classappend="${report.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn btn-light remove-button">
+                                    <span class="fa fa-times"></span>
+                                    Remove Report
                                 </a>
                             </div>
                         </div>
