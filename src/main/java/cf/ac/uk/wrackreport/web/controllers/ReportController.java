@@ -175,9 +175,9 @@ public class ReportController {
                         type = 1;
                     }
 
-                    //path is random string + file extension
-                    String filePath = "./uploaded-media/" + generatedString + "." + ext;
-                    File file = new File("./uploaded-media/" +generatedString + "." + ext);
+                   //path is random string + file extension
+                    String filePath = "./images/report-media/" + generatedString + "." + ext;
+                    File file = new File("src\\main\\resources\\static\\images\\report-media\\" +generatedString + "." + ext);
 
                     //Write file
                     try (OutputStream os = new FileOutputStream(file)) {
