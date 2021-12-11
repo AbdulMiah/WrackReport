@@ -198,7 +198,7 @@
                 <img class="img-fluid p-1 rounded mx-auto d-block" th:src="'.' + ${m.mediaPath}">
             </div>
             <div th:if="${m.type} == 2">
-                <video class="embed-responsive p-1"  style="max-width: 100%" controls>
+                <video class="embed-responsive p-1 mx-auto d-block"  style="max-width: 100%" controls>
                     <source th:src="'.' + ${m.mediaPath}">
                     Your browser does not support the video tag.
                 </video>
