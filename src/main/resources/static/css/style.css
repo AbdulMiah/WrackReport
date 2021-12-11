@@ -37,7 +37,7 @@ body{
     }
 
     .form-control::placeholder{
-        font-size: 1.25vw;
+        font-size: 1.25em;
     }
 
     .sidebar-content {

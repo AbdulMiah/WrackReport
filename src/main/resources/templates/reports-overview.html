@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
+<body onload="processCheckbox()">
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
     const csrfToken = /*[[${_csrf.token}]]*/ '';
@@ -110,7 +110,7 @@
                     <h3 class="contents-top-bar" id="latest-report-text">Latest Reports</h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-end col-sm-12 col-md-10" id="buttons" style="text-align:right;">
-                    <input class="float-end" id="unreviewed-check" type="checkbox" checked>
+                    <input class="float-end" id="unreviewed-check" type="checkbox" onclick="checkboxCheck()" checked>
                     <span class="float-end" id="unreviewed-check-text">Only Show Unreviewed Reports</span>
                     <button class="float-end" id="export-data"><span class="fa fa-database"></span> Export Data</button>
                     <button class="float-end" id="report-query" data-bs-toggle="modal" data-bs-target="#queryModal" onclick="clearDate()"><span class="fa fa-search"></span> Report Query</button>                </div>
@@ -129,7 +129,21 @@
                                 <th>Local Authority</th>
                                 <th>Actions</th>
                             </tr>
-                            <tr class="table-contents" th:each = "reportOverview: ${allReports}">
+<!--                            reviewed-->
+                            <tr class="table-contents validated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status != 0}">
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.depthMeters}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.postcode}"></td>
+                                <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.localAuthority}"></td>
+                                <td>
+                                    <button type="button" th:onclick="'confirmReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != 1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn confirm-button"><i class="fas fa-check"></i></button>
+                                    <button type="button" th:onclick="'removeReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn remove-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+<!--                            unreviewed-->
+                            <tr class="table-contents unvalidated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status == 0}">
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>
