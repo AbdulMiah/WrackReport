@@ -47,9 +47,9 @@ public class ReportDTO {
 
     public Report toReport() {
         return new Report(reportId,
-                new User(this.getUser().getUserId(),this.getUser().getRoles(),this.getUser().getFirstName(),
-                        this.getUser().getSurname(),this.getUser().getEmail(),this.getUser().getPhoneNumber(),
-                        this.getUser().getPassword(),this.getUser().getActive()),
+                new User(this.getUser().getUserId(), this.getUser().getRoles(), this.getUser().getFirstName(),
+                        this.getUser().getSurname(), this.getUser().getEmail(), this.getUser().getPhoneNumber(),
+                        this.getUser().getPassword(), this.getUser().getActive()),
                 categoryId, description, depthCategoryId, depthMeters, latLong, datetime, postcode, localAuthority, media, status);
     }
 }

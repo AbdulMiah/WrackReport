@@ -4,6 +4,7 @@ import cf.ac.uk.wrackreport.data.interfaces.WrackReportRepository;
 import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.service.ReportService;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
+import cf.ac.uk.wrackreport.service.dto.ReportOverviewDTO;
 import cf.ac.uk.wrackreport.service.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

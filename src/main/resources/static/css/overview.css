@@ -72,6 +72,9 @@ bi:before {
     font-family: Montserrat, sans-serif;
     font-weight: bold;
 }
+#export-data:hover{
+    cursor: pointer;
+}
 #report-query{
     background-color: #487EB0;
     border-radius: 2px;
@@ -81,6 +84,7 @@ bi:before {
     padding: 10px 15px;
     font-family: Montserrat, sans-serif;
     font-weight: bold;
+    margin-left: 1vh;
 }
 #shown-reports{
     background-color: #FFFFFF;
@@ -147,4 +151,11 @@ tr:nth-child(even) {
 }
 .table-responsive {
     text-decoration: none;
+}
+
+a{
+    color: #FFFFFF;
+}
+a:hover{
+    color: #FFFFFF;
 }
