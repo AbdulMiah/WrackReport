@@ -70,19 +70,16 @@ function clearDate() {
 function hideValidated(){
     const validatedTable = document.getElementsByClassName('validated-reports');
     const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
-    console.log(validatedTable)
     for (let i = 0; i < validatedTable.length; i++) {
         validatedTable.item(i).style.display = 'none';
     }
     for (let i = 0; i < unvalidatedTable.length; i++) {
         unvalidatedTable.item(i).style.display = 'table-row';
     }
-    // validatedTable.style.display = 'none'
 }
 function hideUnvalidated(){
     const validatedTable = document.getElementsByClassName('validated-reports');
     const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
-    console.log(unvalidatedTable)
     for (let i = 0; i < unvalidatedTable.length; i++) {
         unvalidatedTable.item(i).style.display = 'none';
     }
@@ -91,8 +88,19 @@ function hideUnvalidated(){
     }
     // unvalidatedTable.style.display = 'none'
 }
+function hideNone(){
+    const validatedTable = document.getElementsByClassName('validated-reports');
+    const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
+    for (let i = 0; i < validatedTable.length; i++) {
+        validatedTable.item(i).style.display = 'table-row';
+    }
+    for (let i = 0; i < unvalidatedTable.length; i++) {
+        unvalidatedTable.item(i).style.display = 'table-row';
+    }
+}
 
 function processCheckbox(){
+
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     const showUnreviewed = params.get("unreviewed");
@@ -107,8 +115,35 @@ function processCheckbox(){
     }
 }
 
+function processDropdown(){
+    const params = new URLSearchParams(window.location.search);
+    const display = params.get("display");
+    console.log(display + "Thisworks")
+    document.getElementById("reviewedType").value = display;
+    if (display == "All"){
+        hideNone()
+        document.getElementById("latest-report-text").innerText = "All Reports"
+    }
+    if (display == "Unreviewed"){
+        hideValidated()
+        document.getElementById("latest-report-text").innerText = "Unreviewed"
+    }
+    if(display == "Reviewed"){
+        hideUnvalidated()
+        document.getElementById("latest-report-text").innerText = "Reviewed"
+    }
+
+}
+
+function dropdownCheck(){
+
+    window.location="/reports-overview?display="+document.getElementById("reviewedType").value
+}
+
 function checkboxCheck(){
     window.location = "/reports-overview?unreviewed="+document.getElementById("unreviewed-check").checked
+
+
 }
 
 

@@ -50,15 +50,14 @@ bi:before {
     margin-bottom: 2vh;
 }
 
-#unreviewed-check{
+#reviewedType{
     vertical-align: middle;
     margin-right: 10px;
     margin-left: 15px;
     height: 30px;
-    width: 30px;
 }
 #unreviewed-check-text{
-    font-size: 1vw;
+    font-size: 1.25vw;
 }
 #export-data{
     background-color: #F3F3F3;
