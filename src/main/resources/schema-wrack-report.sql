@@ -15,8 +15,7 @@ GRANT INSERT ON `wrack-report`.* TO 'wrackReport'@'localhost';
 GRANT TRIGGER ON `wrack-report`.* TO 'wrackReport'@'localhost';
 GRANT CREATE VIEW ON `wrack-report`.* TO 'wrackReport'@'localhost';
 GRANT SHOW VIEW ON `wrack-report`.* TO 'wrackReport'@'localhost';
-SHOW GRANTS FOR 'wrackReport'@'localhost';
-
+-- SHOW GRANTS FOR 'wrackReport'@'localhost';
 
 
 CREATE TABLE `users` (
