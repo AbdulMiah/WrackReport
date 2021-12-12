@@ -2,6 +2,22 @@ DROP DATABASE IF EXISTS `wrack-report`;
 CREATE DATABASE IF NOT EXISTS `wrack-report`;
 USE `wrack-report`;
 
+SET GLOBAL default_password_lifetime=0;
+
+DROP USER IF EXISTS 'wrackReport'@'localhost';
+CREATE USER 'wrackReport'@'localhost' IDENTIFIED BY 'team3';
+GRANT SELECT ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT UPDATE ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT EXECUTE ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT CREATE ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT ALTER ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT INSERT ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT TRIGGER ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT CREATE VIEW ON `wrack-report`.* TO 'wrackReport'@'localhost';
+GRANT SHOW VIEW ON `wrack-report`.* TO 'wrackReport'@'localhost';
+-- SHOW GRANTS FOR 'wrackReport'@'localhost';
+
+
 CREATE TABLE `users` (
 	`user_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
     `roles` VARCHAR(45) NOT NULL,
