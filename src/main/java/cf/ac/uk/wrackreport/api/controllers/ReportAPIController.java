@@ -40,21 +40,40 @@ public class ReportAPIController {
     }
 
     @GetMapping("/report/exportQuery")
-    public ResponseEntity<?> exportQuery(@RequestParam(required = false) String postcode, @RequestParam(required = false) String localAuthority, @RequestParam(required = false) String categoryName, @RequestParam(required = false) String dateFrom, @RequestParam(required = false) String dateTo, @RequestParam(required = false) Integer status){
+    public ResponseEntity<?> exportQuery(@RequestParam(required = false) String postcode, @RequestParam(required = false) String localAuthority, @RequestParam(required = false) String categoryName, @RequestParam(required = false) String dateFrom, @RequestParam(required = false) String dateTo, @RequestParam(required = false) Integer status, @RequestParam(required=false) String showRemoved){
 
         if(status == null){
             status = 0;
         }
+        if(showRemoved.equals("true")){
+            status = -1;
+        }
+        if(postcode.equals("")){
+            postcode = null;
+        }
+        if(localAuthority.equals("")){
+            localAuthority = null;
+        }
+        if(categoryName.equals("")){
+            categoryName = null;
+        }
 
+        if(dateFrom.equals("")){
+            dateFrom = null;
+        }
         if(dateTo.equals("")){
             dateTo = null;
         }
+
+        System.out.println(postcode);
 
         List<ReportOverviewDTO> reportList = wrackReportRepository
                 .reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo, status)
                 .stream()
                 .map(r -> new ReportOverviewDTO(r))
                 .collect(Collectors.toList());
+
+        System.out.println(reportList.size());
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
