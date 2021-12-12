@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="row d-flex justify-content-end align-items-center" id="homepage-bottom-options">
-        <a class="bottom-link" href="#">Privacy</a>
+        <a class="bottom-link" th:href="@{privacy-policy}" target="_blank">Privacy</a>
         <a class="bottom-link" href="#">Terms</a>
         <a class="bottom-link" href="#">About</a>
         <a th:if="${!authenticated}"class="bottom-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>

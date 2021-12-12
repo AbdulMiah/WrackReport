@@ -163,7 +163,7 @@
                     <input class="form-control mb-1" th:field="*{phoneNumber}" type="number" placeholder="Phone no. (optional)"/>
                     <div class="alert alert-warning" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">Phone Number Error</div>
                     <input type="checkbox" id="agreed" required>
-                    <label for="agreed" class="mb-1" id="agree-text">I have agreed to the <a th:href="@{privacy-policy}" >privacy policy</a></label>
+                    <label for="agreed" class="mb-1" id="agree-text">I have agreed to the <a th:href="@{privacy-policy}" target="_blank">privacy policy</a></label>
                 </div>
 
                 <div class="mb-3">
@@ -173,7 +173,7 @@
 
             <div id="footer">
                 <ul>
-                    <li><a href="privacy-policy">Privacy</a></li>
+                    <li><a href="privacy-policy" target="_blank">Privacy</a></li>
                     <li>•</li>
                     <li>Terms</li>
                     <li>•</li>
