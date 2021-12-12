@@ -139,6 +139,7 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     }
 
     public List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status) {
+
         return reportOverviewRepository.reportQuery(postcode, localAuthority, categoryName, dateFrom, dateTo, status)
                 .stream()
                 .map(r -> r.toDomain())
