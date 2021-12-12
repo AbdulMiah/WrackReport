@@ -21,7 +21,9 @@ repositories {
 
 bootRun {
     sourceResources sourceSets.main
+    systemProperty "JASYPT_ENCRYPTOR_PASSWORD", findProperty("JASYPT_ENCRYPTOR_PASSWORD")
 }
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
