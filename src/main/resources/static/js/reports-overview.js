@@ -76,7 +76,6 @@ function hideValidated(){
     for (let i = 0; i < unvalidatedTable.length; i++) {
         unvalidatedTable.item(i).style.display = 'table-row';
     }
-    // validatedTable.style.display = 'none'
 }
 function hideUnvalidated(){
     const validatedTable = document.getElementsByClassName('validated-reports');
@@ -100,22 +99,6 @@ function hideNone(){
     }
 }
 
-// function initialLoad(){
-//     let queryString = window.location.search;
-//     console.log(queryString + "this is this")
-//     if(queryString = "/reports-overview"){
-//         console.log("It knows there is no url")
-//         const validatedTable = document.getElementsByClassName('validated-reports');
-//         const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
-//         for (let i = 0; i < validatedTable.length; i++) {
-//             validatedTable.item(i).style.display = 'table-row';
-//         }
-//         for (let i = 0; i < unvalidatedTable.length; i++) {
-//             unvalidatedTable.item(i).style.display = 'table-row';
-//         }
-//     }
-// }
-
 function processCheckbox(){
 
     const queryString = window.location.search;
@@ -131,15 +114,6 @@ function processCheckbox(){
         hideValidated()
     }
 }
-
-// window.onload = function() {
-//     var selItem = sessionStorage.getItem("SelItem");
-//     $('#reviewedType').val(selItem);
-// }
-// $('#reviewedType').change(function() {
-//     var selVal = $(this).val();
-//     sessionStorage.setItem("SelItem", selVal);
-// });
 
 function processDropdown(){
     const params = new URLSearchParams(window.location.search);
@@ -158,16 +132,11 @@ function processDropdown(){
         hideUnvalidated()
         document.getElementById("latest-report-text").innerText = "Reviewed"
     }
-    // const queryString = window.location.search;
-    // const params = new URLSearchParams(queryString);
-    // console.log(window.location)
 
 }
 
 function dropdownCheck(){
 
-    // console.log("process")
-    // console.log(document.getElementById("reviewedType").value)
     window.location="/reports-overview?display="+document.getElementById("reviewedType").value
 }
 
