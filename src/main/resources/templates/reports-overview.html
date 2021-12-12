@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body onload="processCheckbox()">
+<body onload="processDropdown()">
 <script type="text/javascript">
     function exportQuery(){
         //Build URL
@@ -126,8 +126,14 @@
                     <h3 class="contents-top-bar" id="latest-report-text">Latest Reports</h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-end col-sm-12 col-md-10" id="buttons" style="text-align:right;">
-                    <input class="float-end" id="unreviewed-check" type="checkbox" onclick="checkboxCheck()" checked>
-                    <span class="float-end" id="unreviewed-check-text">Only Show Unreviewed Reports</span>
+                    <span class="float-end" id="unreviewed-check-text">Show: </span>
+<!--                    id=unreviewed-check-->
+                    <select class="float-end" id="reviewedType" onchange="dropdownCheck()" placeholder="All">
+                        <option value="All" id="reviewedType-All" onclick="dropdownCheck()">All</option>
+                        <option value="Unreviewed" id="reviewedType-unreviewed" onclick="dropdownCheck()">Unreviewed</option>
+                        <option value="Reviewed" id="reviewedType-reviewed" onclick="dropdownCheck()">Reviewed</option>
+                    </select>
+<!--                    <input class="float-end" id="unreviewed-check" type="" onclick="checkboxCheck()">-->
                     <button class="float-end" id="report-query" data-bs-toggle="modal" data-bs-target="#queryModal" onclick="clearDate()"><span class="fa fa-search"></span> Report Query</button>                </div>
             </div>
 
@@ -145,8 +151,8 @@
                                 <th>Local Authority</th>
                                 <th>Actions</th>
                             </tr>
-<!--                            reviewed-->
-                            <tr class="table-contents validated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status != 0}">
+<!--                            unreviewed-->
+                            <tr class="table-contents unvalidated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status == 0}">
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>
@@ -158,8 +164,8 @@
                                     <button type="button" th:onclick="'removeReport(' + ${reportOverview.reportId} + ', this)'" th:classappend="${reportOverview.status != -1 ? 'action-btn-inactive' : 'action-btn-active'}" class="btn remove-button"><i class="fas fa-times"></i></button>
                                 </td>
                             </tr>
-<!--                            unreviewed-->
-                            <tr class="table-contents unvalidated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status == 0}">
+<!--                            reviewed-->
+                            <tr class="table-contents validated-reports" th:each = "reportOverview: ${allReports}" th:if="${reportOverview.status != 0}">
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 0, 10)}"></td>
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${#strings.substring(reportOverview.datetime, 11, 19)}"></td>
                                 <td th:onclick="'location.href=`/detailed-report/' + ${reportOverview.reportId} + '`'" th:text="${reportOverview.categoryName}"></td>

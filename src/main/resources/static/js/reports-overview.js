@@ -70,7 +70,6 @@ function clearDate() {
 function hideValidated(){
     const validatedTable = document.getElementsByClassName('validated-reports');
     const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
-    console.log(validatedTable)
     for (let i = 0; i < validatedTable.length; i++) {
         validatedTable.item(i).style.display = 'none';
     }
@@ -82,7 +81,6 @@ function hideValidated(){
 function hideUnvalidated(){
     const validatedTable = document.getElementsByClassName('validated-reports');
     const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
-    console.log(unvalidatedTable)
     for (let i = 0; i < unvalidatedTable.length; i++) {
         unvalidatedTable.item(i).style.display = 'none';
     }
@@ -91,8 +89,35 @@ function hideUnvalidated(){
     }
     // unvalidatedTable.style.display = 'none'
 }
+function hideNone(){
+    const validatedTable = document.getElementsByClassName('validated-reports');
+    const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
+    for (let i = 0; i < validatedTable.length; i++) {
+        validatedTable.item(i).style.display = 'table-row';
+    }
+    for (let i = 0; i < unvalidatedTable.length; i++) {
+        unvalidatedTable.item(i).style.display = 'table-row';
+    }
+}
+
+// function initialLoad(){
+//     let queryString = window.location.search;
+//     console.log(queryString + "this is this")
+//     if(queryString = "/reports-overview"){
+//         console.log("It knows there is no url")
+//         const validatedTable = document.getElementsByClassName('validated-reports');
+//         const unvalidatedTable = document.getElementsByClassName('unvalidated-reports');
+//         for (let i = 0; i < validatedTable.length; i++) {
+//             validatedTable.item(i).style.display = 'table-row';
+//         }
+//         for (let i = 0; i < unvalidatedTable.length; i++) {
+//             unvalidatedTable.item(i).style.display = 'table-row';
+//         }
+//     }
+// }
 
 function processCheckbox(){
+
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     const showUnreviewed = params.get("unreviewed");
@@ -107,8 +132,49 @@ function processCheckbox(){
     }
 }
 
+// window.onload = function() {
+//     var selItem = sessionStorage.getItem("SelItem");
+//     $('#reviewedType').val(selItem);
+// }
+// $('#reviewedType').change(function() {
+//     var selVal = $(this).val();
+//     sessionStorage.setItem("SelItem", selVal);
+// });
+
+function processDropdown(){
+    const params = new URLSearchParams(window.location.search);
+    const display = params.get("display");
+    console.log(display + "Thisworks")
+    document.getElementById("reviewedType").value = display;
+    if (display == "All"){
+        hideNone()
+        document.getElementById("latest-report-text").innerText = "All Reports"
+    }
+    if (display == "Unreviewed"){
+        hideValidated()
+        document.getElementById("latest-report-text").innerText = "Unreviewed"
+    }
+    if(display == "Reviewed"){
+        hideUnvalidated()
+        document.getElementById("latest-report-text").innerText = "Reviewed"
+    }
+    // const queryString = window.location.search;
+    // const params = new URLSearchParams(queryString);
+    // console.log(window.location)
+
+}
+
+function dropdownCheck(){
+
+    // console.log("process")
+    // console.log(document.getElementById("reviewedType").value)
+    window.location="/reports-overview?display="+document.getElementById("reviewedType").value
+}
+
 function checkboxCheck(){
     window.location = "/reports-overview?unreviewed="+document.getElementById("unreviewed-check").checked
+
+
 }
 
 
