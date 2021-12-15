@@ -79,30 +79,40 @@ public class ReportController {
 
     //API for report updates
     @PostMapping("/api/report/{reportID}/confirm")
-    public ResponseEntity<?> confirmReport(@PathVariable long reportID, HttpServletRequest request){
+    //Only parameter required is the reportID. User will receive an error if a bad request is submitted.
+    public ResponseEntity<?> confirmReport(@PathVariable long reportID){
+        //Use ReportService to fetch the relevant report by its ID
         Optional<ReportDTO> reportToConfirm = reportService.findByReportId(reportID);
+        //See if the report ID exists
         if(reportToConfirm.isPresent()){
             //Valid report ID
             //Now mark report as confirmed
             reportService.confirmReport(reportToConfirm.get());
+            //Let user know their request was successful (200)
             return ResponseEntity.ok().build();
         }else{
             //Invalid report ID
+            //Return 400
             return ResponseEntity.badRequest().body("invalid report ID");
         }
     }
 
     //API for report updates
     @PostMapping("/api/report/{reportID}/remove")
-    public ResponseEntity<?> removeReport(@PathVariable long reportID, HttpServletRequest request){
+    //Only parameter required is the reportID. User will receive an error if a bad request is submitted.
+    public ResponseEntity<?> removeReport(@PathVariable long reportID){
+        //Use ReportService to fetch the relevant report by its ID
         Optional<ReportDTO> reportToRemove = reportService.findByReportId(reportID);
+        //See if the report ID exists
         if(reportToRemove.isPresent()){
             //Valid report ID
             //Now mark report as confirmed
             reportService.removeReport(reportToRemove.get());
+            //Let user know their request was successful (200)
             return ResponseEntity.ok().build();
         }else{
             //Invalid report ID
+            //Return 400
             return ResponseEntity.badRequest().body("invalid report ID");
         }
     }

@@ -28,10 +28,11 @@ public class ReportServiceImpl implements ReportService {
         wrackReportRepository.saveReport(aReportDTO.toReport());
     }
 
+    //Service method converts DTO to domain object and passes to repository function
     public void confirmReport(ReportDTO aReportDTO) {
         wrackReportRepository.approveReport(aReportDTO.toReport());
     }
-
+    //Service method converts DTO to domain object and passes to repository function
     public void removeReport(ReportDTO aReportDTO){
         wrackReportRepository.removeReport(aReportDTO.toReport());
     }

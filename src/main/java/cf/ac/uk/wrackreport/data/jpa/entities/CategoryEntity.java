@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+//Lombok annotations to create constructors and getters/setters for us
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,16 +16,13 @@ import javax.persistence.*;
 @Table(name = "categories")
 public class CategoryEntity {
 
+    //Unique ID for categories. Using @GeneratedValue to auto-increment and @Id to declare primary key.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private short id;
 
+    //Category has a friendly name to be displayed to users.
     @Column(name = "category_name")
     private String name;
-
-    public CategoryEntity(Category aCategory) {
-        this.id = aCategory.getId();
-        this.name = aCategory.getName();
-    }
 }

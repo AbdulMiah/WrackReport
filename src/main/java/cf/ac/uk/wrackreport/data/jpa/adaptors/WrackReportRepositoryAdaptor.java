@@ -60,13 +60,27 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         return categories;
     }
 
-    public void approveReport(Report aReport){
-        ReportEntity reportEntity = new ReportEntity(aReport);
+    public void approveReport(Report report){
+        //ReportEntity forms itself based off a Report domain object being passed to its constructor
+        ReportEntity reportEntity = new ReportEntity(report);
+        //A report being approved/removed is dictated by its status - an int in the database.
+        /*
+        -1 = Removed
+        0 = Unreviewed
+        1 = Approved
+        */
         reportRepository.setStatus(1, reportEntity.getReportId());
     }
 
-    public void removeReport(Report aReport){
-        ReportEntity reportEntity = new ReportEntity(aReport);
+    public void removeReport(Report report){
+        //ReportEntity forms itself based off a Report domain object being passed to its constructor
+        ReportEntity reportEntity = new ReportEntity(report);
+        //A report being approved/removed is dictated by its status - an int in the database.
+        /*
+        -1 = Removed
+        0 = Unreviewed
+        1 = Approved
+        */
         reportRepository.setStatus(-1, reportEntity.getReportId());
     }
 
