@@ -38,6 +38,16 @@ public class ReportSearches {
     }
 
     @ParameterizedTest
+    @CsvSource({"SA, 3", "SY2, 2", "LD2 3NL, 1", "S, 6"})
+    public void shouldGetNCharitiesFromSearchAsJSON(String search, String countAsString) throws Exception{
+        Integer count = Integer.valueOf(countAsString);
+        mvc.perform(get("/api/report/exportQuery?postcode="+search+"&localAuthority=&categoryName=&dateFrom=&dateTo=&showRemoved=false").contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(count)));
+    }
+
+    @ParameterizedTest
     @CsvSource({"6, 200","12, 200", "20, 404", "15, 404"})
     public void shouldGetRightStatusFromAPIAsJSON(Long furl, String status) throws Exception{
 
