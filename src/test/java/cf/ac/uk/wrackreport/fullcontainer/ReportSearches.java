@@ -1,7 +1,5 @@
 package cf.ac.uk.wrackreport.fullcontainer;
 
-import cf.ac.uk.wrackreport.service.ReportService;
-import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
