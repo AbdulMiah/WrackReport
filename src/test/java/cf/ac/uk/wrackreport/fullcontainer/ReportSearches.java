@@ -46,7 +46,7 @@ public class ReportSearches {
     }
 
     @ParameterizedTest
-    @CsvSource({"6, 200","12, 200", "20, 404", "15, 404"})
+    @CsvSource({"6, 200","12, 200", "20, 404", "123, 404"})
     public void shouldGetRightStatusFromAPIAsJSON(Long furl, String status) throws Exception{
 
         int statusCode = Integer.valueOf(status);
