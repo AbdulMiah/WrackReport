@@ -16,4 +16,8 @@ public class Category {
         this.id = entity.getId();
         this.name = entity.getName();
     }
+
+    public void setName(String name){
+        this.name = name;
+    }
 }

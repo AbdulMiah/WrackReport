@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
         //Configure which pages require logging in
         http
+                .csrf().disable()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .mvcMatchers("/report-info").authenticated()
@@ -42,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/reports-overview").authenticated()
                                 .mvcMatchers("/detailed-report/{furl}").permitAll()
                                 .mvcMatchers("/api/**").permitAll()
+                                .mvcMatchers("/category/**").permitAll()
                                 .anyRequest().denyAll()
                 
         )

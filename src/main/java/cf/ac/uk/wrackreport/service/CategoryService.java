@@ -6,4 +6,6 @@ import java.util.ArrayList;
 //Interface for CategoryService
 public interface CategoryService {
     ArrayList<CategoryDTO> findAll();
+
+    void add(CategoryDTO categoryDTO);
 }

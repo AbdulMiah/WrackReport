@@ -4,18 +4,29 @@ import cf.ac.uk.wrackreport.domain.Category;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
-@Value
 @AllArgsConstructor
 public class CategoryDTO {
-    Short id;
-    String name;
+    public Short id;
+    public String name;
 
     public CategoryDTO(Category aCategory) {
         this.id = aCategory.getId();
         this.name = aCategory.getName();
     }
 
+    public CategoryDTO(){}
+
+    public void setName(String name){
+        this.name = name;
+    }
+
     public Category toCategory(){
-        return new Category(this.id, this.name);
+        if(this.id != null){
+            return new Category(this.id, this.name);
+        }else{
+            Category newCategory = new Category();
+            newCategory.setName(this.name);
+            return newCategory;
+        }
     }
 }

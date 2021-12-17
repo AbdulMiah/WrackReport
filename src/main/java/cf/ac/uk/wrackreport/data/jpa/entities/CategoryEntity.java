@@ -25,4 +25,8 @@ public class CategoryEntity {
     //Category has a friendly name to be displayed to users.
     @Column(name = "category_name")
     private String name;
+
+    public CategoryEntity(Category category){
+        this.name = category.getName();
+    }
 }

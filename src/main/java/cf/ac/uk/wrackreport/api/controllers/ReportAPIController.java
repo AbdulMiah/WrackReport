@@ -4,7 +4,9 @@ import cf.ac.uk.wrackreport.api.exceptions.ReportNotFoundAPIException;
 import cf.ac.uk.wrackreport.data.interfaces.WrackReportRepository;
 import cf.ac.uk.wrackreport.domain.Report;
 import cf.ac.uk.wrackreport.domain.ReportOverview;
+import cf.ac.uk.wrackreport.service.CategoryService;
 import cf.ac.uk.wrackreport.service.ReportService;
+import cf.ac.uk.wrackreport.service.dto.CategoryDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportDTO;
 import cf.ac.uk.wrackreport.service.dto.ReportOverviewDTO;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -24,10 +27,12 @@ import java.util.stream.Collectors;
 public class ReportAPIController {
 
     private ReportService reportService;
+    private CategoryService categoryService;
     private WrackReportRepository wrackReportRepository;
 
-    public ReportAPIController(ReportService aReportService, WrackReportRepository awrackReportRepository) {
+    public ReportAPIController(ReportService aReportService, WrackReportRepository awrackReportRepository, CategoryService acategoryService) {
         reportService = aReportService;
+        categoryService = acategoryService;
         wrackReportRepository = awrackReportRepository;
     }
 

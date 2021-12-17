@@ -60,6 +60,12 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         return categories;
     }
 
+    public void addCategory(Category category){
+        CategoryEntity categoryEntity = new CategoryEntity(category);
+
+        categoryRepository.save(categoryEntity);
+    }
+
     public void approveReport(Report report){
         //ReportEntity forms itself based off a Report domain object being passed to its constructor
         ReportEntity reportEntity = new ReportEntity(report);
@@ -139,6 +145,11 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
     public void saveDepthCategory(DepthCategory aDepthCategory) {
         DepthCategoryEntity depthCategoryEntity = new DepthCategoryEntity(aDepthCategory);
         depthCategoryRepository.save(depthCategoryEntity);
+    }
+
+    public void saveCategory(Category category){
+        CategoryEntity categoryEntity = new CategoryEntity(category);
+        categoryRepository.save(categoryEntity);
     }
 
     public Optional<StaffUser> findByEmail(String email) {

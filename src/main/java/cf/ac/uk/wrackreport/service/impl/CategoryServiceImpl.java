@@ -33,4 +33,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryDTOs;
     }
+
+    public void add(CategoryDTO categoryDTO){
+        Category category = categoryDTO.toCategory();
+        wrackReportRepository.addCategory(category);
+    }
 }

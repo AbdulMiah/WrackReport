@@ -32,6 +32,8 @@ public interface WrackReportRepository {
 
     void saveMedia(Media aMedia);
 
+    void addCategory(Category category);
+
     void saveDepthCategory(DepthCategory aDepthCategory);
 
     List<ReportOverview> findAllReportOverview();
