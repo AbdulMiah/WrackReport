@@ -136,6 +136,11 @@ public class WrackReportRepositoryAdaptor implements WrackReportRepository {
         mediaRepository.save(mediaEntity);
     }
 
+    public void saveDepthCategory(DepthCategory aDepthCategory) {
+        DepthCategoryEntity depthCategoryEntity = new DepthCategoryEntity(aDepthCategory);
+        depthCategoryRepository.save(depthCategoryEntity);
+    }
+
     public Optional<StaffUser> findByEmail(String email) {
         Optional<StaffUserEntity> staffUserEntity = staffUserRepository.findByEmail(email);
         if (staffUserEntity.isPresent()) {

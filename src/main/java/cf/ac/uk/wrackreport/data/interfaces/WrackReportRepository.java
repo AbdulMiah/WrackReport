@@ -27,9 +27,12 @@ public interface WrackReportRepository {
     Optional<Report> findByReportId(Long reportId);
 
     boolean checkValidCategoryID(short id);
+
     void saveUser(User aUser);
 
     void saveMedia(Media aMedia);
+
+    void saveDepthCategory(DepthCategory aDepthCategory);
 
     List<ReportOverview> findAllReportOverview();
 
@@ -38,6 +41,7 @@ public interface WrackReportRepository {
     void removeReport(Report aReport);
 
     List<DetailedReport> findAllDetailedReport();
+
     Optional<StaffUser> findByEmail(String userName);
 
     List<ReportOverview> reportQuery(String postcode, String localAuthority, String categoryName, String dateFrom, String dateTo, Integer status);

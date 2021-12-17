@@ -8,4 +8,6 @@ import java.util.ArrayList;
 public interface DepthCategoryRepository extends JpaRepository<DepthCategoryEntity, Long> {
 
     ArrayList<DepthCategoryEntity> findAll();
+
+    DepthCategoryEntity save(DepthCategoryEntity aDepthCategory);
 }
