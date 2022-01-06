@@ -8,7 +8,8 @@ To get started, go to the Gitlab project repository by clicking on the link belo
 -	https://git.cardiff.ac.uk/c2035950/wrack-report-fork
 
 Once on the page, press the blue “Clone” button, and click “Clone with HTTPS” to copy the address. After you choose a location to store the project, right click in the desired folder and select “Git Bash Here”. Enter “git clone” then paste the link. Should look something like this:
--	git clone https://git.cardiff.ac.uk/c2035950/wrack-report-fork.git
+- git clone https://git.cardiff.ac.uk/c2035950/wrack-report-fork.git
+
 This should clone the repository so you can get a local copy of it. 
 
 When the clone is complete, open SQL Workbench and open the SQL creation and population scripts. These scripts can be found if you navigate to src / main / resources from the directory. File name for the creation script is “schema-wrack-report.sql” and the population script is named “data-wrack-report.sql”.
