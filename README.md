@@ -15,8 +15,8 @@ This should clone the repository so you can get a local copy of it.
 When the clone is complete, open SQL Workbench and open the SQL creation and population scripts. These scripts can be found if you navigate to src / main / resources from the directory. File name for the creation script is “schema-wrack-report.sql” and the population script is named “data-wrack-report.sql”.
 
 When you have run both scripts, go back to the directory, and open the Command Prompt from that location. You can do this by clicking in the address bar at the top of the folder and type “cmd” and press “Enter”. 
-Enter the following command in the Command Prompt:
--	.\gradlew (this enables the gradle environment)
+To enable the gradle environment, enter the following command in the Command Prompt:
+-	.\gradlew
 
 Since we are using the JASYPT java library to encrypting our usernames and passwords for our database in the application.properties file, we will have to pass the environment variables to the gradle tasks in the command line. To do this, we simply enter:
 -	.\gradlew -PJASYPT_ENCRYPTOR_PASSWORD=T34M-3 build 
