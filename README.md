@@ -21,11 +21,11 @@ To enable the gradle environment, enter the following command in the Command Pro
 Since we are using the JASYPT java library to encrypting our usernames and passwords for our database in the application.properties file, we will have to pass the environment variables to the gradle tasks in the command line. To do this, we simply enter:
 -	.\gradlew -PJASYPT_ENCRYPTOR_PASSWORD=T34M-3 build 
 
-After the project has been built successfully, the jar file should be generated. To execute the jar file, enter the following commands: 
+After the project has been built successfully, the jar file should be generated. To execute the jar file, navigate to the location where the jar file is stored by entering the following command: 
 -	cd build/libs 
 
-Jar file is stored in this location. Once again, to run the jar file we will have to include the environment variable in the command, so enter this:
+Once again, to run the jar file we will have to include the environment variable in the command, so enter this:
 -	java -DJASYPT_ENCRYPTOR_PASSWORD=T34M-3 -jar WrackReport-0.0.1-SNAPSHOT.jar
 
-This command will run the project and you can access the site by opening the browser of your choice and entering (or copy and paste) the following in the URL:
+This command will run the project and you can access the site by opening the browser of your choice and entering the following in the URL:
 -	https://localhost:8443/ 
