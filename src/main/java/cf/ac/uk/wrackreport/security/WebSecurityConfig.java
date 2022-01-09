@@ -29,21 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .csrf().disable()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .mvcMatchers("/report-info").authenticated()
+                                .mvcMatchers("/reports-overview").authenticated()
+                                .mvcMatchers("/**").permitAll()
                                 .antMatchers("/js/**", "/css/**").permitAll()
                                 .mvcMatchers("/test-data/**").permitAll()
                                 .mvcMatchers("/images/**").permitAll()
                                 .mvcMatchers("/api/report-info").authenticated()
-                                .mvcMatchers("/").permitAll()
-                                .mvcMatchers("/privacy-policy").permitAll()
-                                .mvcMatchers("/api/reports").permitAll()
-                                .mvcMatchers("/api/report/{furl}").permitAll()
-                                .mvcMatchers("/report-form").permitAll()
-                                .mvcMatchers("/ReportSubmitted").permitAll()
-                                .mvcMatchers("/reports-overview").authenticated()
-                                .mvcMatchers("/detailed-report/{furl}").permitAll()
-                                .mvcMatchers("/api/**").permitAll()
-                                .mvcMatchers("/category/**").permitAll()
                                 .anyRequest().denyAll()
                 
         )
