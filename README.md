@@ -8,7 +8,8 @@ To get started, go to the Gitlab project repository by clicking on the link belo
 -	https://git.cardiff.ac.uk/c2035950/wrack-report-fork
 
 Once on the page, press the blue “Clone” button, and click “Clone with HTTPS” to copy the address. After you choose a location to store the project, right click in the desired folder and select “Git Bash Here”. Enter “git clone” then paste the link. Should look something like this:
--	```console
+-	```
+console
 git clone https://git.cardiff.ac.uk/c2035950/wrack-report-fork.git
 ```
 
