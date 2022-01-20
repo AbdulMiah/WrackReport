@@ -5,10 +5,10 @@ A crowd-sourced project to collate reports of flood wracking and damage.
 # Instructions to download and run a local copy of the project
 
 To get started, go to the Gitlab project repository by clicking on the link below (or copy and paste into browser of choice):
--	_https://git.cardiff.ac.uk/c2035950/wrack-report-fork_
+-	_https://github.com/AbdulMiah/WrackReport_
 
-Once on the page, press the blue **“Clone”** button, and click **“Clone with HTTPS”** to copy the address. After you choose a location to store the project, right click in the desired folder and select **“Git Bash Here”**. Enter ```git clone``` then paste the link. Should look something like this:
--	```git clone https://git.cardiff.ac.uk/c2035950/wrack-report-fork.git```
+Once on the page, press the green **“Code”** button, and click and copy the **“Clone with HTTPS”** address. After you choose a location to store the project, right click in the desired folder and select **“Git Bash Here”**. Enter ```git clone``` then paste the link. Should look something like this:
+-	```git clone https://github.com/AbdulMiah/WrackReport.git```
 
 This should clone the repository so you can get a local copy of it. 
 
